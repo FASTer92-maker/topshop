@@ -1,0 +1,200 @@
+# Base Russian translations for Rails (dates, numbers, validation errors)
+# and the Cyrillic transliteration rule used by String#parameterize for slugs.
+# UI texts live in views.ru.yml.
+ru:
+  date:
+    abbr_day_names: [Вс, Пн, Вт, Ср, Чт, Пт, Сб]
+    abbr_month_names: [~, янв., февр., марта, апр., мая, июня, июля, авг., сент., окт., нояб., дек.]
+    day_names: [воскресенье, понедельник, вторник, среда, четверг, пятница, суббота]
+    month_names: [~, января, февраля, марта, апреля, мая, июня, июля, августа, сентября, октября, ноября, декабря]
+    formats:
+      default: "%d.%m.%Y"
+      short: "%d %b"
+      long: "%-d %B %Y"
+    order:
+      - :day
+      - :month
+      - :year
+
+  time:
+    am: утра
+    pm: вечера
+    formats:
+      default: "%d.%m.%Y %H:%M"
+      short: "%d.%m %H:%M"
+      long: "%-d %B %Y, %H:%M"
+
+  datetime:
+    distance_in_words:
+      less_than_x_minutes:
+        one: меньше %{count} минуты
+        few: меньше %{count} минут
+        many: меньше %{count} минут
+        other: меньше %{count} минуты
+      x_minutes:
+        one: "%{count} минуту"
+        few: "%{count} минуты"
+        many: "%{count} минут"
+        other: "%{count} минуты"
+      about_x_hours:
+        one: около %{count} часа
+        few: около %{count} часов
+        many: около %{count} часов
+        other: около %{count} часа
+      x_days:
+        one: "%{count} день"
+        few: "%{count} дня"
+        many: "%{count} дней"
+        other: "%{count} дня"
+
+  number:
+    format:
+      separator: ","
+      delimiter: "\u00A0"
+      precision: 2
+      significant: false
+      strip_insignificant_zeros: false
+    currency:
+      format:
+        format: "%n\u00A0%u"
+        negative_format: "-%n\u00A0%u"
+        unit: "₽"
+        separator: ","
+        delimiter: "\u00A0"
+        precision: 0
+        significant: false
+        strip_insignificant_zeros: false
+
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " и "
+      last_word_connector: " и "
+
+  helpers:
+    select:
+      prompt: Выберите
+    submit:
+      create: Создать
+      update: Сохранить
+      submit: Отправить
+
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: нужно подтвердить
+      blank: не может быть пустым
+      present: должно быть пустым
+      confirmation: не совпадает со значением поля %{attribute}
+      empty: не может быть пустым
+      equal_to: должно быть равным %{count}
+      even: должно быть чётным
+      exclusion: имеет зарезервированное значение
+      greater_than: должно быть больше %{count}
+      greater_than_or_equal_to: должно быть больше или равно %{count}
+      in: должно быть в диапазоне %{count}
+      inclusion: имеет недопустимое значение
+      invalid: имеет неверное значение
+      less_than: должно быть меньше %{count}
+      less_than_or_equal_to: должно быть меньше или равно %{count}
+      model_invalid: "Возникли ошибки: %{errors}"
+      not_a_number: должно быть числом
+      not_an_integer: должно быть целым числом
+      odd: должно быть нечётным
+      other_than: должно отличаться от %{count}
+      password_too_long: слишком длинный
+      required: должно существовать
+      taken: уже используется
+      too_long:
+        one: слишком длинное (не более %{count} символа)
+        few: слишком длинное (не более %{count} символов)
+        many: слишком длинное (не более %{count} символов)
+        other: слишком длинное (не более %{count} символа)
+      too_short:
+        one: слишком короткое (не менее %{count} символа)
+        few: слишком короткое (не менее %{count} символов)
+        many: слишком короткое (не менее %{count} символов)
+        other: слишком короткое (не менее %{count} символа)
+      wrong_length:
+        one: неверной длины (должно быть %{count} символ)
+        few: неверной длины (должно быть %{count} символа)
+        many: неверной длины (должно быть %{count} символов)
+        other: неверной длины (должно быть %{count} символа)
+
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Возникли ошибки: %{errors}"
+        restrict_dependent_destroy:
+          has_one: Невозможно удалить запись, так как существует зависимость «%{record}»
+          has_many: Невозможно удалить запись, так как существуют зависимости «%{record}»
+
+  i18n:
+    transliterate:
+      rule:
+        а: a
+        б: b
+        в: v
+        г: g
+        д: d
+        е: e
+        ё: e
+        ж: zh
+        з: z
+        и: i
+        й: y
+        к: k
+        л: l
+        м: m
+        н: n
+        о: o
+        п: p
+        р: r
+        с: s
+        т: t
+        у: u
+        ф: f
+        х: kh
+        ц: ts
+        ч: ch
+        ш: sh
+        щ: shch
+        ъ: ""
+        ы: y
+        ь: ""
+        э: e
+        ю: yu
+        я: ya
+        А: A
+        Б: B
+        В: V
+        Г: G
+        Д: D
+        Е: E
+        Ё: E
+        Ж: Zh
+        З: Z
+        И: I
+        Й: Y
+        К: K
+        Л: L
+        М: M
+        Н: N
+        О: O
+        П: P
+        Р: R
+        С: S
+        Т: T
+        У: U
+        Ф: F
+        Х: Kh
+        Ц: Ts
+        Ч: Ch
+        Ш: Sh
+        Щ: Shch
+        Ъ: ""
+        Ы: Y
+        Ь: ""
+        Э: E
+        Ю: Yu
+        Я: Ya

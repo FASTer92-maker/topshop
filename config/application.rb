@@ -22,6 +22,8 @@ module Topshop
     # in config/environments, which are processed later.
     #
     config.time_zone = "Moscow"
+    config.i18n.default_locale = :ru
+    config.i18n.available_locales = [ :ru ]
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

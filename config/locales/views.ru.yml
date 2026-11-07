@@ -1,0 +1,63 @@
+# User interface texts. Keys follow the view path (lazy lookup with t(".key")).
+ru:
+  layouts:
+    application:
+      default_title: TopShop — одежда на каждый день
+      skip_to_content: Перейти к содержимому
+    promo_bar:
+      message: Бесплатная доставка от 10 000 ₽
+    header:
+      logo: TopShop
+      logo_label: TopShop — на главную
+      main_nav: Основное меню
+      catalog: Каталог
+      search: Поиск
+      sign_in: Войти
+      cart:
+        one: Корзина (%{count})
+        few: Корзина (%{count})
+        many: Корзина (%{count})
+        other: Корзина (%{count})
+    flash:
+      close: Закрыть
+    footer:
+      copyright: "© %{year} TopShop · Учебный проект"
+      region: Россия · Русский
+      sections:
+        help:
+          title: Помощь
+          items:
+            - Вопросы и ответы
+            - Доставка и оплата
+            - Возврат и обмен
+            - Контакты
+        shop:
+          title: Магазин
+          items:
+            - О нас
+            - Адреса магазинов
+        documents:
+          title: Документы
+          items:
+            - Политика конфиденциальности
+            - Пользовательское соглашение
+            - Публичная оферта
+
+  home:
+    index:
+      title: Главная
+      hero:
+        title: Одежда на каждый день
+        text: Рабочий стиль, простые формы и вещи, которые носятся годами. Каталог откроется совсем скоро.
+      new_arrivals: Новинки
+      empty:
+        title: Скоро здесь появятся товары
+        text: Мы готовим первую коллекцию.
+
+  shared:
+    form_errors:
+      title:
+        one: "Не удалось сохранить: %{count} ошибка"
+        few: "Не удалось сохранить: %{count} ошибки"
+        many: "Не удалось сохранить: %{count} ошибок"
+        other: "Не удалось сохранить: %{count} ошибки"

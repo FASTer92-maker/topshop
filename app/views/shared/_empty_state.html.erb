@@ -1,0 +1,11 @@
+<%# locals: (title:, text: nil, action_label: nil, action_path: nil) -%>
+<div class="mt-6 rounded-lg border border-line bg-surface px-6 py-12 text-center">
+  <p class="font-semibold"><%= title %></p>
+  <% if text %>
+    <p class="mt-2 text-muted"><%= text %></p>
+  <% end %>
+  <% if action_label && action_path %>
+    <%= link_to action_label, action_path,
+          class: "mt-6 inline-block rounded-md bg-ink px-6 py-3 font-semibold text-white transition-colors hover:bg-accent" %>
+  <% end %>
+</div>
