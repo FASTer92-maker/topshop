@@ -18,6 +18,8 @@ ru:
         few: Корзина (%{count})
         many: Корзина (%{count})
         other: Корзина (%{count})
+    account_menu:
+      sign_out: Выйти
     flash:
       close: Закрыть
     footer:
@@ -53,6 +55,75 @@ ru:
       empty:
         title: Скоро здесь появятся товары
         text: Мы готовим первую коллекцию.
+
+  sessions:
+    new:
+      title: Вход
+      subtitle: Войдите, чтобы покупать, сохранять избранное и следить за заказами.
+      email: Email
+      password: Пароль
+      forgot_password: Забыли пароль?
+      submit: Войти
+      submitting: Входим…
+      no_account: Нет аккаунта?
+      sign_up: Зарегистрироваться
+    create:
+      invalid: Неверный email или пароль.
+      rate_limited: Слишком много попыток входа. Попробуйте через несколько минут.
+    destroy:
+      success: Вы вышли из аккаунта.
+
+  registrations:
+    new:
+      title: Регистрация
+      subtitle: Аккаунт нужен для корзины, избранного и истории заказов.
+      password_hint:
+        one: Не менее %{count} символа.
+        few: Не менее %{count} символов.
+        many: Не менее %{count} символов.
+        other: Не менее %{count} символа.
+      submit: Зарегистрироваться
+      submitting: Создаём аккаунт…
+      have_account: Уже есть аккаунт?
+      sign_in: Войти
+    create:
+      success: Добро пожаловать, %{name}!
+      rate_limited: Слишком много попыток. Попробуйте через несколько минут.
+
+  passwords:
+    new:
+      title: Сброс пароля
+      subtitle: Укажите email аккаунта, и мы пришлём ссылку для установки нового пароля.
+      email: Email
+      submit: Отправить ссылку
+      submitting: Отправляем…
+      back: Вернуться ко входу
+    create:
+      sent: Если аккаунт с таким email существует, мы отправили на него ссылку для сброса пароля.
+      rate_limited: Слишком много запросов. Попробуйте через несколько минут.
+    edit:
+      title: Новый пароль
+      subtitle:
+        one: Придумайте новый пароль не короче %{count} символа.
+        few: Придумайте новый пароль не короче %{count} символов.
+        many: Придумайте новый пароль не короче %{count} символов.
+        other: Придумайте новый пароль не короче %{count} символа.
+      password: Новый пароль
+      password_confirmation: Повторите пароль
+      submit: Сохранить пароль
+      submitting: Сохраняем…
+      invalid_token: Ссылка для сброса пароля недействительна или устарела. Запросите новую.
+    update:
+      success: Пароль изменён. Войдите с новым паролем.
+
+  passwords_mailer:
+    reset:
+      subject: Сброс пароля в TopShop
+      greeting: Здравствуйте, %{name}!
+      intro: Мы получили запрос на сброс пароля для вашего аккаунта TopShop.
+      link: Установить новый пароль
+      expires: Ссылка действует %{time}.
+      ignore: Если вы не запрашивали сброс, просто проигнорируйте это письмо — пароль останется прежним.
 
   shared:
     form_errors:
