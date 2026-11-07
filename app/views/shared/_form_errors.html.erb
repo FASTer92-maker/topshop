@@ -1,0 +1,11 @@
+<%# locals: (object:) -%>
+<% if object.errors.any? %>
+  <div role="alert" class="mb-6 rounded-lg border border-danger px-4 py-3 text-danger">
+    <p class="font-semibold"><%= t("shared.form_errors.title", count: object.errors.count) %></p>
+    <ul class="mt-2 list-disc space-y-1 pl-5 text-sm">
+      <% object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

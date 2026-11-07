@@ -1,1 +1,44 @@
 @import "tailwindcss";
+
+/*
+ * TopShop design tokens (see docs/WIREFRAMES.md and the TopShop design PDF).
+ * Black-and-white base, warm grey surfaces, one tobacco-brown accent.
+ * Thin borders instead of shadows; radii: 4px photo, 6px controls, 8px blocks.
+ */
+@theme {
+  --color-ink: #111111;          /* text, primary buttons, footer, promo bar */
+  --color-muted: #6b6b6b;        /* secondary text: product colour, captions */
+  --color-surface: #f3f2ef;      /* warm light grey blocks */
+  --color-line: #dad8d3;         /* 1px borders */
+  --color-accent: #8a5a2b;       /* tobacco brown: hover, highlights */
+  --color-accent-dark: #6f4721;
+  --color-danger: #c2271d;
+  --color-success: #2e7d4f;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Oswald", "Arial Narrow", ui-sans-serif, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-[15px] leading-normal text-ink antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ink;
+  }
+}
+
+/* Horizontal page gutter: 16px on phones up to 40px on desktop. */
+@utility page-container {
+  @apply mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10;
+}
+
+/* Condensed uppercase headings: short (1–4 words) only. */
+@utility heading-display {
+  @apply font-display font-semibold uppercase leading-[1.1] tracking-[0.04em];
+}

@@ -1,0 +1,13 @@
+<% content_for :title, t(".title") %>
+
+<section class="bg-ink text-white">
+  <div class="page-container flex min-h-[60vh] flex-col justify-end gap-4 py-12 md:py-16">
+    <h1 class="heading-display text-[40px] sm:text-6xl lg:text-8xl"><%= t(".hero.title") %></h1>
+    <p class="max-w-xl text-neutral-300"><%= t(".hero.text") %></p>
+  </div>
+</section>
+
+<section class="page-container pt-12">
+  <h2 class="heading-display text-[28px]"><%= t(".new_arrivals") %></h2>
+  <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text") %>
+</section>

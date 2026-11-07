@@ -1,0 +1,24 @@
+<footer class="mt-16 bg-ink text-white">
+  <div class="page-container grid grid-cols-1 gap-10 py-12 sm:grid-cols-3">
+    <%# Pages behind these items are out of MVP scope, so they are plain text for now. %>
+    <% %w[help shop documents].each do |section| %>
+      <section>
+        <h2 class="font-display text-sm font-semibold uppercase tracking-[0.04em]">
+          <%= t(".sections.#{section}.title") %>
+        </h2>
+        <ul class="mt-4 space-y-2 text-sm text-neutral-300">
+          <% t(".sections.#{section}.items").each do |item| %>
+            <li><%= item %></li>
+          <% end %>
+        </ul>
+      </section>
+    <% end %>
+  </div>
+
+  <div class="border-t border-white/15">
+    <div class="page-container flex flex-col gap-2 py-6 text-[13px] text-neutral-300 sm:flex-row sm:justify-between">
+      <p><%= t(".copyright", year: Date.current.year) %></p>
+      <p><%= t(".region") %></p>
+    </div>
+  </div>
+</footer>
