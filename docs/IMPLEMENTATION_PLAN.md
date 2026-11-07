@@ -20,6 +20,25 @@
 `feat:` новая функциональность · `fix:` исправление · `test:` тесты · `refactor:` рефакторинг · `style:` вёрстка и стили · `chore:` настройка и зависимости · `ci:` CI · `docs:` документация.
 Сообщения пишутся на английском в повелительном наклонении: `feat: add variant size selection on product page`.
 
+### 1.1. Демо-данные растут вместе с магазином
+Сайт должен «оживать» по ходу разработки, а не в конце. Поэтому каждый этап, который добавляет модель, сразу дополняет демо-данные:
+
+| Этап | Файл | Что появляется |
+|---|---|---|
+| 4 | `db/seeds/users.rb` | `admin@example.com` и `customer@example.com` (пароль `password123`) — с этапа 5 можно работать в админке |
+| 5 | `db/seeds/categories.rb` | разделы «Мужское», «Женское», «Аксессуары» и их подкатегории |
+| 6 | `db/seeds/products.rb` + `db/seeds/catalog.yml` | 30–40 товаров с описанием, ценой и изображением-заглушкой |
+| 7 | `db/seeds/variants.rb` (данные в том же `catalog.yml`) | размеры, цвета и остатки, включая нулевые; ONE SIZE у аксессуаров |
+| 20 | `db/seeds/orders.rb` и др. | заказы в разных статусах, избранное, подписчики |
+
+Правила:
+- `db/seeds.rb` только подключает файлы из `db/seeds/` по порядку.
+- Все seeds **идемпотентны** (`find_or_create_by!` по уникальному ключу: email, slug, sku), поэтому повторный `bin/rails db:seed` ничего не дублирует.
+- Данные каталога (названия, цены, цвета, размеры) хранятся в `db/seeds/catalog.yml`. Их удобно дополнять без правки Ruby-кода.
+- Изображения — однотонные PNG цветов палитры из `db/seeds/images/`. Никаких фото, логотипов и текстов референса.
+- Шаг `Tests: Seeds` в `bin/ci` (`db:seed:replant` в test-окружении) проверяет seeds на каждом этапе.
+- После этапа 8 команда `bin/rails db:seed` открывает живой каталог с реальными куртками и брюками.
+
 ## 2. Сводка этапов и прогресс
 
 Статусы: ✅ готово (в `main`) · 🔄 на ревью (PR открыт) · ☐ не начат.
@@ -46,7 +65,7 @@
 | 17 | Админ: заказы и статусы | `feature/admin-orders` | US-19 | | ☐ |
 | 18 | Подписка на рассылку | `feature/newsletter` | US-15 | | ☐ |
 | 19 | Админ: дашборд | `feature/admin-dashboard` | US-20 | | ☐ |
-| 20 | Seeds с демо-данными | `feature/seeds` | — | | ☐ |
+| 20 | Seeds: заказы, избранное, подписчики | `feature/seeds` | — | | ☐ |
 | 21 | Полировка UI по дизайн-макету | `feature/ui-polish` | все | | ☐ |
 | 22 | Финальная проверка и сдача | `release/v1.0` | все | | ☐ |
 
@@ -94,6 +113,8 @@ Ruby 3.4.1, Rails 8.1.4.1, PostgreSQL 18 (роль `andre_ny7wlah` с право
 - [ ] `Admin::BaseController` (`before_action :require_admin`, `layout "admin"`), `namespace :admin { root "dashboard#index" }`, заглушка дашборда, `layouts/admin.html.erb`.
 - [ ] Пункт «Админ-панель» в меню только для admin.
 
+- [ ] **Демо-данные:** `db/seeds.rb` подключает `db/seeds/*.rb`; `db/seeds/users.rb` — admin и customer (см. раздел 1.1).
+
 **Тесты:** `UserTest` (роль по умолчанию); `Admin::DashboardControllerTest`: гость → вход, customer → главная с «Доступ запрещён», admin → 200.
 
 **Коммиты:** `feat: add user roles with customer default` · `feat: add admin namespace with server-side access control`
@@ -106,6 +127,7 @@ Ruby 3.4.1, Rails 8.1.4.1, PostgreSQL 18 (роль `andre_ny7wlah` с право
 - [ ] Модель: `parent` / `subcategories`, ограничение глубины 2, генерация slug с префиксом раздела, scopes `sections` и `ordered`, `self_and_subcategory_ids`, `full_name`.
 - [ ] `Admin::CategoriesController` (CRUD), дерево в списке, select родителя только из разделов.
 - [ ] Fixtures: разделы `men`, `women`, `accessories`; подкатегории `men_jackets`, `women_jackets`, `accessories_bags`.
+- [ ] **Демо-данные:** `db/seeds/categories.rb`. Мужское: Куртки, Рубашки, Брюки, Свитшоты, Футболки. Женское: Куртки, Рубашки, Брюки, Юбки, Свитшоты. Аксессуары: Сумки, Головные уборы, Ремни.
 
 **Тесты:** `CategoryTest`:
 - «Куртки» можно создать и в «Мужском», и в «Женском», а второй раздел «Мужское» — нельзя;
@@ -127,6 +149,7 @@ Ruby 3.4.1, Rails 8.1.4.1, PostgreSQL 18 (роль `andre_ny7wlah` с право
 - [ ] Модель: связи, валидация «категория — подкатегория», `has_one_attached :image` + валидатор типа и размера, slug, scope `active`.
 - [ ] `Admin::ProductsController`: CRUD, select подкатегорий с группами по разделам (`grouped_collection_select`), поиск по названию, «Скрыть» = снять «Активен».
 - [ ] Fixtures `products.yml`, тестовое изображение `test/fixtures/files/product.png`.
+- [ ] **Демо-данные:** `db/seeds/catalog.yml` (30–40 товаров: название, подкатегория, цена, описание с составом и уходом) и `db/seeds/products.rb`, который прикрепляет однотонные PNG из `db/seeds/images/`. Товары видны в админке сразу, на витрине — с этапа 8.
 
 **Тесты:** `ProductTest` (валидации, раздел верхнего уровня не принимается, тип файла, check constraint); `Admin::ProductsControllerTest` (CRUD, `fixture_file_upload`, доступ customer); system `AdminProductsTest`.
 
@@ -141,6 +164,7 @@ Ruby 3.4.1, Rails 8.1.4.1, PostgreSQL 18 (роль `andre_ny7wlah` с право
 - [ ] `Product`: `has_many :variants` (в порядке размеров), `has_many :order_items, through: :variants`, `before_destroy :ensure_not_ordered, prepend: true`; методы `in_stock?`, `available_sizes`, `colors`; scope `in_stock`.
 - [ ] `Admin::VariantsController` — вложенный ресурс `resources :products { resources :variants, except: %i[index show] }`. Таблица вариантов на `admin/products#show`, создание и изменение через Turbo Stream, подсветка остатка < 3.
 - [ ] Поиск товаров в админке дополнительно по артикулу варианта.
+- [ ] **Демо-данные:** варианты в `db/seeds/catalog.yml` (1–3 цвета из палитры макета × 3–6 размеров, разные остатки, часть нулевых; ONE SIZE у аксессуаров) и `db/seeds/variants.rb`.
 
 **Тесты:** `VariantTest` (все валидации, уникальность размер + цвет, нормализация, `available?` для скрытого товара, порядок размеров); `ProductTest` (`available_sizes`, `colors`, `in_stock`); `Admin::VariantsControllerTest`; system `AdminVariantsTest`.
 
@@ -300,19 +324,17 @@ Ruby 3.4.1, Rails 8.1.4.1, PostgreSQL 18 (роль `andre_ny7wlah` с право
 
 **Коммиты:** `feat: add admin dashboard with store statistics`
 
-## Этап 20. Seeds с демо-данными
-**Цель:** проект наполняется одной командой.
+## Этап 20. Seeds: заказы, избранное, подписчики (финальное демо)
+**Цель:** дополнить демо-данные, которые росли с этапа 4 (см. раздел 1.1), до полного сценария сдачи.
 
 **Задачи:**
-- [ ] Идемпотентный `db/seeds.rb` (`find_or_create_by!`): `admin@example.com`, `customer@example.com`, пароль `password123`.
-- [ ] Разделы «Мужское», «Женское», «Аксессуары» и 3–5 подкатегорий в каждом.
-- [ ] 30–40 товаров одежды. У каждого 1–3 цвета из палитры макета (Чёрный, Серый, Табачный, Оливковый, Песочный, Синий) × 3–6 размеров с разными остатками, включая нулевые. У аксессуаров — ONE SIZE.
-- [ ] Изображения-заглушки из `db/seeds/images/` (однотонные, цвета палитры, никаких фото и логотипов референса).
-- [ ] 3–5 заказов демо-покупателя в разных статусах через `Order.place_from_cart!`, избранное, 2–3 подписчика.
+- [ ] `db/seeds/orders.rb`: 3–5 заказов демо-покупателя в разных статусах через `Order.place_from_cart!` (остатки уменьшаются честно).
+- [ ] Избранное демо-покупателя (4–6 товаров), 2–3 подписчика.
+- [ ] Проверить, что весь набор seeds идемпотентен и укладывается в пару секунд.
 
 **Тесты:** `bin/rails db:reset` дважды подряд без ошибок; шаг `Tests: Seeds` в `bin/ci`.
 
-**Коммиты:** `chore: add demo seeds`
+**Коммиты:** `chore: add demo orders, favorites and subscribers to seeds`
 
 ## Этап 21. Полировка UI по дизайн-макету
 **Цель:** привести все экраны к дизайн-макету TopShop (PDF): шкала шрифтов, отступы 16–40 px, скругления 4/6/8 px, границы `#DAD8D3` без теней.
