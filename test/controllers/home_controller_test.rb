@@ -20,6 +20,25 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_select "footer", text: /© #{Date.current.year} TopShop/
   end
 
+  test "is public and offers guests to sign in" do
+    get root_url
+
+    assert_response :success
+    assert_select "header a[href=?]", new_session_path, text: "Войти"
+    assert_select "#account_menu", count: 0
+  end
+
+  test "shows the account menu to signed in users" do
+    sign_in_as users(:customer)
+
+    get root_url
+
+    assert_select "header a[href=?]", new_session_path, count: 0
+    assert_select "#account_menu summary", text: /Иван/
+    assert_select "#account_menu", text: /ivan@example.com/
+    assert_select "#account_menu form[action=?] input[name=_method][value=delete]", session_path
+  end
+
   test "shows the empty state while there are no products" do
     get root_url
 
