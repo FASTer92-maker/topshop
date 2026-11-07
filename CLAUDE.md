@@ -1,4 +1,4 @@
-# Top Shop
+# TopShop
 
 Правила работы над проектом находятся в docs/CLAUDE.md:
 
