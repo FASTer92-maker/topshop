@@ -42,3 +42,42 @@
 @utility heading-display {
   @apply font-display font-semibold uppercase leading-[1.1] tracking-[0.04em];
 }
+
+/* Buttons: 6px radius, black with tobacco hover; no shadows. */
+@utility btn-primary {
+  @apply inline-flex cursor-pointer items-center justify-center rounded-md bg-ink px-6 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+@utility btn-secondary {
+  @apply inline-flex cursor-pointer items-center justify-center rounded-md border border-ink bg-white px-6 py-3 text-[15px] font-semibold text-ink transition-colors hover:border-accent hover:text-accent;
+}
+
+/* Form controls */
+@utility form-label {
+  @apply mb-1.5 block text-sm font-medium;
+}
+
+@utility form-input {
+  @apply block w-full rounded-md border border-line bg-white px-3 py-2.5 text-[15px] text-ink placeholder:text-muted focus:border-ink;
+}
+
+@utility link-underline {
+  @apply underline decoration-line underline-offset-4 transition-colors hover:decoration-ink;
+}
+
+@layer components {
+  /* Rails wraps invalid fields and their labels in this div. */
+  .field_with_errors {
+    display: contents;
+  }
+
+  .field_with_errors input,
+  .field_with_errors select,
+  .field_with_errors textarea {
+    @apply border-danger;
+  }
+
+  .field_with_errors label {
+    @apply text-danger;
+  }
+}

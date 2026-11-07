@@ -4,7 +4,7 @@
           class: "heading-display order-1 py-4 text-[26px] leading-none md:py-0",
           aria: { label: t(".logo_label") } %>
 
-    <%# Main navigation: scrolls sideways on phones. Category links arrive in stage 7. %>
+    <%# Main navigation: scrolls sideways on phones. Section links arrive in stage 8. %>
     <nav aria-label="<%= t(".main_nav") %>"
          class="order-3 -mx-4 w-[calc(100%+2rem)] overflow-x-auto border-t border-line px-4 md:order-2 md:mx-0 md:w-auto md:border-0 md:px-0">
       <ul class="flex gap-6 whitespace-nowrap py-3 text-[15px] font-medium md:py-0">
@@ -16,10 +16,16 @@
       </ul>
     </nav>
 
-    <%# User actions: wired up in stages 3 (sign in), 8 (search) and 10 (cart). %>
+    <%# User actions. Search is wired up in stage 9, the cart in stage 12. %>
     <ul class="order-2 ml-auto flex items-center gap-5 text-sm font-medium md:order-3 md:gap-8 md:text-[15px]">
       <li class="hidden sm:block"><span class="text-muted"><%= t(".search") %></span></li>
-      <li><span class="text-muted"><%= t(".sign_in") %></span></li>
+      <li>
+        <% if authenticated? %>
+          <%= render "layouts/account_menu", user: Current.user %>
+        <% else %>
+          <%= link_to t(".sign_in"), new_session_path, class: "transition-colors hover:text-accent" %>
+        <% end %>
+      </li>
       <li><span class="text-muted"><%= t(".cart", count: 0) %></span></li>
     </ul>
   </div>

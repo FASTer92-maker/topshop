@@ -1,0 +1,31 @@
+# Model and attribute names used in forms and validation messages.
+ru:
+  activerecord:
+    models:
+      user:
+        one: Пользователь
+        few: Пользователя
+        many: Пользователей
+        other: Пользователя
+    attributes:
+      user:
+        email_address: Email
+        first_name: Имя
+        last_name: Фамилия
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              too_short:
+                one: слишком короткий (не менее %{count} символа)
+                few: слишком короткий (не менее %{count} символов)
+                many: слишком короткий (не менее %{count} символов)
+                other: слишком короткий (не менее %{count} символа)
+              too_long:
+                one: слишком длинный (не более %{count} байта)
+                few: слишком длинный (не более %{count} байтов)
+                many: слишком длинный (не более %{count} байтов)
+                other: слишком длинный (не более %{count} байта)

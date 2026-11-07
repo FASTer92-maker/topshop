@@ -1,0 +1,18 @@
+<%# locals: (user:) -%>
+<%# A dropdown without JavaScript: <details> opens and closes on click. %>
+<details class="group relative" id="account_menu">
+  <summary class="flex cursor-pointer list-none items-center gap-1 transition-colors hover:text-accent [&::-webkit-details-marker]:hidden">
+    <span class="max-w-32 truncate"><%= user.first_name %></span>
+    <span aria-hidden="true" class="text-xs transition-transform group-open:rotate-180">▾</span>
+  </summary>
+
+  <div class="absolute right-0 top-full z-50 mt-3 w-64 rounded-lg border border-line bg-white p-4 text-[15px] font-normal">
+    <p class="font-semibold"><%= user.full_name %></p>
+    <p class="truncate text-sm text-muted"><%= user.email_address %></p>
+
+    <div class="mt-4 border-t border-line pt-4">
+      <%= button_to t("layouts.account_menu.sign_out"), session_path, method: :delete,
+            class: "w-full cursor-pointer rounded-md px-0 text-left font-medium transition-colors hover:text-accent" %>
+    </div>
+  </div>
+</details>
