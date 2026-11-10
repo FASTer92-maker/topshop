@@ -1,0 +1,38 @@
+0 verbose cli /home/andre_ny7wlah/.nvm/versions/node/v26.13.0/bin/node /home/andre_ny7wlah/.nvm/versions/node/v26.13.0/bin/npm
+1 info using npm@11.20.0
+2 info using node@v26.13.0
+3 silly config load:file:/home/andre_ny7wlah/.nvm/versions/node/v26.13.0/lib/node_modules/npm/npmrc
+4 silly config load:file:/home/andre_ny7wlah/online-store/.npmrc
+5 silly config load:file:/home/andre_ny7wlah/.npmrc
+6 silly config load:file:/home/andre_ny7wlah/.nvm/versions/node/v26.13.0/etc/npmrc
+7 verbose title npm view @deepseek-ai/dsh-harness-github version
+8 verbose argv "view" "@deepseek-ai/dsh-harness-github" "version" "--cache" "/home/andre_ny7wlah/online-store/.npmcache"
+9 verbose logfile logs-max:10 dir:/home/andre_ny7wlah/online-store/.npmcache/_logs/2026-11-09T22_29_41_093Z-
+10 verbose logfile /home/andre_ny7wlah/online-store/.npmcache/_logs/2026-11-09T22_29_41_093Z-debug-0.log
+11 silly logfile done cleaning log files
+12 http fetch GET 404 https://registry.npmjs.org/@deepseek-ai%2fdsh-harness-github 551ms (cache skip)
+13 verbose stack HttpErrorGeneral: 404 Not Found - GET https://registry.npmjs.org/@deepseek-ai%2fdsh-harness-github - Not found
+13 verbose stack     at /home/andre_ny7wlah/.nvm/versions/node/v26.13.0/lib/node_modules/npm/node_modules/npm-registry-fetch/lib/check-response.js:103:15
+13 verbose stack     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+13 verbose stack     at async RegistryFetcher.packument (/home/andre_ny7wlah/.nvm/versions/node/v26.13.0/lib/node_modules/npm/node_modules/pacote/lib/registry.js:90:19)
+13 verbose stack     at async #getData (/home/andre_ny7wlah/.nvm/versions/node/v26.13.0/lib/node_modules/npm/lib/commands/view.js:133:20)
+13 verbose stack     at async #viewPackage (/home/andre_ny7wlah/.nvm/versions/node/v26.13.0/lib/node_modules/npm/lib/commands/view.js:110:28)
+13 verbose stack     at async View.exec (/home/andre_ny7wlah/.nvm/versions/node/v26.13.0/lib/node_modules/npm/lib/commands/view.js:69:5)
+13 verbose stack     at async Npm.exec (/home/andre_ny7wlah/.nvm/versions/node/v26.13.0/lib/node_modules/npm/lib/npm.js:193:9)
+13 verbose stack     at async module.exports (/home/andre_ny7wlah/.nvm/versions/node/v26.13.0/lib/node_modules/npm/lib/cli/entry.js:67:5)
+14 verbose statusCode 404
+15 verbose pkgid @deepseek-ai/dsh-harness-github@*
+16 error code E404
+17 error 404 Not Found - GET https://registry.npmjs.org/@deepseek-ai%2fdsh-harness-github - Not found
+18 error 404
+19 error 404  The requested resource '@deepseek-ai/dsh-harness-github@*' could not be found or you do not have permission to access it.
+20 error 404
+21 error 404 Note that you can also install from a
+22 error 404 tarball, folder, http url, or git url.
+23 verbose cwd /home/andre_ny7wlah/online-store
+24 verbose os Linux 6.18.54.1-microsoft-standard-WSL2
+25 verbose node v26.13.0
+26 verbose npm  v11.20.0
+27 verbose exit 1
+28 verbose code 1
+29 error A complete log of this run can be found in: /home/andre_ny7wlah/online-store/.npmcache/_logs/2026-11-09T22_29_41_093Z-debug-0.log

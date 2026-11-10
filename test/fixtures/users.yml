@@ -5,9 +5,18 @@ customer:
   password_digest: <%= password_digest %>
   first_name: Иван
   last_name: Петров
+  role: customer
 
 other_customer:
   email_address: maria@example.com
   password_digest: <%= password_digest %>
   first_name: Мария
   last_name: Соколова
+  role: customer
+
+admin:
+  email_address: admin@example.com
+  password_digest: <%= password_digest %>
+  first_name: Админ
+  last_name: Топшоп
+  role: admin

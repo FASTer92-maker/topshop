@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
 
+  enum :role, { customer: 0, admin: 1 }, default: :customer
+
   normalizes :email_address, with: ->(email) { email.strip.downcase }
   normalizes :first_name, :last_name, with: ->(name) { name.squish }
 

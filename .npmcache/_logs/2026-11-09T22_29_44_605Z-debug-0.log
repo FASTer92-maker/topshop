@@ -1,0 +1,90 @@
+0 verbose cli /home/andre_ny7wlah/.nvm/versions/node/v26.13.0/bin/node /home/andre_ny7wlah/.nvm/versions/node/v26.13.0/bin/npm
+1 info using npm@11.20.0
+2 info using node@v26.13.0
+3 silly config load:file:/home/andre_ny7wlah/.nvm/versions/node/v26.13.0/lib/node_modules/npm/npmrc
+4 silly config load:file:/home/andre_ny7wlah/online-store/.npmrc
+5 silly config load:file:/home/andre_ny7wlah/.npmrc
+6 silly config load:file:/home/andre_ny7wlah/.nvm/versions/node/v26.13.0/etc/npmrc
+7 verbose title npm view harness-github@0.1.0
+8 verbose argv "view" "harness-github@0.1.0" "--json" "--cache" "/home/andre_ny7wlah/online-store/.npmcache"
+9 verbose logfile logs-max:10 dir:/home/andre_ny7wlah/online-store/.npmcache/_logs/2026-11-09T22_29_44_605Z-
+10 verbose logfile /home/andre_ny7wlah/online-store/.npmcache/_logs/2026-11-09T22_29_44_605Z-debug-0.log
+11 silly logfile done cleaning log files
+12 http fetch GET 200 https://registry.npmjs.org/harness-github 388ms (cache revalidated)
+13 silly view {
+13 silly view   '0.1.0': {
+13 silly view     _id: 'harness-github@0.1.0',
+13 silly view     name: 'harness-github',
+13 silly view     'dist-tags': { latest: '0.1.0' },
+13 silly view     versions: [ '0.1.0' ],
+13 silly view     time: {
+13 silly view       created: '2026-08-23T11:41:02.706Z',
+13 silly view       '0.1.0': '2026-08-23T11:41:02.979Z',
+13 silly view       modified: '2026-08-23T11:41:03.235Z'
+13 silly view     },
+13 silly view     maintainers: [ [Object] ],
+13 silly view     description: 'DeepSeek Harness GitHub plugin: review PRs, triage issues, debug Actions CI, handle review feedback, and prepare code changes for review — via gh CLI or REST, no extra sign-in required.',
+13 silly view     keywords: [
+13 silly view       'dsh',
+13 silly view       'dsh-plugin',
+13 silly view       'deepseek-harness',
+13 silly view       'github',
+13 silly view       'pull-request',
+13 silly view       'code-review',
+13 silly view       'ci',
+13 silly view       'issues',
+13 silly view       'actions'
+13 silly view     ],
+13 silly view     license: 'MIT',
+13 silly view     readmeFilename: 'README.md',
+13 silly view     _rev: '1-b06e8f0cec70b3fac22892709cded3fd',
+13 silly view     _contentLength: 12055,
+13 silly view     version: '0.1.0',
+13 silly view     type: 'module',
+13 silly view     main: 'index.js',
+13 silly view     exports: { '.': './index.js', './package.json': './package.json' },
+13 silly view     engines: { node: '>=18.0.0' },
+13 silly view     dsh: { bundle: [Object] },
+13 silly view     dependencies: { '@deepseek-ai/schemastery': '^3.0.0' },
+13 silly view     peerDependencies: {
+13 silly view       '@deepseek-ai/cordis': '^4.0.1',
+13 silly view       '@deepseek-ai/dsh-credentials': '>=0.1.0-rc.6 <0.2.0',
+13 silly view       '@deepseek-ai/dsh-system-prompt': '>=0.1.0-rc.6 <0.2.0',
+13 silly view       '@deepseek-ai/dsh-tools': '>=0.1.0-rc.6 <0.2.0',
+13 silly view       '@deepseek-ai/dsh-user-approval': '>=0.1.0-rc.6 <0.2.0'
+13 silly view     },
+13 silly view     peerDependenciesMeta: {
+13 silly view       '@deepseek-ai/dsh-credentials': [Object],
+13 silly view       '@deepseek-ai/dsh-user-approval': [Object]
+13 silly view     },
+13 silly view     scripts: {
+13 silly view       check: 'node scripts/check.mjs',
+13 silly view       test: 'node --test test/*.test.js',
+13 silly view       pack: 'npm pack --dry-run'
+13 silly view     },
+13 silly view     gitHead: '31e4f98664461867a319c05bdca4e1a0062a135f',
+13 silly view     _nodeVersion: '26.4.0',
+13 silly view     _npmVersion: '11.17.0',
+13 silly view     dist: {
+13 silly view       integrity: 'sha512-UKzroMAAqIgBiZG6Jdinrq7+65yQvWv1ng6vOEa7RAgOdTGgx24FQFfRWW5cfL5Knxag6AdZWzzESn0+7eonIQ==',
+13 silly view       shasum: '52906a68cf3759d76f4668a9bd7e8ea0b4f131d7',
+13 silly view       tarball: 'https://registry.npmjs.org/harness-github/-/harness-github-0.1.0.tgz',
+13 silly view       fileCount: 9,
+13 silly view       unpackedSize: 116004,
+13 silly view       signatures: [Array]
+13 silly view     },
+13 silly view     _npmUser: { name: 'jerryweizhihao', email: 'jerryweizhihao@gmail.com' },
+13 silly view     directories: {},
+13 silly view     _npmOperationalInternal: {
+13 silly view       host: 's3://npm-registry-packages-npm-production',
+13 silly view       tmp: 'tmp/harness-github_0.1.0_1787485262818_0.9665011988417227'
+13 silly view     },
+13 silly view     _hasShrinkwrap: false
+13 silly view   }
+13 silly view }
+14 verbose cwd /home/andre_ny7wlah/online-store
+15 verbose os Linux 6.18.54.1-microsoft-standard-WSL2
+16 verbose node v26.13.0
+17 verbose npm  v11.20.0
+18 verbose exit 0
+19 info ok

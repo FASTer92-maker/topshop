@@ -1,0 +1,50 @@
+<% content_for :title, t(".title") %>
+
+<div class="flex flex-wrap items-center justify-between gap-4">
+  <h1 class="heading-display text-[28px]"><%= t(".title") %></h1>
+  <%= link_to t(".new"), new_admin_category_path, class: "btn-primary" %>
+</div>
+
+<div class="mt-8 overflow-hidden rounded-lg border border-line bg-white">
+  <% if @sections.empty? %>
+    <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text") %>
+  <% else %>
+    <ul>
+      <% @sections.each do |section| %>
+        <li class="border-b border-line last:border-0">
+          <div class="flex items-center gap-4 bg-surface px-6 py-4">
+            <div class="min-w-0 flex-1">
+              <p class="font-semibold"><%= section.name %></p>
+              <p class="mt-0.5 truncate text-sm text-muted"><%= section.slug %></p>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <%= link_to t(".edit"), edit_admin_category_path(section), class: "link-underline" %>
+              <%= button_to t(".delete"), admin_category_path(section), method: :delete,
+                    form: { data: { turbo_confirm: t(".confirm") } },
+                    class: "cursor-pointer text-danger link-underline" %>
+            </div>
+          </div>
+
+          <% if section.subcategories.any? %>
+            <ul>
+              <% section.subcategories.each do |subcategory| %>
+                <li class="flex items-center gap-4 border-t border-line px-6 py-3 pl-12">
+                  <div class="min-w-0 flex-1">
+                    <p class="font-medium"><%= subcategory.name %></p>
+                    <p class="mt-0.5 truncate text-sm text-muted"><%= subcategory.slug %></p>
+                  </div>
+                  <div class="flex items-center gap-3 text-sm">
+                    <%= link_to t(".edit"), edit_admin_category_path(subcategory), class: "link-underline" %>
+                    <%= button_to t(".delete"), admin_category_path(subcategory), method: :delete,
+                          form: { data: { turbo_confirm: t(".confirm") } },
+                          class: "cursor-pointer text-danger link-underline" %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

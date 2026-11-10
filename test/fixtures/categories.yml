@@ -1,0 +1,32 @@
+men:
+  name: Мужское
+  slug: muzhskoe
+  position: 0
+
+women:
+  name: Женское
+  slug: zhenskoe
+  position: 1
+
+accessories:
+  name: Аксессуары
+  slug: aksessuary
+  position: 2
+
+men_jackets:
+  name: Куртки
+  slug: muzhskoe-kurtki
+  parent: men
+  position: 0
+
+women_jackets:
+  name: Куртки
+  slug: zhenskoe-kurtki
+  parent: women
+  position: 0
+
+accessories_bags:
+  name: Сумки
+  slug: aksessuary-sumki
+  parent: accessories
+  position: 0

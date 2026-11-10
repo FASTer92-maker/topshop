@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   resource :session, only: %i[ new create destroy ]
   resource :registration, only: %i[ new create ]
   resources :passwords, param: :token, only: %i[ new create edit update ]
+
+  namespace :admin do
+    root "dashboard#index"
+    resources :categories
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
