@@ -100,10 +100,22 @@ class Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in_as users(:admin)
 
     assert_difference "Category.count", -1 do
+      delete admin_category_path(categories(:women_skirts))
+    end
+
+    assert_redirected_to admin_categories_path
+  end
+
+  test "destroy keeps a subcategory that still has products" do
+    sign_in_as users(:admin)
+
+    assert_no_difference "Category.count" do
       delete admin_category_path(categories(:women_jackets))
     end
 
     assert_redirected_to admin_categories_path
+    follow_redirect!
+    assert_select "#flash", text: /зависимост/
   end
 
   test "destroy keeps a section that still has subcategories" do

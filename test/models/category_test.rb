@@ -72,8 +72,15 @@ class CategoryTest < ActiveSupport::TestCase
 
   test "a subcategory is destroyed" do
     assert_difference "Category.count", -1 do
-      categories(:women_jackets).destroy!
+      categories(:women_skirts).destroy!
     end
+  end
+
+  test "a subcategory with products is not destroyed" do
+    subcategory = categories(:women_jackets)
+
+    assert_not subcategory.destroy
+    assert subcategory.errors.present?
   end
 
   test "self_and_subcategory_ids includes the section and its subcategories" do

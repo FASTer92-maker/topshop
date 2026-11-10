@@ -25,6 +25,12 @@ women_jackets:
   parent: women
   position: 0
 
+women_skirts:
+  name: Юбки
+  slug: zhenskoe-yubki
+  parent: women
+  position: 1
+
 accessories_bags:
   name: Сумки
   slug: aksessuary-sumki

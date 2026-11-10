@@ -12,6 +12,16 @@ ru:
         few: Категории
         many: Категорий
         other: Категории
+      product:
+        one: Товар
+        few: Товара
+        many: Товаров
+        other: Товара
+      variant:
+        one: Вариант
+        few: Варианта
+        many: Вариантов
+        other: Варианта
     attributes:
       user:
         email_address: Email
@@ -26,6 +36,21 @@ ru:
         position: Порядок
         parent: Родительский раздел
         parent_id: Родительский раздел
+      product:
+        name: Название
+        slug: Slug
+        description: Описание
+        price: Цена
+        active: Активен
+        category: Категория
+        category_id: Категория
+        image: Изображение
+      variant:
+        size: Размер
+        color: Цвет
+        stock: Остаток
+        sku: Артикул
+        product: Товар
     errors:
       models:
         user:
@@ -45,3 +70,11 @@ ru:
           parent_must_be_a_section: Родителем подкатегории может быть только раздел.
           section_has_subcategories: Нельзя назначить родителя разделу, у которого есть подкатегории.
           cannot_be_own_parent: Категория не может быть родителем самой себя.
+        product:
+          ordered: Товар уже есть в заказах — его нельзя удалить, можно только скрыть.
+          attributes:
+            category:
+              must_be_subcategory: Товар можно добавить только в подкатегорию.
+            image:
+              content_type: Допустимы только файлы JPEG, PNG или WebP.
+              file_size: Размер файла не должен превышать 5 МБ.

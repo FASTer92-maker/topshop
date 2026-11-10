@@ -1,0 +1,31 @@
+men_jacket:
+  category: men_jackets
+  name: Куртка «Арден»
+  slug: kurtka-arden
+  description: Плотная куртка из хлопка. Состав 100% хлопок.
+  price: 12990
+  active: true
+
+women_jacket:
+  category: women_jackets
+  name: Куртка «Лина»
+  slug: kurtka-lina
+  description: Укороченная куртка с воротником-стойкой.
+  price: 13990
+  active: true
+
+hidden_product:
+  category: accessories_bags
+  name: Сумка «Архив»
+  slug: sumka-arkhiv
+  description: Снята с продажи, но осталась в каталоге админки.
+  price: 4990
+  active: false
+
+sold_out_product:
+  category: accessories_bags
+  name: Сумка «Пусто»
+  slug: sumka-pusto
+  description: Все варианты закончились.
+  price: 5990
+  active: true
