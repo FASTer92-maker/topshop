@@ -10,7 +10,7 @@ ru:
       logo: TopShop
       logo_label: TopShop — на главную
       main_nav: Основное меню
-      catalog: Каталог
+      all: Все
       search: Поиск
       sign_in: Войти
       cart:
@@ -51,11 +51,36 @@ ru:
       title: Главная
       hero:
         title: Одежда на каждый день
-        text: Рабочий стиль, простые формы и вещи, которые носятся годами. Каталог откроется совсем скоро.
+        text: Рабочий стиль, простые формы и вещи, которые носятся годами.
+        cta: Перейти в каталог
+      sections:
+        title: Разделы
+        cta: Смотреть
       new_arrivals: Новинки
+      all_products: Смотреть все
       empty:
         title: Скоро здесь появятся товары
         text: Мы готовим первую коллекцию.
+
+  catalog:
+    found:
+      one: "Найден %{count} товар"
+      few: "Найдено %{count} товара"
+      many: "Найдено %{count} товаров"
+      other: "Найдено %{count} товара"
+    breadcrumbs:
+      label: Хлебные крошки
+      home: Главная
+      catalog: Каталог
+    empty:
+      title: Товаров пока нет
+      text: Загляните позже — мы готовим новую коллекцию.
+    product:
+      out_of_stock: Нет в наличии
+
+  products:
+    index:
+      title: Каталог
 
   sessions:
     new:

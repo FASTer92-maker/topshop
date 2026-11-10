@@ -1,0 +1,20 @@
+<% content_for :title, @category.name %>
+
+<div class="page-container py-8 md:py-12">
+  <%= render "catalog/breadcrumbs", category: @category %>
+
+  <h1 class="heading-display mt-4 text-[32px] sm:text-[40px]"><%= @category.name %></h1>
+
+  <% if @subcategories.present? %>
+    <ul class="mt-5 flex flex-wrap gap-2">
+      <% @subcategories.each do |subcategory| %>
+        <li>
+          <%= link_to subcategory.name, category_path(subcategory),
+                class: "inline-block rounded-md border border-line px-4 py-2 text-sm font-medium transition-colors hover:border-ink hover:text-accent" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= render "catalog/catalog", pagy: @pagy, products: @products %>
+</div>

@@ -96,6 +96,20 @@ class ProductTest < ActiveSupport::TestCase
     assert_not_includes Product.active, products(:hidden_product)
   end
 
+  test "in_category for a section includes the products of its subcategories" do
+    products = Product.in_category(categories(:women))
+
+    assert_includes products, products(:women_jacket)
+    assert_not_includes products, products(:men_jacket)
+  end
+
+  test "in_category for a subcategory includes only its own products" do
+    products = Product.in_category(categories(:men_jackets))
+
+    assert_includes products, products(:men_jacket)
+    assert_not_includes products, products(:women_jacket)
+  end
+
   test "in_stock scope ignores products without stock" do
     assert_includes Product.in_stock, products(:men_jacket)
     assert_not_includes Product.in_stock, products(:sold_out_product)

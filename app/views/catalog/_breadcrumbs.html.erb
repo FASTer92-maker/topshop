@@ -1,0 +1,21 @@
+<%# locals: (category: nil) -%>
+<nav aria-label="<%= t("catalog.breadcrumbs.label") %>">
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-muted">
+    <li><%= link_to t("catalog.breadcrumbs.home"), root_path, class: "transition-colors hover:text-ink" %></li>
+    <li aria-hidden="true">›</li>
+
+    <% if category&.subcategory? %>
+      <li><%= link_to t("catalog.breadcrumbs.catalog"), products_path, class: "transition-colors hover:text-ink" %></li>
+      <li aria-hidden="true">›</li>
+      <li><%= link_to category.section.name, category_path(category.section), class: "transition-colors hover:text-ink" %></li>
+      <li aria-hidden="true">›</li>
+      <li class="text-ink" aria-current="page"><%= category.name %></li>
+    <% elsif category %>
+      <li><%= link_to t("catalog.breadcrumbs.catalog"), products_path, class: "transition-colors hover:text-ink" %></li>
+      <li aria-hidden="true">›</li>
+      <li class="text-ink" aria-current="page"><%= category.name %></li>
+    <% else %>
+      <li class="text-ink" aria-current="page"><%= t("catalog.breadcrumbs.catalog") %></li>
+    <% end %>
+  </ol>
+</nav>

@@ -4,10 +4,12 @@ module Admin
     before_action :set_sections, only: %i[ new create edit update ]
 
     def index
-      @products = Product.admin_search(params[:q])
+      products = Product.admin_search(params[:q])
                         .includes(:category, :variants)
                         .with_attached_image
                         .order(created_at: :desc)
+
+      @pagy, @products = pagy(:offset, products)
     end
 
     def show

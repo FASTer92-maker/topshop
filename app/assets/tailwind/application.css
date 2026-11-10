@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./pagy.css";
 
 /*
  * TopShop design tokens (see docs/WIREFRAMES.md and the TopShop design PDF).

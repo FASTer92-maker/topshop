@@ -20,6 +20,8 @@ class Product < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :newest, -> { order(created_at: :desc) }
   scope :in_stock, -> { where(id: Variant.in_stock.select(:product_id)) }
+  # A section includes the products of all its subcategories.
+  scope :in_category, ->(category) { where(category_id: category.self_and_subcategory_ids) }
 
   # Admin list search: product name or the SKU of any of its variants.
   scope :admin_search, ->(query) do

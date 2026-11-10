@@ -1,0 +1,9 @@
+<% content_for :title, t(".title") %>
+
+<div class="page-container py-8 md:py-12">
+  <%= render "catalog/breadcrumbs" %>
+
+  <h1 class="heading-display mt-4 text-[32px] sm:text-[40px]"><%= t(".title") %></h1>
+
+  <%= render "catalog/catalog", pagy: @pagy, products: @products %>
+</div>

@@ -7,7 +7,8 @@ class LayoutTest < ApplicationSystemTestCase
     assert_text "Бесплатная доставка от 10 000 ₽"
     assert_link "TopShop", href: root_path
     assert_selector "h1", text: "ОДЕЖДА НА КАЖДЫЙ ДЕНЬ" # uppercase via CSS
-    assert_text "Скоро здесь появятся товары"
+    assert_text "НОВИНКИ"
+    assert_link "Смотреть все", href: products_path
     within("footer") { assert_text "ДОКУМЕНТЫ" }
   end
 
