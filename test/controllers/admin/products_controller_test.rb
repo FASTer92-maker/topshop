@@ -111,13 +111,15 @@ class Admin::ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_select "[role=alert]", text: /Допустимы только файлы JPEG, PNG или WebP/
   end
 
-  test "show displays the product" do
+  test "show displays the product and its variants" do
     sign_in_as users(:admin)
 
     get admin_product_path(products(:men_jacket))
 
     assert_response :success
     assert_select "h1", "Куртка «Арден»"
+    assert_select "span", text: /M · Чёрный/
+    assert_select "#new_variant_form"
   end
 
   test "edit renders the form with the current values" do

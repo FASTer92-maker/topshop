@@ -1,0 +1,23 @@
+<div id="<%= dom_id(variant) %>" class="flex flex-wrap items-start gap-4 px-6 py-4">
+  <div class="min-w-0 flex-1">
+    <div class="flex flex-wrap items-center gap-3">
+      <span class="font-semibold"><%= variant.label %></span>
+      <span class="text-sm text-muted"><%= variant.sku %></span>
+      <span class="text-sm <%= variant.low_stock? ? "font-semibold text-danger" : "text-muted" %>">
+        <%= t("admin.variants.variant.stock", count: variant.stock) %>
+      </span>
+    </div>
+
+    <details class="mt-2">
+      <summary class="cursor-pointer text-sm link-underline"><%= t("admin.variants.variant.edit") %></summary>
+      <div class="mt-3">
+        <%= render "admin/variants/form", product: variant.product, variant: variant %>
+      </div>
+    </details>
+  </div>
+
+  <%= button_to t("admin.variants.variant.delete"), admin_product_variant_path(variant.product, variant),
+        method: :delete,
+        form: { data: { turbo_confirm: t("admin.variants.variant.confirm") } },
+        class: "cursor-pointer text-sm text-danger link-underline" %>
+</div>

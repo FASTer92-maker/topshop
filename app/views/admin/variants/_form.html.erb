@@ -1,0 +1,32 @@
+<%# locals: (product:, variant:) -%>
+<div id="<%= variant.persisted? ? dom_id(variant, :form) : "new_variant_form" %>">
+  <%= form_with model: [ :admin, product, variant ], class: "grid gap-3 sm:grid-cols-2 lg:grid-cols-5 lg:items-end" do |form| %>
+    <div class="sm:col-span-2 lg:col-span-5">
+      <%= render "shared/form_errors", object: variant %>
+    </div>
+
+    <div>
+      <%= form.label :size, class: "form-label" %>
+      <%= form.select :size, Variant::SIZES, { include_blank: t(".size_prompt") }, class: "form-input" %>
+    </div>
+
+    <div>
+      <%= form.label :color, class: "form-label" %>
+      <%= form.text_field :color, required: true, maxlength: 50, class: "form-input" %>
+    </div>
+
+    <div>
+      <%= form.label :sku, class: "form-label" %>
+      <%= form.text_field :sku, required: true, class: "form-input" %>
+    </div>
+
+    <div>
+      <%= form.label :stock, class: "form-label" %>
+      <%= form.number_field :stock, required: true, min: 0, step: 1, class: "form-input" %>
+    </div>
+
+    <div>
+      <%= form.submit variant.persisted? ? t(".update") : t(".create"), class: "btn-primary w-full" %>
+    </div>
+  <% end %>
+</div>

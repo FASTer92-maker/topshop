@@ -1,0 +1,8 @@
+<% if @variant.persisted? %>
+  <%= turbo_stream.append "variants_list", partial: "admin/variants/variant", locals: { variant: @variant } %>
+  <%= turbo_stream.remove "variants_empty" %>
+  <%= turbo_stream.replace "new_variant_form", partial: "admin/variants/form", locals: { product: @product, variant: Variant.new } %>
+  <%= turbo_stream.replace "flash", partial: "layouts/flash" %>
+<% else %>
+  <%= turbo_stream.replace "new_variant_form", partial: "admin/variants/form", locals: { product: @product, variant: @variant } %>
+<% end %>

@@ -1,0 +1,6 @@
+<% if @variant.errors.any? %>
+  <%= turbo_stream.replace dom_id(@variant, :form), partial: "admin/variants/form", locals: { product: @product, variant: @variant } %>
+<% else %>
+  <%= turbo_stream.replace @variant, partial: "admin/variants/variant", locals: { variant: @variant } %>
+  <%= turbo_stream.replace "flash", partial: "layouts/flash" %>
+<% end %>
