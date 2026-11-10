@@ -4,10 +4,45 @@
   <div class="page-container flex min-h-[60vh] flex-col justify-end gap-4 py-12 md:py-16">
     <h1 class="heading-display text-[40px] sm:text-6xl lg:text-8xl"><%= t(".hero.title") %></h1>
     <p class="max-w-xl text-neutral-300"><%= t(".hero.text") %></p>
+    <%= link_to t(".hero.cta"), products_path,
+          class: "mt-2 inline-flex w-fit items-center justify-center rounded-md bg-white px-6 py-3 text-[15px] font-semibold text-ink transition-colors hover:bg-accent hover:text-white" %>
   </div>
 </section>
 
-<section class="page-container pt-12">
-  <h2 class="heading-display text-[28px]"><%= t(".new_arrivals") %></h2>
-  <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text") %>
+<% if @banners.any? %>
+  <section class="page-container pt-12">
+    <h2 class="heading-display text-[28px]"><%= t(".sections.title") %></h2>
+
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <% @banners.each_with_index do |section, index| %>
+        <%= link_to category_path(section),
+              class: "group relative flex min-h-[220px] flex-col justify-end overflow-hidden rounded-lg p-6 text-white transition-colors #{index.zero? ? "bg-ink hover:bg-accent" : "bg-accent hover:bg-accent-dark"}" do %>
+          <span class="heading-display text-[32px] sm:text-[40px]"><%= section.name %></span>
+          <span class="mt-2 flex items-center gap-2 text-sm font-medium">
+            <%= t(".sections.cta") %>
+            <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<section class="page-container py-12">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <h2 class="heading-display text-[28px]"><%= t(".new_arrivals") %></h2>
+    <%= link_to t(".all_products"), products_path, class: "link-underline text-sm" %>
+  </div>
+
+  <% if @new_arrivals.any? %>
+    <ul class="-mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
+      <% @new_arrivals.each do |product| %>
+        <li class="w-[220px] shrink-0 snap-start sm:w-[260px]">
+          <%= render "products/product", product: product %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text") %>
+  <% end %>
 </section>

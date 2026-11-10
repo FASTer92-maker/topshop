@@ -39,10 +39,54 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_select "#account_menu form[action=?] input[name=_method][value=delete]", session_path
   end
 
+  test "links the hero and the section banners to the catalog" do
+    get root_url
+
+    assert_select "main a[href=?]", products_path, text: /Перейти в каталог/
+    assert_select "main a[href=?]", category_path(categories(:men)), text: /Мужское/
+    assert_select "main a[href=?]", category_path(categories(:women)), text: /Женское/
+    assert_select "main a[href=?]", products_path, text: /Смотреть все/
+  end
+
+  test "shows the eight newest active products" do
+    get root_url
+
+    assert_select "article", count: 3
+    assert_select "article", text: /Куртка «Арден»/
+    assert_select "article", text: /Сумка «Пусто»/
+    assert_select "article", text: /Сумка «Архив»/, count: 0
+  end
+
+  test "limits new arrivals to eight products" do
+    10.times do |index|
+      Product.create!(category: categories(:men_jackets), name: "Новинка #{index}", price: 1000, active: true)
+    end
+
+    get root_url
+
+    assert_select "article", count: 8
+  end
+
+  test "shows a product card with colours, price and stock state" do
+    get root_url
+
+    assert_select "article", text: /Куртка «Арден»/ do
+      assert_select "p", text: /Табачный \/ Чёрный/
+      assert_select "p", text: /12.990\p{Zs}₽/
+    end
+
+    assert_select "article", text: /Сумка «Пусто»/ do
+      assert_select "p", text: /Нет в наличии/
+    end
+  end
+
   test "shows the empty state while there are no products" do
+    Product.destroy_all
+
     get root_url
 
     assert_select "main", text: /Скоро здесь появятся товары/
+    assert_select "article", count: 0
   end
 
   test "renders flash messages with a close button" do
