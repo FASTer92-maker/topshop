@@ -1,0 +1,71 @@
+<%# GET-форма внутри turbo-фрейма: меняет только сетку, адрес обновляется
+    через data-turbo-action. Скрытое поле q сохраняет поисковый запрос. -%>
+<%= form_with url: request.path, method: :get,
+      data: { turbo_frame: "catalog", turbo_action: "advance", controller: "auto-submit" },
+      class: "mt-6 rounded-lg border border-line bg-surface p-4" do |form| %>
+  <%= form.hidden_field :q, value: params[:q] %>
+
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <%= form.label :size, t("catalog.filters.size"), class: catalog_label_class %>
+      <%= form.select :size, Variant::SIZES,
+            { include_blank: t("catalog.filters.any_size"), selected: params[:size] },
+            class: catalog_control_class,
+            data: { action: "change->auto-submit#submit" } %>
+    </div>
+
+    <div>
+      <%= form.label :color, t("catalog.filters.color"), class: catalog_label_class %>
+      <%= form.select :color, catalog_colors,
+            { include_blank: t("catalog.filters.any_color"), selected: params[:color] },
+            class: catalog_control_class,
+            data: { action: "change->auto-submit#submit" } %>
+    </div>
+
+    <div>
+      <span class="<%= catalog_label_class %>"><%= t("catalog.filters.price") %>, ₽</span>
+      <div class="mt-1 flex items-center gap-2">
+        <%= form.label :price_from, t("catalog.filters.price_from"), class: "sr-only" %>
+        <%= form.number_field :price_from, value: params[:price_from],
+              min: 0, step: 1, inputmode: "numeric", placeholder: t("catalog.filters.price_from"),
+              class: "#{catalog_control_class} mt-0",
+              data: { action: "input->auto-submit#debounce" } %>
+
+        <span class="text-muted" aria-hidden="true">—</span>
+
+        <%= form.label :price_to, t("catalog.filters.price_to"), class: "sr-only" %>
+        <%= form.number_field :price_to, value: params[:price_to],
+              min: 0, step: 1, inputmode: "numeric", placeholder: t("catalog.filters.price_to"),
+              class: "#{catalog_control_class} mt-0",
+              data: { action: "input->auto-submit#debounce" } %>
+      </div>
+    </div>
+
+    <div class="flex items-end">
+      <label class="flex items-center gap-2 pb-2 text-sm font-medium">
+        <%= form.check_box :in_stock, { checked: params[:in_stock].present?,
+              class: "size-4 rounded border-line text-ink focus:ring-ink",
+              data: { action: "change->auto-submit#submit" } }, "1", nil %>
+        <%= t("catalog.filters.in_stock") %>
+      </label>
+    </div>
+  </div>
+
+  <div class="mt-4 flex flex-wrap items-end justify-between gap-4 border-t border-line pt-4">
+    <div class="flex flex-wrap items-center gap-4">
+      <%= form.submit t("catalog.filters.apply"),
+            class: "rounded-md bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent" %>
+      <%= link_to t("catalog.filters.reset"), request.path,
+            class: "text-sm font-medium text-muted underline-offset-4 transition-colors hover:text-ink hover:underline",
+            data: { turbo_frame: "catalog", turbo_action: "advance" } %>
+    </div>
+
+    <div class="w-full sm:w-64">
+      <%= form.label :sort, t("catalog.filters.sort"), class: catalog_label_class %>
+      <%= form.select :sort, catalog_sort_options,
+            { selected: params[:sort] || Product::DEFAULT_SORT },
+            class: catalog_control_class,
+            data: { action: "change->auto-submit#submit" } %>
+    </div>
+  </div>
+<% end %>

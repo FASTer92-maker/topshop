@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  include CatalogFilters
+
   allow_unauthenticated_access
 
   def show
@@ -12,7 +14,7 @@ class CategoriesController < ApplicationController
     def catalog_products
       Product.active
              .in_category(@category)
-             .newest
+             .filter_by(filter_params)
              .includes(:variants, category: :parent)
              .with_attached_image
     end

@@ -12,6 +12,8 @@ ru:
       main_nav: Основное меню
       all: Все
       search: Поиск
+      search_placeholder: Поиск товаров
+      search_submit: Найти
       sign_in: Войти
       cart:
         one: Корзина (%{count})
@@ -68,6 +70,26 @@ ru:
       few: "Найдено %{count} товара"
       many: "Найдено %{count} товаров"
       other: "Найдено %{count} товара"
+    found_search:
+      one: "Найден %{count} товар по запросу «%{query}»"
+      few: "Найдено %{count} товара по запросу «%{query}»"
+      many: "Найдено %{count} товаров по запросу «%{query}»"
+      other: "Найдено %{count} товара по запросу «%{query}»"
+    filters:
+      size: Размер
+      any_size: Любой размер
+      color: Цвет
+      any_color: Любой цвет
+      price: Цена
+      price_from: от
+      price_to: до
+      in_stock: Только в наличии
+      sort: Сортировка
+      sort_default: По умолчанию
+      sort_price_asc: Сначала дешёвые
+      sort_price_desc: Сначала дорогие
+      apply: Применить
+      reset: Сбросить
     breadcrumbs:
       label: Хлебные крошки
       home: Главная
@@ -75,6 +97,9 @@ ru:
     empty:
       title: Товаров пока нет
       text: Загляните позже — мы готовим новую коллекцию.
+      filtered_title: Ничего не найдено
+      filtered_text: Измените фильтры.
+      reset: Сбросить фильтры
     product:
       out_of_stock: Нет в наличии
 
