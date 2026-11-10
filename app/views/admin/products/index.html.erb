@@ -1,0 +1,59 @@
+<% content_for :title, t(".title") %>
+
+<div class="flex flex-wrap items-center justify-between gap-4">
+  <h1 class="heading-display text-[28px]"><%= t(".title") %></h1>
+  <%= link_to t(".new"), new_admin_product_path, class: "btn-primary" %>
+</div>
+
+<%= form_with url: admin_products_path, method: :get, class: "mt-6 flex flex-wrap items-end gap-3" do |form| %>
+  <div class="w-full max-w-sm">
+    <%= form.label :q, t(".search_label"), class: "form-label" %>
+    <%= form.search_field :q, value: params[:q], placeholder: t(".search_placeholder"), class: "form-input" %>
+  </div>
+  <%= form.submit t(".search"), class: "btn-secondary" %>
+  <% if params[:q].present? %>
+    <%= link_to t(".reset"), admin_products_path, class: "link-underline pb-3 text-sm" %>
+  <% end %>
+<% end %>
+
+<div class="mt-6 overflow-hidden rounded-lg border border-line bg-white">
+  <% if @products.empty? %>
+    <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text") %>
+  <% else %>
+    <ul>
+      <% @products.each do |product| %>
+        <li class="flex flex-wrap items-center gap-4 border-b border-line px-6 py-4 last:border-0">
+          <% if product.image.attached? %>
+            <%= image_tag product.image, alt: "", class: "h-16 w-12 shrink-0 rounded object-cover" %>
+          <% else %>
+            <div class="h-16 w-12 shrink-0 rounded bg-surface"></div>
+          <% end %>
+
+          <div class="min-w-0 flex-1">
+            <div class="flex flex-wrap items-center gap-3">
+              <%= link_to product.name, admin_product_path(product), class: "font-semibold hover:text-accent" %>
+              <span class="rounded px-2 py-0.5 text-xs font-semibold <%= product.active? ? "bg-surface" : "bg-line text-muted" %>">
+                <%= product.active? ? t(".active") : t(".hidden") %>
+              </span>
+            </div>
+            <p class="mt-0.5 truncate text-sm text-muted"><%= product.category.full_name %></p>
+          </div>
+
+          <div class="text-sm text-muted"><%= t(".variants_count", count: product.variants.size) %></div>
+          <div class="w-28 text-right font-semibold"><%= number_to_currency(product.price) %></div>
+
+          <div class="flex flex-wrap items-center gap-3 text-sm">
+            <%= link_to t(".edit"), edit_admin_product_path(product), class: "link-underline" %>
+            <%= button_to product.active? ? t(".hide") : t(".show"),
+                  admin_product_path(product), method: :patch,
+                  params: { product: { active: !product.active } },
+                  class: "cursor-pointer link-underline" %>
+            <%= button_to t(".delete"), admin_product_path(product), method: :delete,
+                  form: { data: { turbo_confirm: t(".confirm") } },
+                  class: "cursor-pointer text-danger link-underline" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

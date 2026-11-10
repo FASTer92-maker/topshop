@@ -139,6 +139,7 @@ ru:
       title: Админ-панель
       main_nav: Меню администратора
       categories: Категории
+      products: Товары
       back_to_site: На сайт
       sign_out: Выйти
     base:
@@ -171,3 +172,76 @@ ru:
         parent: Раздел
         no_parent: Без родителя (раздел)
         cancel: Отмена
+
+    products:
+      index:
+        title: Товары
+        new: Добавить товар
+        search_label: Поиск
+        search_placeholder: Название или артикул
+        search: Найти
+        reset: Сбросить
+        active: Активен
+        hidden: Скрыт
+        variants_count:
+          one: "%{count} вариант"
+          few: "%{count} варианта"
+          many: "%{count} вариантов"
+          other: "%{count} варианта"
+        edit: Изменить
+        hide: Скрыть
+        show: Показать
+        delete: Удалить
+        confirm: Удалить товар?
+        empty:
+          title: Товаров пока нет
+          text: Добавьте первый товар, чтобы наполнить каталог.
+      new:
+        title: Новый товар
+      edit:
+        title: Изменить товар
+      create:
+        success: Товар создан.
+      update:
+        success: Товар обновлён.
+      destroy:
+        success: Товар удалён.
+      form:
+        category: Подкатегория
+        choose_category: Выберите подкатегорию
+        category_hint: Товар привязывается к подкатегории, например «Мужское › Куртки».
+        current_image: Текущее изображение
+        image_hint: JPEG, PNG или WebP до 5 МБ.
+        cancel: Отмена
+      show:
+        edit: Изменить товар
+        back: К списку товаров
+        no_image: Нет фото
+        no_description: Описание пока не заполнено.
+        active: Активен
+        hidden: Скрыт
+        variants:
+          title: Варианты
+          new: Новый вариант
+          empty: У этого товара пока нет вариантов.
+
+    variants:
+      form:
+        size_prompt: Размер
+        create: Добавить вариант
+        update: Сохранить
+      variant:
+        stock:
+          one: "%{count} шт."
+          few: "%{count} шт."
+          many: "%{count} шт."
+          other: "%{count} шт."
+        edit: Изменить
+        delete: Удалить
+        confirm: Удалить вариант?
+      create:
+        success: Вариант добавлен.
+      update:
+        success: Вариант обновлён.
+      destroy:
+        success: Вариант удалён.

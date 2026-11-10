@@ -1,0 +1,6 @@
+<% content_for :title, t(".title") %>
+
+<div class="mx-auto max-w-2xl">
+  <h1 class="heading-display text-[28px]"><%= t(".title") %></h1>
+  <%= render "form", product: @product, sections: @sections %>
+</div>
