@@ -1,0 +1,30 @@
+<%# locals: (category:, sections:) -%>
+<%= form_with model: [ :admin, category ], class: "mt-8 max-w-xl space-y-5" do |form| %>
+  <%= render "shared/form_errors", object: category %>
+
+  <div>
+    <%= form.label :parent_id, t(".parent"), class: "form-label" %>
+    <%= form.collection_select :parent_id, sections, :id, :name,
+          { include_blank: t(".no_parent") }, class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, required: true, maxlength: 100, autofocus: true, class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, rows: 4, class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :position, class: "form-label" %>
+    <%= form.number_field :position, min: 0, step: 1, class: "form-input" %>
+  </div>
+
+  <div class="flex items-center gap-4">
+    <%= form.submit class: "btn-primary" %>
+    <%= link_to t(".cancel"), admin_categories_path, class: "link-underline" %>
+  </div>
+<% end %>

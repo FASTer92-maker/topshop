@@ -19,6 +19,7 @@ ru:
         many: Корзина (%{count})
         other: Корзина (%{count})
     account_menu:
+      admin: Админ-панель
       sign_out: Выйти
     flash:
       close: Закрыть
@@ -132,3 +133,41 @@ ru:
         few: "Не удалось сохранить: %{count} ошибки"
         many: "Не удалось сохранить: %{count} ошибок"
         other: "Не удалось сохранить: %{count} ошибки"
+
+  admin:
+    layout:
+      title: Админ-панель
+      main_nav: Меню администратора
+      categories: Категории
+      back_to_site: На сайт
+      sign_out: Выйти
+    base:
+      denied: Доступ запрещён
+    dashboard:
+      index:
+        title: Админ-панель
+        welcome: Добро пожаловать в админ-панель TopShop.
+    categories:
+      index:
+        title: Категории
+        new: Добавить категорию
+        edit: Изменить
+        delete: Удалить
+        confirm: Удалить категорию?
+        empty:
+          title: Категорий пока нет
+          text: Создайте первый раздел, чтобы наполнить каталог.
+      new:
+        title: Новая категория
+      edit:
+        title: Изменить категорию
+      create:
+        success: Категория создана.
+      update:
+        success: Категория обновлена.
+      destroy:
+        success: Категория удалена.
+      form:
+        parent: Раздел
+        no_parent: Без родителя (раздел)
+        cancel: Отмена

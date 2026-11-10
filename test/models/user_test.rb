@@ -72,6 +72,20 @@ class UserTest < ActiveSupport::TestCase
     assert user.update(first_name: "Пётр")
   end
 
+  test "defaults to the customer role" do
+    user = build_user
+
+    assert user.customer?
+    assert_equal "customer", user.role
+  end
+
+  test "can be an admin" do
+    user = build_user(role: :admin)
+
+    assert user.admin?
+    assert_equal "admin", user.role
+  end
+
   test "full_name joins first and last name" do
     assert_equal "Иван Петров", users(:customer).full_name
   end

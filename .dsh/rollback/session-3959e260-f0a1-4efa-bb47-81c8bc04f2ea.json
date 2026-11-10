@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "sessionId": "session-3959e260-f0a1-4efa-bb47-81c8bc04f2ea",
+  "cwd": "/home/andre_ny7wlah/online-store",
+  "updatedAt": 1794262377644,
+  "checkpoints": [
+    {
+      "turn": 1,
+      "commit": "31d34e162c578ce9007e47adfb61869078e4c92f",
+      "parent": "01b1e650507f7a6d65fcb6c43843855debf98ffb",
+      "time": 1794261869104,
+      "untracked": [
+        ".vscode/settings.json"
+      ],
+      "truncated": false
+    },
+    {
+      "turn": 2,
+      "commit": "31d34e162c578ce9007e47adfb61869078e4c92f",
+      "parent": "31d34e162c578ce9007e47adfb61869078e4c92f",
+      "time": 1794261902661,
+      "untracked": [
+        ".vscode/settings.json"
+      ],
+      "truncated": false
+    },
+    {
+      "turn": 3,
+      "commit": "31d34e162c578ce9007e47adfb61869078e4c92f",
+      "parent": "31d34e162c578ce9007e47adfb61869078e4c92f",
+      "time": 1794262377417,
+      "untracked": [
+        ".vscode/settings.json"
+      ],
+      "truncated": false
+    }
+  ],
+  "rolls": [],
+  "undos": []
+}

@@ -7,6 +7,11 @@ ru:
         few: Пользователя
         many: Пользователей
         other: Пользователя
+      category:
+        one: Категория
+        few: Категории
+        many: Категорий
+        other: Категории
     attributes:
       user:
         email_address: Email
@@ -14,6 +19,13 @@ ru:
         last_name: Фамилия
         password: Пароль
         password_confirmation: Подтверждение пароля
+      category:
+        name: Название
+        slug: Slug
+        description: Описание
+        position: Порядок
+        parent: Родительский раздел
+        parent_id: Родительский раздел
     errors:
       models:
         user:
@@ -29,3 +41,7 @@ ru:
                 few: слишком длинный (не более %{count} байтов)
                 many: слишком длинный (не более %{count} байтов)
                 other: слишком длинный (не более %{count} байта)
+        category:
+          parent_must_be_a_section: Родителем подкатегории может быть только раздел.
+          section_has_subcategories: Нельзя назначить родителя разделу, у которого есть подкатегории.
+          cannot_be_own_parent: Категория не может быть родителем самой себя.
