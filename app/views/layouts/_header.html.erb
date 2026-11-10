@@ -23,9 +23,24 @@
       </ul>
     </nav>
 
-    <%# User actions. Search is wired up in stage 9, the cart in stage 12. %>
-    <ul class="order-2 ml-auto flex items-center gap-5 text-sm font-medium md:order-3 md:gap-8 md:text-[15px]">
-      <li class="hidden sm:block"><span class="text-muted"><%= t(".search") %></span></li>
+    <%# Search goes to the catalog with the query. The cart arrives in stage 12. %>
+    <%= form_with url: products_path, method: :get, html: { role: "search", class: "order-4 w-full pb-3 md:order-3 md:w-64 md:pb-0" } do |form| %>
+      <%= form.label :q, t(".search_placeholder"), class: "sr-only" %>
+      <div class="flex items-center gap-2 rounded-md border border-line px-3 transition-colors focus-within:border-ink">
+        <%= form.search_field :q, value: params[:q], placeholder: t(".search_placeholder"),
+              class: "w-full bg-transparent py-2 text-sm outline-none placeholder:text-muted" %>
+        <button type="submit" aria-label="<%= t(".search_submit") %>"
+                class="text-muted transition-colors hover:text-ink">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.8" class="size-4" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    <% end %>
+
+    <ul class="order-2 ml-auto flex items-center gap-5 text-sm font-medium md:order-4 md:gap-8 md:text-[15px]">
       <li>
         <% if authenticated? %>
           <%= render "layouts/account_menu", user: Current.user %>

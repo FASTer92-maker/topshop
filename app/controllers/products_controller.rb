@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  include CatalogFilters
+
   allow_unauthenticated_access
 
   def index
@@ -8,7 +10,7 @@ class ProductsController < ApplicationController
   private
     def catalog_products
       Product.active
-             .newest
+             .filter_by(filter_params)
              .includes(:variants, category: :parent)
              .with_attached_image
     end

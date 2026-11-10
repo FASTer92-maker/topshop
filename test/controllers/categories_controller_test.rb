@@ -47,4 +47,22 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+
+  test "filters apply within a section" do
+    get category_path(categories(:men)), params: { size: "M" }
+
+    assert_select "article", count: 1
+    assert_select "article", text: /Куртка «Арден»/
+
+    get category_path(categories(:men)), params: { size: "S" }
+
+    assert_select "article", count: 0
+  end
+
+  test "filters do not reach products of other sections" do
+    get category_path(categories(:women)), params: { q: "арден" }
+
+    assert_response :success
+    assert_select "article", count: 0
+  end
 end
