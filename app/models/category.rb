@@ -4,6 +4,7 @@ class Category < ApplicationRecord
   belongs_to :parent, class_name: "Category", optional: true, inverse_of: :subcategories
   has_many :subcategories, class_name: "Category", foreign_key: :parent_id,
            dependent: :restrict_with_error, inverse_of: :parent
+  has_many :products, dependent: :restrict_with_error
 
   normalizes :name, with: ->(name) { name.squish }
 

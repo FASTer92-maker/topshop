@@ -1,0 +1,41 @@
+men_jacket_m_black:
+  product: men_jacket
+  size: M
+  color: Чёрный
+  stock: 5
+  sku: MJ-ARD-CHE-M
+
+men_jacket_l_black:
+  product: men_jacket
+  size: L
+  color: Чёрный
+  stock: 0
+  sku: MJ-ARD-CHE-L
+
+men_jacket_m_tabacco:
+  product: men_jacket
+  size: M
+  color: Табачный
+  stock: 2
+  sku: MJ-ARD-TAB-M
+
+women_jacket_s_black:
+  product: women_jacket
+  size: S
+  color: Чёрный
+  stock: 4
+  sku: ZJ-LNA-CHE-S
+
+hidden_bag_one_size:
+  product: hidden_product
+  size: ONE SIZE
+  color: Чёрный
+  stock: 10
+  sku: AS-ARKH-CHE-OS
+
+sold_out_bag_one_size:
+  product: sold_out_product
+  size: ONE SIZE
+  color: Чёрный
+  stock: 0
+  sku: AS-PST-CHE-OS

@@ -1,0 +1,7 @@
+<%= turbo_stream.remove @variant %>
+
+<% if @product.variants.empty? %>
+  <%= turbo_stream.append "variants_list", partial: "admin/variants/empty" %>
+<% end %>
+
+<%= turbo_stream.replace "flash", partial: "layouts/flash" %>

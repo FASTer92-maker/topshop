@@ -1,0 +1,48 @@
+<%# locals: (product:, sections:) -%>
+<%= form_with model: [ :admin, product ], multipart: true, class: "mt-8 max-w-2xl space-y-5" do |form| %>
+  <%= render "shared/form_errors", object: product %>
+
+  <div>
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, required: true, maxlength: 150, autofocus: true, class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :category_id, t(".category"), class: "form-label" %>
+    <%= form.grouped_collection_select :category_id, sections, :subcategories, :name, :id, :name,
+          { include_blank: t(".choose_category") }, class: "form-input" %>
+    <p class="mt-1.5 text-sm text-muted"><%= t(".category_hint") %></p>
+  </div>
+
+  <div>
+    <%= form.label :price, class: "form-label" %>
+    <%= form.number_field :price, required: true, min: 0, step: "0.01", class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, rows: 5, class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :image, class: "form-label" %>
+    <% if product.persisted? && product.image.attached? %>
+      <div class="mb-3 flex items-center gap-4">
+        <%= image_tag product.image, alt: "", class: "h-24 w-16 rounded object-cover" %>
+        <span class="text-sm text-muted"><%= t(".current_image") %></span>
+      </div>
+    <% end %>
+    <%= form.file_field :image, accept: "image/jpeg,image/png,image/webp", class: "form-input" %>
+    <p class="mt-1.5 text-sm text-muted"><%= t(".image_hint") %></p>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <%= form.check_box :active, class: "h-4 w-4 rounded border-line" %>
+    <%= form.label :active, class: "text-sm font-medium" %>
+  </div>
+
+  <div class="flex items-center gap-4">
+    <%= form.submit class: "btn-primary" %>
+    <%= link_to t(".cancel"), admin_products_path, class: "link-underline" %>
+  </div>
+<% end %>
