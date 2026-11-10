@@ -10,7 +10,7 @@ ru:
       logo: TopShop
       logo_label: TopShop — на главную
       main_nav: Основное меню
-      catalog: Каталог
+      all: Все
       search: Поиск
       sign_in: Войти
       cart:
@@ -56,6 +56,26 @@ ru:
       empty:
         title: Скоро здесь появятся товары
         text: Мы готовим первую коллекцию.
+
+  catalog:
+    found:
+      one: "Найден %{count} товар"
+      few: "Найдено %{count} товара"
+      many: "Найдено %{count} товаров"
+      other: "Найдено %{count} товара"
+    breadcrumbs:
+      label: Хлебные крошки
+      home: Главная
+      catalog: Каталог
+    empty:
+      title: Товаров пока нет
+      text: Загляните позже — мы готовим новую коллекцию.
+    product:
+      out_of_stock: Нет в наличии
+
+  products:
+    index:
+      title: Каталог
 
   sessions:
     new:
