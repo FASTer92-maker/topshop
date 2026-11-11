@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   has_secure_password
   has_many :sessions, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_products, through: :favorites, source: :product
 
   enum :role, { customer: 0, admin: 1 }, default: :customer
 
@@ -17,5 +19,22 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def favorite?(product)
+    favorites.exists?(product_id: product.id)
+  end
+
+  # Returns true when the product is in favourites after the call.
+  def toggle_favorite!(product)
+    favorite = favorites.find_by(product: product)
+
+    if favorite
+      favorite.destroy!
+      false
+    else
+      favorites.create!(product: product)
+      true
+    end
   end
 end
