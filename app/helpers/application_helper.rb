@@ -9,4 +9,10 @@ module ApplicationHelper
   def catalog_section_current?(section)
     @category.present? && @category.section == section
   end
+
+  # Items in the cart for the header counter. Does not create a cart for a user
+  # who has never added anything.
+  def cart_items_count
+    authenticated? ? Current.user.cart&.items_count.to_i : 0
+  end
 end

@@ -128,4 +128,20 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal 1, user.favorites.where(product: product).count
   end
+
+  test "cart! returns the existing cart" do
+    assert_equal carts(:customer_cart), users(:customer).cart!
+  end
+
+  test "cart! creates a cart once and reuses it" do
+    user = users(:admin)
+    cart = nil
+
+    assert_difference -> { Cart.count }, 1 do
+      cart = user.cart!
+    end
+
+    assert_equal cart, user.cart!
+    assert_equal 1, Cart.where(user: user).count
+  end
 end

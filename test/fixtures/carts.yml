@@ -1,0 +1,7 @@
+# One empty cart per customer: tests fill it through Cart#add_variant.
+# The admin has no cart, which keeps User#cart! creation testable.
+customer_cart:
+  user: customer
+
+other_customer_cart:
+  user: other_customer

@@ -2,8 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Product page picker: switching the colour shows the sizes of that colour,
 // the chosen size tells how much is left, and «В корзину» refuses to send the
-// form without a size. The real cart arrives in stage 12, so the submit always
-// stops here for now.
+// form without a size.
 export default class extends Controller {
   static targets = ["color", "size", "sizeGroup", "stock", "error"]
   static values = { error: String }
@@ -26,11 +25,10 @@ export default class extends Controller {
   }
 
   submit(event) {
-    event.preventDefault()
-
     if (this.selectedSize) {
       this.hideError()
     } else {
+      event.preventDefault()
       this.showError()
     }
   }
