@@ -5,8 +5,9 @@
 <% default_color = colors.find { |color| variants.any? { |variant| variant.color == color && variant.available? } } || colors.first %>
 <% single_variant = variants.one? && variants.first.available? %>
 
-<%# Stage 12 points the form to cart_items_path; until then the button only validates the size. %>
-<%= form_with url: "#", method: :post, class: "mt-6",
+<%# Stage 12 points the form to cart_items_path; the Stimulus controller only
+    stops the send when no size is selected. %>
+<%= form_with url: cart_items_path, method: :post, class: "mt-6",
       data: { controller: "variant-picker",
               action: "submit->variant-picker#submit",
               variant_picker_error_value: t(".size_required") } do %>

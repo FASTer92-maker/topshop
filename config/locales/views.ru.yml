@@ -124,6 +124,12 @@ ru:
     similar:
       title: Похожие товары
 
+  cart_items:
+    create:
+      success: Товар добавлен в корзину
+      choose_size: Выберите размер
+      unavailable: Товар недоступен
+
   favorites:
     index:
       title: Избранное

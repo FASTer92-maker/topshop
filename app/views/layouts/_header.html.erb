@@ -58,7 +58,7 @@
           <%= render "favorites/counter", count: favorite_product_ids.size %>
         <% end %>
       </li>
-      <li><span class="text-muted"><%= t(".cart", count: 0) %></span></li>
+      <li><%= render "layouts/cart_counter", count: cart_items_count %></li>
     </ul>
   </div>
 </header>
