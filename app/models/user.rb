@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_secure_password
   has_many :sessions, dependent: :destroy
+  has_one :cart, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_products, through: :favorites, source: :product
 
@@ -19,6 +20,10 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def cart!
+    cart || create_cart!
   end
 
   def favorite?(product)

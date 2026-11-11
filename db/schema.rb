@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_11_195040) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_11_201923) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -40,6 +40,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_195040) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "cart_items", force: :cascade do |t|
+    t.bigint "cart_id", null: false
+    t.bigint "variant_id", null: false
+    t.integer "quantity", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id", "variant_id"], name: "index_cart_items_on_cart_id_and_variant_id", unique: true
+    t.index ["variant_id"], name: "index_cart_items_on_variant_id"
+    t.check_constraint "quantity > 0", name: "cart_items_quantity_check"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_carts_on_user_id", unique: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -124,6 +142,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_195040) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cart_items", "carts"
+  add_foreign_key "cart_items", "variants"
+  add_foreign_key "carts", "users"
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "favorites", "products"
   add_foreign_key "favorites", "users"
