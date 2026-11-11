@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   belongs_to :category
   has_many :variants, -> { by_size }, dependent: :destroy, inverse_of: :product
   has_many :order_items, through: :variants
+  has_many :favorites, dependent: :destroy
   has_one_attached :image
 
   normalizes :name, with: ->(name) { name.squish }

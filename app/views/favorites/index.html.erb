@@ -1,0 +1,15 @@
+<% content_for :title, t(".title") %>
+
+<div class="page-container py-8 md:py-12">
+  <h1 class="heading-display text-[32px] sm:text-[40px]"><%= t(".title") %></h1>
+
+  <% if @favorite_products.any? %>
+    <ul class="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-3 xl:grid-cols-4">
+      <% @favorite_products.each do |product| %>
+        <li><%= render "products/product", product: product %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text") %>
+  <% end %>
+</div>

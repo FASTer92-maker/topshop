@@ -1,0 +1,12 @@
+<%# locals: (product:) -%>
+<% favorite = favorite_for(product) %>
+<%= button_to product_favorite_path(product),
+      method: favorite ? :delete : :post,
+      class: "flex cursor-pointer items-center justify-center rounded-full border border-line bg-white/95 p-2 transition-colors #{favorite ? "text-accent" : "text-ink hover:text-accent"}",
+      form: { id: dom_id(product, :favorite), data: { turbo_frame: "_top" } },
+      aria: { label: favorite ? t(".remove") : t(".add"), pressed: favorite } do %>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="<%= favorite ? "currentColor" : "none" %>"
+       stroke="currentColor" stroke-width="1.6" class="size-4" aria-hidden="true">
+    <path d="M12 20.3 4.6 13a4.8 4.8 0 0 1 6.8-6.7l.6.6.6-.6A4.8 4.8 0 0 1 19.4 13Z" stroke-linejoin="round" />
+  </svg>
+<% end %>

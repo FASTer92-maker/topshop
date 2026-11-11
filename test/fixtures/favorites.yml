@@ -1,0 +1,5 @@
+# One product already sits in the customer's favourites, so the counter and the
+# toggle start from a non-empty state.
+customer_men_jacket:
+  user: customer
+  product: men_jacket

@@ -94,4 +94,38 @@ class UserTest < ActiveSupport::TestCase
     assert_equal users(:customer), User.authenticate_by(email_address: "IVAN@example.com", password: "password123")
     assert_nil User.authenticate_by(email_address: "ivan@example.com", password: "wrong-password")
   end
+
+  test "favorite? looks at the user's own favourites" do
+    user = users(:customer)
+
+    assert user.favorite?(products(:men_jacket))
+    assert_not user.favorite?(products(:women_jacket))
+    assert_not users(:other_customer).favorite?(products(:men_jacket))
+  end
+
+  test "toggle_favorite! adds and removes a product" do
+    user = users(:other_customer)
+    product = products(:men_jacket)
+
+    assert_difference -> { user.favorites.count }, 1 do
+      assert user.toggle_favorite!(product)
+    end
+    assert user.favorite?(product)
+
+    assert_difference -> { user.favorites.count }, -1 do
+      assert_not user.toggle_favorite!(product)
+    end
+    assert_not user.favorite?(product)
+  end
+
+  test "toggle_favorite! keeps one row per product" do
+    user = users(:other_customer)
+    product = products(:men_jacket)
+
+    user.toggle_favorite!(product)
+    user.toggle_favorite!(product)
+    user.toggle_favorite!(product)
+
+    assert_equal 1, user.favorites.where(product: product).count
+  end
 end

@@ -1,0 +1,7 @@
+<%= turbo_stream.replace dom_id(product, :favorite) do %>
+  <%= render "favorites/button", product: product %>
+<% end %>
+
+<%= turbo_stream.replace "favorites_counter" do %>
+  <%= render "favorites/counter", count: favorite_product_ids.size %>
+<% end %>
