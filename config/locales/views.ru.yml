@@ -106,6 +106,21 @@ ru:
   products:
     index:
       title: Каталог
+    show:
+      description: Описание
+    variant_picker:
+      color: Цвет
+      size: Размер
+      size_required: Выберите размер
+      stock_left:
+        one: "Осталось %{count} шт."
+        few: "Осталось %{count} шт."
+        many: "Осталось %{count} шт."
+        other: "Осталось %{count} шт."
+      add_to_cart: В корзину
+      out_of_stock: Нет в наличии
+    similar:
+      title: Похожие товары
 
   sessions:
     new:
