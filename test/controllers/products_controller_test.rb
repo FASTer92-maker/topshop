@@ -123,4 +123,92 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert_select "a[href*=?][href*=?]", "page=2", "q="
   end
+
+  test "show renders an active product with its colours, sizes and description" do
+    get product_path(products(:men_jacket))
+
+    assert_response :success
+    assert_select "title", "Куртка «Арден» · TopShop"
+    assert_select "h1", "Куртка «Арден»"
+    assert_select "p", text: /12.990\p{Zs}₽/
+    assert_select "p", text: /Состав 100% хлопок/
+    assert_select "input[name=color]", count: 2
+    assert_select "input[name=color][value=?][checked]", "Табачный"
+    assert_select "input[name=variant_id]", count: 3
+    assert_select "button[type=submit]", text: "В корзину"
+  end
+
+  test "show links the section and the subcategory" do
+    get product_path(products(:men_jacket))
+
+    assert_select "a[href=?]", category_path(categories(:men)), text: "Мужское"
+    assert_select "a[href=?]", category_path(categories(:men_jackets)), text: "Куртки"
+  end
+
+  test "show returns 404 for a hidden product" do
+    get product_path(products(:hidden_product))
+
+    assert_response :not_found
+  end
+
+  test "show returns 404 for an unknown slug" do
+    get "/products/unknown-product"
+
+    assert_response :not_found
+  end
+
+  test "show disables sizes that are out of stock" do
+    get product_path(products(:men_jacket))
+
+    assert_select "input[name=variant_id][value=?][disabled]", variants(:men_jacket_l_black).id
+    assert_select "input[name=variant_id][value=?]", variants(:men_jacket_m_black).id do |inputs|
+      assert_nil inputs.first["disabled"]
+    end
+  end
+
+  test "show tells the remaining stock only for low stock sizes" do
+    get product_path(products(:men_jacket))
+
+    assert_select "input[name=variant_id][value=?][data-stock-label=?]",
+                  variants(:men_jacket_m_tabacco).id, "Осталось 2 шт."
+    assert_select "input[name=variant_id][value=?][data-stock-label]",
+                  variants(:men_jacket_m_black).id, count: 0
+  end
+
+  test "show checks the only variant of a product" do
+    product = Product.create!(category: categories(:accessories_bags), name: "Ремень", price: 3000, active: true)
+    variant = product.variants.create!(size: "ONE SIZE", color: "Чёрный", stock: 4, sku: "AC-BEL-CHE-OS")
+
+    get product_path(product)
+
+    assert_select "input[name=variant_id][value=?][checked]", variant.id
+  end
+
+  test "show offers no cart button when everything is sold out" do
+    get product_path(products(:sold_out_product))
+
+    assert_response :success
+    assert_select "form[data-controller=variant-picker] button[type=submit]", count: 0
+    assert_select "form[data-controller=variant-picker] p", text: "Нет в наличии"
+  end
+
+  test "show lists up to four active products from the same subcategory" do
+    5.times do |index|
+      Product.create!(category: categories(:men_jackets), name: "Куртка #{index}", price: 5000, active: true)
+    end
+    Product.create!(category: categories(:men_jackets), name: "Скрытая куртка", price: 5000, active: false)
+
+    get product_path(products(:men_jacket))
+
+    assert_select "#similar_products article", count: 4
+    assert_select "#similar_products", text: /Куртка «Арден»/, count: 0
+    assert_select "#similar_products", text: /Куртка «Лина»/, count: 0
+    assert_select "#similar_products", text: /Скрытая куртка/, count: 0
+  end
+
+  test "show hides the similar block when the subcategory has no other products" do
+    get product_path(products(:men_jacket))
+
+    assert_select "#similar_products", count: 0
+  end
 end
