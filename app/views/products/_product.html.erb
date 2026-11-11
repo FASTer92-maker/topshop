@@ -1,9 +1,10 @@
 <%# locals: (product:) -%>
 <% colors = product.variants.map(&:color).uniq.sort %>
 <% in_stock = product.variants.any? { |variant| variant.stock.positive? } %>
+<% status = if !product.active? then t("catalog.product.unavailable") elsif !in_stock then t("catalog.product.out_of_stock") end %>
 
-<article class="group flex h-full flex-col">
-  <%= link_to product_path(product), class: "block", data: { turbo_frame: "_top" } do %>
+<article class="group relative flex h-full flex-col">
+  <% card_body = capture do %>
     <div class="aspect-[3/4] overflow-hidden rounded bg-surface">
       <% if product.image.attached? %>
         <%= image_tag product.image, alt: product.name, loading: "lazy",
@@ -11,15 +12,24 @@
       <% end %>
     </div>
 
-    <h3 class="mt-3 font-display text-[15px] font-medium leading-snug group-hover:text-accent"><%= product.name %></h3>
+    <h3 class="mt-3 font-display text-[15px] font-medium leading-snug <%= "group-hover:text-accent" if product.active? %>"><%= product.name %></h3>
   <% end %>
+
+  <%# A hidden product stays in favourites but has no page to open. %>
+  <% if product.active? %>
+    <%= link_to product_path(product), class: "block", data: { turbo_frame: "_top" } do %><%= card_body %><% end %>
+  <% else %>
+    <div class="block opacity-60"><%= card_body %></div>
+  <% end %>
+
+  <div class="absolute right-2 top-2"><%= render "favorites/button", product: product %></div>
 
   <p class="mt-1 text-[13px] text-muted"><%= colors.join(" / ") %></p>
 
   <div class="mt-auto flex items-baseline justify-between gap-2 pt-2">
     <p class="font-semibold"><%= number_to_currency(product.price) %></p>
-    <% unless in_stock %>
-      <p class="text-[11px] font-semibold uppercase tracking-wide text-muted"><%= t("catalog.product.out_of_stock") %></p>
+    <% if status %>
+      <p class="text-[11px] font-semibold uppercase tracking-wide text-muted"><%= status %></p>
     <% end %>
   </div>
 </article>

@@ -48,6 +48,16 @@
           <%= link_to t(".sign_in"), new_session_path, class: "transition-colors hover:text-accent" %>
         <% end %>
       </li>
+      <li>
+        <%= link_to favorites_path, class: "flex items-center gap-1.5 transition-colors hover:text-accent",
+              aria: { label: t(".favorites") } do %>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.6" class="size-5" aria-hidden="true">
+            <path d="M12 20.3 4.6 13a4.8 4.8 0 0 1 6.8-6.7l.6.6.6-.6A4.8 4.8 0 0 1 19.4 13Z" stroke-linejoin="round" />
+          </svg>
+          <%= render "favorites/counter", count: favorite_product_ids.size %>
+        <% end %>
+      </li>
       <li><span class="text-muted"><%= t(".cart", count: 0) %></span></li>
     </ul>
   </div>

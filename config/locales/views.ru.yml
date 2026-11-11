@@ -15,6 +15,7 @@ ru:
       search_placeholder: Поиск товаров
       search_submit: Найти
       sign_in: Войти
+      favorites: Избранное
       cart:
         one: Корзина (%{count})
         few: Корзина (%{count})
@@ -102,6 +103,7 @@ ru:
       reset: Сбросить фильтры
     product:
       out_of_stock: Нет в наличии
+      unavailable: Нет в продаже
 
   products:
     index:
@@ -121,6 +123,16 @@ ru:
       out_of_stock: Нет в наличии
     similar:
       title: Похожие товары
+
+  favorites:
+    index:
+      title: Избранное
+      empty:
+        title: В избранном пока пусто
+        text: Нажмите ♡ на карточке товара, чтобы вернуться к нему позже.
+    button:
+      add: Добавить в избранное
+      remove: Убрать из избранного
 
   sessions:
     new:

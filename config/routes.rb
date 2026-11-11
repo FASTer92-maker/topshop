@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   resource :registration, only: %i[ new create ]
   resources :passwords, param: :token, only: %i[ new create edit update ]
 
-  resources :products, only: %i[ index show ], param: :slug
+  resources :products, only: %i[ index show ], param: :slug do
+    resource :favorite, only: %i[ create destroy ]
+  end
+  resources :favorites, only: :index
   resources :categories, only: :show, param: :slug
 
   namespace :admin do
