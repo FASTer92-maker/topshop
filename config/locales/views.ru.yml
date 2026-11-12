@@ -332,6 +332,7 @@ ru:
       main_nav: Меню администратора
       categories: Категории
       products: Товары
+      orders: Заказы
       back_to_site: На сайт
       sign_out: Выйти
     base:
@@ -340,6 +341,54 @@ ru:
       index:
         title: Админ-панель
         welcome: Добро пожаловать в админ-панель TopShop.
+    orders:
+      index:
+        title: Заказы
+        open: Открыть
+        items:
+          one: "%{count} товар"
+          few: "%{count} товара"
+          many: "%{count} товаров"
+          other: "%{count} товара"
+        tabs:
+          label: Фильтр по статусу
+          all: Все
+        table:
+          number: Заказ
+          date: Дата
+          customer: Покупатель
+          total: Сумма
+          status: Статус
+        empty:
+          title: Заказов пока нет
+          text: Заказы появятся здесь после оформления.
+      show:
+        title: "Заказ №%{number}"
+        back: К списку заказов
+        created_at: "Оформлен: %{date}"
+        customer:
+          title: Покупатель
+        totals:
+          title: Итого
+          goods: Товары
+          delivery: Доставка
+          free: Бесплатно
+          total: Итого
+        items:
+          title: Состав заказа
+          product: Товар
+          size_color: Размер и цвет
+          quantity: Кол-во
+          unit_price: Цена
+          subtotal: Сумма
+      actions:
+        title: Сменить статус
+        to_status: "Перевести в «%{status}»"
+        cancel: Отменить заказ
+        confirm_cancel: Отменить заказ и вернуть товары на склад?
+        none: Для этого заказа смена статуса недоступна.
+      update:
+        success: "Статус заказа изменён: %{status}."
     categories:
       index:
         title: Категории

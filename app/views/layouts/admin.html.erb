@@ -24,6 +24,7 @@
 
         <nav aria-label="<%= t('admin.layout.main_nav') %>" class="ml-auto flex items-center gap-6 text-sm font-medium">
           <%= link_to t("admin.layout.products"), admin_products_path, class: "transition-colors hover:text-accent" %>
+          <%= link_to t("admin.layout.orders"), admin_orders_path, class: "transition-colors hover:text-accent" %>
           <%= link_to t("admin.layout.categories"), admin_categories_path, class: "transition-colors hover:text-accent" %>
           <%= link_to t("admin.layout.back_to_site"), root_path, class: "text-muted transition-colors hover:text-ink" %>
           <%= button_to t("admin.layout.sign_out"), session_path, method: :delete,

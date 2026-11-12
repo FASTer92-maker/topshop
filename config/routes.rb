@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root "dashboard#index"
+    resources :orders, only: %i[ index show update ]
     resources :categories
     resources :products do
       resources :variants, except: %i[ index show ]

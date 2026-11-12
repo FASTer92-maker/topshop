@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "order_status", partial: "admin/orders/status", locals: { order: @order } %>
+<%= turbo_stream.replace "order_actions", partial: "admin/orders/actions", locals: { order: @order } %>
+<%= turbo_stream.replace "flash", partial: "layouts/flash" %>
