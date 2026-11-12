@@ -1,0 +1,42 @@
+<%# locals: (order:) -%>
+<% if order.cancelled? %>
+  <section class="mt-8 rounded-lg border border-line bg-surface px-5 py-4" aria-label="<%= t("orders.status_progress.title") %>">
+    <p class="text-[14px] font-medium text-danger"><%= t("orders.status_progress.cancelled") %></p>
+  </section>
+<% else %>
+  <section class="mt-8 rounded-lg border border-line px-4 py-5 sm:px-6" aria-label="<%= t("orders.status_progress.title") %>">
+    <h2 class="text-[12px] font-medium uppercase tracking-wide text-muted">
+      <%= t("orders.status_progress.title") %>
+    </h2>
+
+    <ol class="mt-5 flex items-start">
+      <% OrdersHelper::STATUS_FLOW.each_with_index do |step, index| %>
+        <% reached = status_step_reached?(order, step) %>
+        <% current = status_step_current?(order, step) %>
+        <li class="relative flex-1 text-center">
+          <% if index.positive? %>
+            <span aria-hidden="true"
+                  class="absolute right-[50%] top-3 h-px w-full <%= reached ? "bg-ink" : "bg-line" %>"></span>
+          <% end %>
+
+          <span class="relative z-10 mx-auto flex size-6 items-center justify-center rounded-full border text-[11px] font-semibold
+                       <%= reached ? "border-ink bg-ink text-white" : "border-line bg-white text-muted" %>
+                       <%= "ring-2 ring-ink ring-offset-2" if current %>">
+            <% if reached && !current %>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.5" class="size-3" aria-hidden="true">
+                <path d="m5 13 4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            <% else %>
+              <%= index + 1 %>
+            <% end %>
+          </span>
+
+          <p class="mt-2 text-[12px] leading-tight <%= current ? "font-semibold text-ink" : reached ? "text-ink" : "text-muted" %>">
+            <%= t("orders.statuses.#{step}") %>
+          </p>
+        </li>
+      <% end %>
+    </ol>
+  </section>
+<% end %>

@@ -7,19 +7,35 @@
     <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text"),
           action_label: t(".empty.action"), action_path: products_path %>
   <% else %>
-    <ul class="mt-6 divide-y divide-line border-y border-line">
-      <% @orders.each do |order| %>
-        <li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-4">
-          <div>
-            <%= link_to t(".number", number: order.number), order_path(order),
-                  class: "font-display font-medium link-underline" %>
-            <p class="mt-0.5 text-[13px] text-muted">
-              <%= l(order.created_at, format: :short) %> · <%= t(".items", count: order.items_count) %>
-            </p>
-          </div>
-          <p class="font-semibold tabular-nums"><%= number_to_currency(order.total) %></p>
-        </li>
-      <% end %>
-    </ul>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full min-w-[620px] border-collapse text-left text-[15px]">
+        <thead>
+          <tr class="border-y border-line text-[12px] uppercase tracking-wide text-muted">
+            <th scope="col" class="py-3 pr-4 font-medium"><%= t(".table.number") %></th>
+            <th scope="col" class="py-3 pr-4 font-medium"><%= t(".table.date") %></th>
+            <th scope="col" class="py-3 pr-4 text-right font-medium"><%= t(".table.total") %></th>
+            <th scope="col" class="py-3 text-right font-medium"><%= t(".table.status") %></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-line">
+          <% @orders.each do |order| %>
+            <tr>
+              <td class="py-4 pr-4">
+                <%= link_to t(".number", number: order.number), order_path(order),
+                      class: "font-display font-medium link-underline" %>
+                <p class="mt-0.5 text-[13px] text-muted"><%= t(".items", count: order.items_count) %></p>
+              </td>
+              <td class="whitespace-nowrap py-4 pr-4 text-muted"><%= l(order.created_at, format: :short) %></td>
+              <td class="whitespace-nowrap py-4 pr-4 text-right font-semibold tabular-nums">
+                <%= number_to_currency(order.total) %>
+              </td>
+              <td class="py-4 text-right"><%= render "orders/status_badge", status: order %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <%= render "shared/pagination", pagy: @pagy %>
   <% end %>
 </div>

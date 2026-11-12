@@ -11,6 +11,8 @@
     <p class="truncate text-sm text-muted"><%= user.email_address %></p>
 
     <div class="mt-4 space-y-1 border-t border-line pt-4">
+      <%= link_to t("layouts.account_menu.orders"), orders_path,
+            class: "block rounded-md px-0 py-1 font-medium transition-colors hover:text-accent" %>
       <% if user.admin? %>
         <%= link_to t("layouts.account_menu.admin"), admin_root_path,
               class: "block rounded-md px-0 py-1 font-medium transition-colors hover:text-accent" %>
