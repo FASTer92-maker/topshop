@@ -178,7 +178,98 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     assert_select "p", text: "Заказов пока нет"
   end
 
+  test "index shows orders in a table with number, date, total and status badge" do
+    order = create_order(status: :paid)
+    sign_in_as @user
+
+    get orders_path
+
+    assert_response :success
+    assert_select "table thead th", count: 4
+    assert_select "thead th", text: "Заказ"
+    assert_select "thead th", text: "Дата"
+    assert_select "thead th", text: "Сумма"
+    assert_select "thead th", text: "Статус"
+
+    assert_select "tbody tr", count: 1
+    assert_select "tbody a[href=?]", order_path(order), text: /#{order.number}/
+    assert_select "tbody td", text: Regexp.new(Regexp.escape(I18n.l(order.created_at, format: :short)))
+    assert_select "tbody td", text: /1[[:space:]]400/
+    assert_select "tbody span", text: "Оплачен"
+    assert_select "#account_menu a[href=?]", orders_path, text: "Мои заказы"
+  end
+
+  test "index paginates ten orders per page" do
+    12.times { |index| create_order(created_at: index.minutes.ago) }
+    sign_in_as @user
+
+    get orders_path
+
+    assert_response :success
+    assert_select "tbody tr", count: 10
+    assert_select "a[href=?]", orders_path(page: 2)
+
+    get orders_path(page: 2)
+
+    assert_response :success
+    assert_select "tbody tr", count: 2
+  end
+
+  test "show displays the status badge and the progress scale" do
+    order = place_order
+    order.update!(status: :assembled)
+    sign_in_as @user
+
+    get order_path(order)
+
+    assert_response :success
+    assert_select "span", text: "Собран"
+    assert_select "section[aria-label='Статус заказа'] ol li", count: 5
+    assert_select "section[aria-label='Статус заказа'] ol li", text: /Новый/
+    assert_select "section[aria-label='Статус заказа'] ol li", text: /Оплачен/
+    assert_select "section[aria-label='Статус заказа'] ol li", text: /Собран/
+    assert_select "section[aria-label='Статус заказа'] ol li", text: /Отправлен/
+    assert_select "section[aria-label='Статус заказа'] ol li", text: /Доставлен/
+  end
+
+  test "a cancelled order shows the notice instead of the progress scale" do
+    order = place_order
+    order.update!(status: :cancelled)
+    sign_in_as @user
+
+    get order_path(order)
+
+    assert_response :success
+    assert_select "span", text: "Отменён"
+    assert_select "section[aria-label='Статус заказа'] ol", count: 0
+    assert_select "p", text: /Заказ отменён/
+  end
+
   private
+    def create_order(status: :pending, created_at: Time.current)
+      order = @user.orders.new(
+        number: "ORD-TEST-#{SecureRandom.hex(3).upcase}",
+        full_name: "Иван Петров",
+        phone: "+7 (999) 123-45-67",
+        address: "Москва, ул. Тверская, 1",
+        subtotal: 1000,
+        delivery_price: 400,
+        total: 1400,
+        status: status,
+        created_at: created_at
+      )
+      order.order_items.build(
+        variant: @variant,
+        product_name: @variant.product.name,
+        size: @variant.size,
+        color: @variant.color,
+        unit_price: 1000,
+        quantity: 1
+      )
+      order.save!
+      order
+    end
+
     def order_params(overrides = {})
       {
         full_name: "Иван Петров",

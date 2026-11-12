@@ -1,0 +1,5 @@
+<%# locals: (status:) -%>
+<% badge = status_badge(status) -%>
+<span class="inline-flex items-center whitespace-nowrap rounded-full px-3 py-1 text-[12px] font-semibold uppercase tracking-wide <%= badge[:classes] %>">
+  <%= badge[:label] %>
+</span>

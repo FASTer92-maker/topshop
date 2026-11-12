@@ -22,6 +22,7 @@ ru:
         many: Корзина (%{count})
         other: Корзина (%{count})
     account_menu:
+      orders: Мои заказы
       admin: Админ-панель
       sign_out: Выйти
     flash:
@@ -213,6 +214,11 @@ ru:
     index:
       title: Мои заказы
       number: "Заказ №%{number}"
+      table:
+        number: Заказ
+        date: Дата
+        total: Сумма
+        status: Статус
       items:
         one: "%{count} товар"
         few: "%{count} товара"
@@ -222,6 +228,16 @@ ru:
         title: Заказов пока нет
         text: Оформите первый заказ — он появится здесь.
         action: Перейти в каталог
+    statuses:
+      pending: Новый
+      paid: Оплачен
+      assembled: Собран
+      shipped: Отправлен
+      delivered: Доставлен
+      cancelled: Отменён
+    status_progress:
+      title: Статус заказа
+      cancelled: Заказ отменён. Если это ошибка — свяжитесь с нами.
 
   favorites:
     index:

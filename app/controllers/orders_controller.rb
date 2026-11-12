@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   def index
-    @orders = Current.user.orders.recent.includes(:order_items)
+    @pagy, @orders = pagy(:offset, Current.user.orders.recent.includes(:order_items), limit: 10)
   end
 
   # Only the current user's orders are visible: somebody else's id is a 404.

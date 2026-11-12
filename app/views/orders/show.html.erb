@@ -7,8 +7,11 @@
         <%= t(".number", number: @order.number) %>
       </p>
       <h1 class="heading-display mt-2 text-[28px] sm:text-[36px]"><%= t(".title") %></h1>
+      <div class="mt-4"><%= render "orders/status_badge", status: @order %></div>
       <p class="mt-3 text-muted"><%= t(".payment_notice") %></p>
     </div>
+
+    <%= render "orders/status_progress", order: @order %>
 
     <section class="mt-10">
       <h2 class="heading-display text-[20px]"><%= t(".items") %></h2>
