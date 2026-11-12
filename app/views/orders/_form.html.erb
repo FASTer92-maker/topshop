@@ -1,0 +1,38 @@
+<%# locals: (order:) -%>
+<%# The submitter targets _top: a successful order opens its own page, while a
+    422 re-renders the whole checkout form with the errors. %>
+<%= form_with model: order, url: orders_path, class: "rounded-lg border border-line p-5 md:p-6" do |form| %>
+  <%= render "shared/form_errors", object: order %>
+
+  <h2 class="heading-display text-[20px]"><%= t("orders.form.title") %></h2>
+
+  <div class="mt-5 space-y-5">
+    <div>
+      <%= form.label :full_name, t("orders.form.full_name"), class: "form-label" %>
+      <%= form.text_field :full_name, required: true, autocomplete: "name", maxlength: 100,
+            class: "form-input" %>
+    </div>
+
+    <div>
+      <%= form.label :phone, t("orders.form.phone"), class: "form-label" %>
+      <%= form.telephone_field :phone, required: true, autocomplete: "tel",
+            placeholder: t("orders.form.phone_placeholder"), class: "form-input" %>
+    </div>
+
+    <div>
+      <%= form.label :address, t("orders.form.address"), class: "form-label" %>
+      <%= form.text_area :address, required: true, rows: 3, autocomplete: "street-address",
+            placeholder: t("orders.form.address_placeholder"), class: "form-input" %>
+    </div>
+
+    <div>
+      <%= form.label :comment, t("orders.form.comment"), class: "form-label" %>
+      <%= form.text_area :comment, rows: 3, placeholder: t("orders.form.comment_placeholder"),
+            class: "form-input" %>
+    </div>
+
+    <%= form.submit t("orders.form.submit"),
+          class: "btn-primary w-full",
+          data: { turbo_submits_with: t("orders.form.submitting"), turbo_frame: "_top" } %>
+  </div>
+<% end %>

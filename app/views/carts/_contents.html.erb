@@ -40,11 +40,11 @@
           <p class="mt-4 rounded-md bg-surface px-3 py-2 text-[13px] text-muted"><%= t(".summary.free_reached") %></p>
         <% end %>
 
-        <% unless cart.checkout_ready? %>
+        <% if cart.checkout_ready? %>
+          <%= link_to t(".summary.checkout"), new_order_path, class: "btn-primary mt-4 w-full" %>
+        <% else %>
           <p class="mt-4 text-[13px] font-medium text-danger"><%= t(".summary.not_ready") %></p>
         <% end %>
-
-        <%# The checkout button arrives with the order form in stage 15. %>
       </aside>
     </div>
   <% end %>

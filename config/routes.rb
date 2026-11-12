@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :favorites, only: :index
   resource :cart, only: :show
   resources :cart_items, only: %i[ create update destroy ]
+  resources :orders, only: %i[ index show new create ]
   resources :categories, only: :show, param: :slug
 
   namespace :admin do

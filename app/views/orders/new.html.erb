@@ -1,0 +1,14 @@
+<% content_for :title, t(".title") %>
+
+<div class="page-container py-8 md:py-12">
+  <h1 class="heading-display text-[32px] sm:text-[40px]"><%= t(".title") %></h1>
+  <p class="mt-2 text-muted"><%= t(".subtitle") %></p>
+
+  <div class="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+    <%= turbo_frame_tag "checkout" do %>
+      <%= render "orders/form", order: @order %>
+    <% end %>
+
+    <%= render "orders/cart_summary", cart: @cart, items: @cart_items %>
+  </div>
+</div>

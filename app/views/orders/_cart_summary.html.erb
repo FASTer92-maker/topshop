@@ -1,0 +1,45 @@
+<%# locals: (cart:, items:) -%>
+<aside id="checkout_summary" class="rounded-lg border border-line p-5 lg:sticky lg:top-24">
+  <h2 class="heading-display text-[20px]"><%= t("orders.cart_summary.title") %></h2>
+
+  <ul class="mt-4 divide-y divide-line border-y border-line">
+    <% items.each do |item| %>
+      <li class="flex gap-3 py-3">
+        <div class="aspect-[3/4] w-14 shrink-0 overflow-hidden rounded bg-surface">
+          <% if item.product.image.attached? %>
+            <%= image_tag item.product.image, alt: item.product.name, loading: "lazy",
+                  class: "h-full w-full object-cover" %>
+          <% end %>
+        </div>
+
+        <div class="min-w-0 flex-1">
+          <p class="text-[14px] font-medium leading-snug"><%= item.product.name %></p>
+          <p class="mt-0.5 text-[12px] text-muted">
+            <%= item.variant.label %> · <%= t("orders.cart_summary.quantity", count: item.quantity) %>
+          </p>
+        </div>
+
+        <p class="whitespace-nowrap text-[14px] font-semibold tabular-nums">
+          <%= number_to_currency(item.subtotal) %>
+        </p>
+      </li>
+    <% end %>
+  </ul>
+
+  <dl class="mt-4 space-y-2 text-[15px]">
+    <div class="flex justify-between gap-4">
+      <dt class="text-muted"><%= t("orders.cart_summary.goods") %></dt>
+      <dd class="tabular-nums"><%= number_to_currency(cart.subtotal) %></dd>
+    </div>
+    <div class="flex justify-between gap-4">
+      <dt class="text-muted"><%= t("orders.cart_summary.delivery") %></dt>
+      <dd class="tabular-nums">
+        <%= cart.delivery_price.zero? ? t("orders.cart_summary.free") : number_to_currency(cart.delivery_price) %>
+      </dd>
+    </div>
+    <div class="flex justify-between gap-4 border-t border-line pt-3 text-[16px] font-semibold">
+      <dt><%= t("orders.cart_summary.total") %></dt>
+      <dd class="tabular-nums"><%= number_to_currency(cart.total) %></dd>
+    </div>
+  </dl>
+</aside>
