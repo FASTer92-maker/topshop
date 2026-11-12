@@ -11,36 +11,52 @@ class AddToCartTest < ApplicationSystemTestCase
     assert_selector "h1", text: /вход/i
   end
 
-  test "customer adds a size and the counter changes without reloading" do
+  test "customer adds a size and lands on the cart page" do
     sign_in_as_customer
     visit product_path(products(:men_jacket))
     pick_size("Табачный", "M")
-    page.execute_script("window.cartMarker = true")
 
     within("header") { assert_selector "#cart_counter", text: /корзина \(0\)/i }
 
     click_on "В корзину"
+
+    assert_current_path cart_path
     within("header") { assert_selector "#cart_counter", text: /корзина \(1\)/i }
     assert_text "Товар добавлен в корзину"
+    assert_text "Куртка «Арден»"
+    assert_text "M · Табачный"
+  end
 
-    click_on "В корзину"
+  test "adding the same size twice increases one row" do
+    sign_in_as_customer
+
+    2.times do
+      visit product_path(products(:men_jacket))
+      pick_size("Табачный", "M")
+      click_on "В корзину"
+    end
+
+    assert_current_path cart_path
+    assert_selector "[id^='cart_item_']", count: 1
+    assert_selector "[id^='cart_item_'] [aria-live='polite']", text: "2"
     within("header") { assert_selector "#cart_counter", text: /корзина \(2\)/i }
-
-    assert page.evaluate_script("window.cartMarker"), "страница не должна перезагружаться"
   end
 
   test "customer cannot add more than the stock" do
     sign_in_as_customer
+
+    2.times do
+      visit product_path(products(:men_jacket))
+      pick_size("Табачный", "M")
+      click_on "В корзину"
+    end
+
     visit product_path(products(:men_jacket))
     pick_size("Табачный", "M")
-
-    click_on "В корзину"
-    click_on "В корзину"
-    within("header") { assert_selector "#cart_counter", text: /корзина \(2\)/i }
-
     click_on "В корзину"
 
     assert_text "Недостаточно товара на складе (доступно: 2)"
+    assert_current_path product_path(products(:men_jacket))
     within("header") { assert_selector "#cart_counter", text: /корзина \(2\)/i }
   end
 
