@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_one :cart, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_products, through: :favorites, source: :product
+  has_many :orders, dependent: :restrict_with_error
 
   enum :role, { customer: 0, admin: 1 }, default: :customer
 

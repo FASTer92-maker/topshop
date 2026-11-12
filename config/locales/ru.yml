@@ -175,6 +175,10 @@ ru:
             quantity:
               insufficient_stock: "Недостаточно товара на складе (доступно: %{available})"
               product_unavailable: Товар недоступен
+        order:
+          attributes:
+            total:
+              not_equal_to_sum: должно быть равно сумме товаров и доставки
 
   i18n:
     transliterate:

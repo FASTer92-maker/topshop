@@ -3,6 +3,8 @@ class Variant < ApplicationRecord
   LOW_STOCK_LIMIT = 3
 
   belongs_to :product, inverse_of: :variants
+  has_many :cart_items, dependent: :destroy
+  has_many :order_items, dependent: :restrict_with_error
 
   normalizes :sku, with: ->(sku) { sku.strip.upcase }
   normalizes :color, with: ->(color) { color.strip.capitalize }
