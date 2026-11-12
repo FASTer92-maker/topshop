@@ -73,6 +73,13 @@ class CartItemTest < ActiveSupport::TestCase
     assert_equal 25_980, build_item(quantity: 2).subtotal
   end
 
+  test "available? reflects the stock and the product state" do
+    assert build_item.available?
+    assert_not build_item(quantity: 6).available?
+    assert_not build_item(variant: variants(:sold_out_bag_one_size)).available?
+    assert_not build_item(variant: variants(:hidden_bag_one_size)).available?
+  end
+
   test "delegates the product to the variant" do
     assert_equal products(:men_jacket), build_item.product
   end

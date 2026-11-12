@@ -1,0 +1,51 @@
+<%# locals: (cart:, items:) -%>
+<%# The wrapper keeps its id so a Turbo Stream can replace it again later. %>
+<div id="cart_contents">
+  <% if items.empty? %>
+    <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text"),
+          action_label: t(".empty.action"), action_path: products_path %>
+  <% else %>
+    <div class="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+      <ul class="divide-y divide-line border-y border-line">
+        <% items.each do |item| %>
+          <%= render "carts/item", item: item %>
+        <% end %>
+      </ul>
+
+      <aside id="cart_summary" class="rounded-lg border border-line p-5 lg:sticky lg:top-24">
+        <h2 class="heading-display text-[20px]"><%= t(".summary.title") %></h2>
+
+        <dl class="mt-4 space-y-2 text-[15px]">
+          <div class="flex justify-between gap-4">
+            <dt class="text-muted"><%= t(".summary.goods") %></dt>
+            <dd class="tabular-nums"><%= number_to_currency(cart.subtotal) %></dd>
+          </div>
+          <div class="flex justify-between gap-4">
+            <dt class="text-muted"><%= t(".summary.delivery") %></dt>
+            <dd class="tabular-nums">
+              <%= cart.delivery_price.zero? ? t(".summary.free") : number_to_currency(cart.delivery_price) %>
+            </dd>
+          </div>
+          <div class="flex justify-between gap-4 border-t border-line pt-3 text-[16px] font-semibold">
+            <dt><%= t(".summary.total") %></dt>
+            <dd class="tabular-nums"><%= number_to_currency(cart.total) %></dd>
+          </div>
+        </dl>
+
+        <% if cart.amount_to_free_delivery.positive? %>
+          <p class="mt-4 rounded-md bg-surface px-3 py-2 text-[13px] text-muted">
+            <%= t(".summary.to_free", amount: number_to_currency(cart.amount_to_free_delivery)) %>
+          </p>
+        <% else %>
+          <p class="mt-4 rounded-md bg-surface px-3 py-2 text-[13px] text-muted"><%= t(".summary.free_reached") %></p>
+        <% end %>
+
+        <% unless cart.checkout_ready? %>
+          <p class="mt-4 text-[13px] font-medium text-danger"><%= t(".summary.not_ready") %></p>
+        <% end %>
+
+        <%# The checkout button arrives with the order form in stage 15. %>
+      </aside>
+    </div>
+  <% end %>
+</div>

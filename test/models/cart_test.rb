@@ -116,4 +116,70 @@ class CartTest < ActiveSupport::TestCase
       users(:customer).destroy!
     end
   end
+
+  test "empty? reflects the items" do
+    assert @cart.empty?
+
+    @cart.add_variant(@variant)
+
+    assert_not @cart.empty?
+  end
+
+  test "delivery is charged below the threshold" do
+    @cart.add_variant(cheap_variant(price: 4_000))
+
+    assert_equal 4_000, @cart.subtotal
+    assert_equal 400, @cart.delivery_price
+    assert_equal 4_400, @cart.total
+    assert_equal 6_000, @cart.amount_to_free_delivery
+  end
+
+  test "delivery is free from the threshold" do
+    @cart.add_variant(@variant)
+
+    assert_equal 12_990, @cart.subtotal
+    assert_equal 0, @cart.delivery_price
+    assert_equal 12_990, @cart.total
+    assert_equal 0, @cart.amount_to_free_delivery
+  end
+
+  test "delivery is free exactly at the threshold" do
+    @cart.add_variant(cheap_variant(price: 10_000))
+
+    assert_equal 0, @cart.delivery_price
+    assert_equal 0, @cart.amount_to_free_delivery
+  end
+
+  test "checkout_ready? needs items and available rows" do
+    assert_not @cart.checkout_ready?
+
+    @cart.add_variant(@variant)
+    assert @cart.checkout_ready?
+
+    variants(:men_jacket_m_black).update!(stock: 0)
+    assert_not @cart.checkout_ready?
+  end
+
+  test "a product hidden after adding blocks checkout" do
+    @cart.add_variant(@variant)
+    products(:men_jacket).update!(active: false)
+
+    assert_not @cart.checkout_ready?
+    assert_equal 1, @cart.unavailable_items.size
+  end
+
+  test "a stock drop below the quantity blocks checkout" do
+    @cart.add_variant(variants(:men_jacket_m_tabacco), 2)
+    variants(:men_jacket_m_tabacco).update!(stock: 1)
+
+    assert_not @cart.checkout_ready?
+    assert_equal [ 2 ], @cart.unavailable_items.map(&:quantity)
+  end
+
+  private
+    def cheap_variant(price:, stock: 5)
+      product = Product.create!(category: categories(:accessories_bags), name: "Ремень", price: price, active: true)
+      product.variants.create!(size: "ONE SIZE", color: "Чёрный", stock: stock,
+                               sku: "AC-BEL-#{SecureRandom.hex(3)}")
+    end
 end
