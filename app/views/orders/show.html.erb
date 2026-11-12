@@ -1,0 +1,68 @@
+<% content_for :title, t(".title") %>
+
+<div class="page-container py-8 md:py-12">
+  <div class="mx-auto max-w-3xl">
+    <div class="rounded-lg border border-line bg-surface px-6 py-8 text-center">
+      <p class="text-[13px] font-medium uppercase tracking-wide text-muted">
+        <%= t(".number", number: @order.number) %>
+      </p>
+      <h1 class="heading-display mt-2 text-[28px] sm:text-[36px]"><%= t(".title") %></h1>
+      <p class="mt-3 text-muted"><%= t(".payment_notice") %></p>
+    </div>
+
+    <section class="mt-10">
+      <h2 class="heading-display text-[20px]"><%= t(".items") %></h2>
+
+      <ul class="mt-4 divide-y divide-line border-y border-line">
+        <% @order.order_items.order(:id).each do |item| %>
+          <li class="flex items-start justify-between gap-4 py-4">
+            <div>
+              <p class="font-display text-[15px] font-medium"><%= item.product_name %></p>
+              <p class="mt-1 text-[13px] text-muted">
+                <%= item.size %> · <%= item.color %> · <%= t(".quantity", count: item.quantity) %>
+              </p>
+            </div>
+            <p class="whitespace-nowrap font-semibold tabular-nums">
+              <%= number_to_currency(item.subtotal) %>
+            </p>
+          </li>
+        <% end %>
+      </ul>
+
+      <dl class="mt-4 ml-auto max-w-xs space-y-2 text-[15px]">
+        <div class="flex justify-between gap-4">
+          <dt class="text-muted"><%= t(".goods") %></dt>
+          <dd class="tabular-nums"><%= number_to_currency(@order.subtotal) %></dd>
+        </div>
+        <div class="flex justify-between gap-4">
+          <dt class="text-muted"><%= t(".delivery") %></dt>
+          <dd class="tabular-nums">
+            <%= @order.delivery_price.zero? ? t(".free") : number_to_currency(@order.delivery_price) %>
+          </dd>
+        </div>
+        <div class="flex justify-between gap-4 border-t border-line pt-3 text-[16px] font-semibold">
+          <dt><%= t(".total") %></dt>
+          <dd class="tabular-nums"><%= number_to_currency(@order.total) %></dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="mt-10 grid gap-6 sm:grid-cols-2">
+      <div class="rounded-lg border border-line p-5">
+        <h2 class="heading-display text-[18px]"><%= t(".delivery_details.title") %></h2>
+        <p class="mt-3 font-medium"><%= @order.full_name %></p>
+        <p class="mt-1 text-[14px] text-muted"><%= @order.phone %></p>
+        <p class="mt-1 text-[14px] text-muted"><%= @order.address %></p>
+        <% if @order.comment.present? %>
+          <p class="mt-3 rounded-md bg-surface px-3 py-2 text-[13px] text-muted"><%= @order.comment %></p>
+        <% end %>
+      </div>
+
+      <div class="rounded-lg border border-line p-5">
+        <h2 class="heading-display text-[18px]"><%= t(".next.title") %></h2>
+        <p class="mt-3 text-[14px] text-muted"><%= t(".next.text") %></p>
+        <%= link_to t(".next.action"), products_path, class: "btn-secondary mt-4 w-full" %>
+      </div>
+    </section>
+  </div>
+</div>

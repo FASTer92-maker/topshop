@@ -1,0 +1,25 @@
+<% content_for :title, t(".title") %>
+
+<div class="page-container py-8 md:py-12">
+  <h1 class="heading-display text-[32px] sm:text-[40px]"><%= t(".title") %></h1>
+
+  <% if @orders.empty? %>
+    <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text"),
+          action_label: t(".empty.action"), action_path: products_path %>
+  <% else %>
+    <ul class="mt-6 divide-y divide-line border-y border-line">
+      <% @orders.each do |order| %>
+        <li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-4">
+          <div>
+            <%= link_to t(".number", number: order.number), order_path(order),
+                  class: "font-display font-medium link-underline" %>
+            <p class="mt-0.5 text-[13px] text-muted">
+              <%= l(order.created_at, format: :short) %> · <%= t(".items", count: order.items_count) %>
+            </p>
+          </div>
+          <p class="font-semibold tabular-nums"><%= number_to_currency(order.total) %></p>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

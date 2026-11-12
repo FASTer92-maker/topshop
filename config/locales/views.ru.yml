@@ -141,6 +141,7 @@ ru:
         to_free: "До бесплатной доставки: %{amount}"
         free_reached: Доставка бесплатная
         not_ready: Исправьте количество или уберите недоступные товары, чтобы оформить заказ.
+        checkout: Оформить заказ
     item:
       decrease: "Уменьшить количество: %{name}, %{variant}"
       increase: "Увеличить количество: %{name}, %{variant}"
@@ -157,6 +158,70 @@ ru:
       invalid_quantity: Некорректное количество
     destroy:
       removed: Товар удалён из корзины
+
+  orders:
+    new:
+      title: Оформление заказа
+      subtitle: Проверьте состав заказа и заполните данные доставки.
+      empty_cart: Корзина пуста — добавьте товары перед оформлением.
+      cart_not_ready: Исправьте количество или уберите недоступные товары, чтобы оформить заказ.
+    create:
+      success: Заказ оформлен
+      empty_cart: Корзина пуста — заказ не был создан.
+    form:
+      title: Данные доставки
+      full_name: ФИО
+      phone: Телефон
+      phone_placeholder: "+7 (999) 123-45-67"
+      address: Адрес
+      address_placeholder: Город, улица, дом, квартира
+      comment: Комментарий
+      comment_placeholder: Необязательно
+      submit: Подтвердить заказ
+      submitting: Оформляем…
+    cart_summary:
+      title: Состав заказа
+      quantity:
+        one: "%{count} шт."
+        few: "%{count} шт."
+        many: "%{count} шт."
+        other: "%{count} шт."
+      goods: Товары
+      delivery: Доставка
+      total: Итого
+      free: Бесплатно
+    show:
+      title: Заказ принят
+      number: "Заказ №%{number}"
+      payment_notice: Оплата имитируется — реальные деньги не списываются.
+      items: Состав заказа
+      quantity:
+        one: "%{count} шт."
+        few: "%{count} шт."
+        many: "%{count} шт."
+        other: "%{count} шт."
+      goods: Товары
+      delivery: Доставка
+      total: Итого
+      free: Бесплатно
+      delivery_details:
+        title: Доставка
+      next:
+        title: Что дальше?
+        text: Мы свяжемся с вами для подтверждения заказа. Следить за статусом можно в разделе «Мои заказы».
+        action: Продолжить покупки
+    index:
+      title: Мои заказы
+      number: "Заказ №%{number}"
+      items:
+        one: "%{count} товар"
+        few: "%{count} товара"
+        many: "%{count} товаров"
+        other: "%{count} товара"
+      empty:
+        title: Заказов пока нет
+        text: Оформите первый заказ — он появится здесь.
+        action: Перейти в каталог
 
   favorites:
     index:
