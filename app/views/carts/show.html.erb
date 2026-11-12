@@ -1,0 +1,7 @@
+<% content_for :title, t(".title") %>
+
+<div class="page-container py-8 md:py-12">
+  <h1 class="heading-display text-[32px] sm:text-[40px]"><%= t(".title") %></h1>
+
+  <%= render "carts/contents", cart: @cart, items: @cart_items %>
+</div>

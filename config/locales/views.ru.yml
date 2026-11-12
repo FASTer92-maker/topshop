@@ -124,11 +124,39 @@ ru:
     similar:
       title: Похожие товары
 
+  carts:
+    show:
+      title: Корзина
+    contents:
+      empty:
+        title: Корзина пуста.
+        text: Добавьте товары из каталога — они появятся здесь.
+        action: Перейти в каталог
+      summary:
+        title: Итог
+        goods: Товары
+        delivery: Доставка
+        total: Итого
+        free: Бесплатно
+        to_free: "До бесплатной доставки: %{amount}"
+        free_reached: Доставка бесплатная
+        not_ready: Исправьте количество или уберите недоступные товары, чтобы оформить заказ.
+    item:
+      decrease: "Уменьшить количество: %{name}, %{variant}"
+      increase: "Увеличить количество: %{name}, %{variant}"
+      remove: Удалить
+      insufficient_stock: "Недостаточно товара на складе (доступно: %{available})"
+      unavailable: Товар недоступен
+
   cart_items:
     create:
       success: Товар добавлен в корзину
       choose_size: Выберите размер
       unavailable: Товар недоступен
+    update:
+      invalid_quantity: Некорректное количество
+    destroy:
+      removed: Товар удалён из корзины
 
   favorites:
     index:

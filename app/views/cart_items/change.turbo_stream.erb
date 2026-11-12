@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "cart_contents" do %>
+  <%= render "carts/contents", cart: @cart, items: @cart_items %>
+<% end %>
+
+<%= turbo_stream.replace "cart_counter" do %>
+  <%= render "layouts/cart_counter", count: @cart.items_count %>
+<% end %>
+
+<%= turbo_stream.replace "flash", partial: "layouts/flash" %>

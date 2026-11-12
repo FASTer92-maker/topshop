@@ -23,7 +23,7 @@
       </ul>
     </nav>
 
-    <%# Search goes to the catalog with the query. The cart arrives in stage 12. %>
+    <%# Search goes to the catalog with the query. %>
     <%= form_with url: products_path, method: :get, html: { role: "search", class: "order-4 w-full pb-3 md:order-3 md:w-64 md:pb-0" } do |form| %>
       <%= form.label :q, t(".search_placeholder"), class: "sr-only" %>
       <div class="flex items-center gap-2 rounded-md border border-line px-3 transition-colors focus-within:border-ink">

@@ -1,2 +1,4 @@
 <%# locals: (count:) -%>
-<span id="cart_counter" class="text-muted"><%= t("layouts.header.cart", count: count) %></span>
+<%= link_to cart_path, id: "cart_counter", class: "text-muted transition-colors hover:text-accent" do %>
+  <%= t("layouts.header.cart", count: count) %>
+<% end %>
