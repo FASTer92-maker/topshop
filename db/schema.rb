@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_11_201923) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_120001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -84,6 +84,45 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_201923) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "variant_id", null: false
+    t.string "product_name", null: false
+    t.string "size", null: false
+    t.string "color", null: false
+    t.decimal "unit_price", precision: 10, scale: 2, null: false
+    t.integer "quantity", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["variant_id"], name: "index_order_items_on_variant_id"
+    t.check_constraint "quantity > 0", name: "order_items_quantity_check"
+    t.check_constraint "unit_price >= 0::numeric", name: "order_items_unit_price_check"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "number", null: false
+    t.integer "status", default: 0, null: false
+    t.decimal "subtotal", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "delivery_price", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "total", precision: 10, scale: 2, default: "0.0", null: false
+    t.string "full_name", null: false
+    t.string "phone", null: false
+    t.text "address", null: false
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_orders_on_created_at"
+    t.index ["number"], name: "index_orders_on_number", unique: true
+    t.index ["status"], name: "index_orders_on_status"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.check_constraint "delivery_price >= 0::numeric", name: "orders_delivery_price_check"
+    t.check_constraint "status >= 0 AND status <= 5", name: "orders_status_check"
+    t.check_constraint "subtotal >= 0::numeric", name: "orders_subtotal_check"
+    t.check_constraint "total = (subtotal + delivery_price)", name: "orders_total_check"
+  end
+
   create_table "products", force: :cascade do |t|
     t.bigint "category_id", null: false
     t.string "name", null: false
@@ -148,6 +187,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_201923) do
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "favorites", "products"
   add_foreign_key "favorites", "users"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "variants"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
   add_foreign_key "sessions", "users"
   add_foreign_key "variants", "products"
