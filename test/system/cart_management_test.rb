@@ -53,9 +53,14 @@ class CartManagementTest < ApplicationSystemTestCase
       assert_text(/До бесплатной доставки: 6[[:space:]]000/)
     end
 
-    2.times do
-      within("#cart_item_#{item.id}") { find("button[aria-label*='Увеличить']").click }
-    end
+    # Each click sends the quantity rendered in the row, so wait for the Turbo
+    # Stream to replace the row before clicking again. Two clicks in a row would
+    # both send quantity=2 and the second increment would be lost.
+    within("#cart_item_#{item.id}") { find("button[aria-label*='Увеличить']").click }
+    within("#cart_item_#{item.id}") { assert_selector "[aria-live='polite']", text: "2" }
+
+    within("#cart_item_#{item.id}") { find("button[aria-label*='Увеличить']").click }
+    within("#cart_item_#{item.id}") { assert_selector "[aria-live='polite']", text: "3" }
 
     within("#cart_summary") do
       assert_text "Доставка бесплатная"

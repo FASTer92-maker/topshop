@@ -6,5 +6,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # default parallelization threshold.
   parallelize(workers: 1)
 
-  driven_by :selenium, using: :headless_chrome, screen_size: [ 1400, 1000 ]
+  driven_by :selenium, using: :headless_chrome, screen_size: [ 1400, 1000 ] do |options|
+    # GitHub Actions runs Chrome in a container: the sandbox is unavailable and
+    # /dev/shm is small, so these flags keep the browser from crashing there.
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+  end
 end
