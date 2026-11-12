@@ -19,7 +19,32 @@ class Cart < ApplicationRecord
     cart_items.joins(variant: :product).sum("cart_items.quantity * products.price")
   end
 
+  def delivery_price
+    Delivery.price_for(subtotal)
+  end
+
+  def total
+    subtotal + delivery_price
+  end
+
+  def amount_to_free_delivery
+    Delivery.amount_to_free(subtotal)
+  end
+
   def items_count
     cart_items.sum(:quantity)
+  end
+
+  def empty?
+    cart_items.none?
+  end
+
+  def checkout_ready?
+    !empty? && unavailable_items.empty?
+  end
+
+  # Rows whose product was hidden or whose stock dropped below the quantity.
+  def unavailable_items
+    cart_items.includes(variant: :product).reject(&:available?)
   end
 end
