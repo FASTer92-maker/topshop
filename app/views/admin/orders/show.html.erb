@@ -1,0 +1,78 @@
+<% content_for :title, t(".title", number: @order.number) %>
+
+<div class="flex flex-wrap items-start justify-between gap-4">
+  <div>
+    <%= link_to t(".back"), admin_orders_path, class: "text-sm link-underline" %>
+    <h1 class="heading-display mt-2 text-[28px]"><%= t(".title", number: @order.number) %></h1>
+    <p class="mt-2 text-sm text-muted"><%= t(".created_at", date: l(@order.created_at, format: :long)) %></p>
+  </div>
+
+  <%= render "admin/orders/status", order: @order %>
+</div>
+
+<section class="mt-6 rounded-lg border border-line bg-white px-5 py-4">
+  <h2 class="text-[12px] font-semibold uppercase tracking-wide text-muted"><%= t("admin.orders.actions.title") %></h2>
+  <%= render "admin/orders/actions", order: @order %>
+</section>
+
+<div class="mt-8 grid gap-6 lg:grid-cols-2">
+  <section class="rounded-lg border border-line bg-white p-5">
+    <h2 class="heading-display text-lg"><%= t(".customer.title") %></h2>
+    <p class="mt-3 font-medium"><%= @order.full_name %></p>
+    <p class="mt-1 text-sm text-muted"><%= @order.user.email_address %></p>
+    <p class="mt-1 text-sm text-muted"><%= @order.phone %></p>
+    <p class="mt-1 text-sm text-muted"><%= @order.address %></p>
+    <% if @order.comment.present? %>
+      <p class="mt-3 rounded-md bg-surface px-3 py-2 text-[13px] text-muted"><%= @order.comment %></p>
+    <% end %>
+  </section>
+
+  <section class="rounded-lg border border-line bg-white p-5">
+    <h2 class="heading-display text-lg"><%= t(".totals.title") %></h2>
+    <dl class="mt-3 space-y-2 text-[15px]">
+      <div class="flex justify-between gap-4">
+        <dt class="text-muted"><%= t(".totals.goods") %></dt>
+        <dd class="tabular-nums"><%= number_to_currency(@order.subtotal) %></dd>
+      </div>
+      <div class="flex justify-between gap-4">
+        <dt class="text-muted"><%= t(".totals.delivery") %></dt>
+        <dd class="tabular-nums">
+          <%= @order.delivery_price.zero? ? t(".totals.free") : number_to_currency(@order.delivery_price) %>
+        </dd>
+      </div>
+      <div class="flex justify-between gap-4 border-t border-line pt-2 font-semibold">
+        <dt><%= t(".totals.total") %></dt>
+        <dd class="tabular-nums"><%= number_to_currency(@order.total) %></dd>
+      </div>
+    </dl>
+  </section>
+</div>
+
+<section class="mt-8">
+  <h2 class="heading-display text-xl"><%= t(".items.title") %></h2>
+
+  <div class="mt-4 overflow-x-auto rounded-lg border border-line bg-white">
+    <table class="w-full min-w-[640px] border-collapse text-left text-[15px]">
+      <thead>
+        <tr class="border-b border-line bg-surface text-[12px] uppercase tracking-wide text-muted">
+          <th scope="col" class="px-4 py-3 font-medium"><%= t(".items.product") %></th>
+          <th scope="col" class="px-4 py-3 font-medium"><%= t(".items.size_color") %></th>
+          <th scope="col" class="px-4 py-3 text-right font-medium"><%= t(".items.quantity") %></th>
+          <th scope="col" class="px-4 py-3 text-right font-medium"><%= t(".items.unit_price") %></th>
+          <th scope="col" class="px-4 py-3 text-right font-medium"><%= t(".items.subtotal") %></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-line">
+        <% @order.order_items.order(:id).each do |item| %>
+          <tr>
+            <td class="px-4 py-4 font-medium"><%= item.product_name %></td>
+            <td class="px-4 py-4 text-muted"><%= item.size %> · <%= item.color %></td>
+            <td class="px-4 py-4 text-right tabular-nums"><%= item.quantity %></td>
+            <td class="px-4 py-4 text-right tabular-nums"><%= number_to_currency(item.unit_price) %></td>
+            <td class="px-4 py-4 text-right font-semibold tabular-nums"><%= number_to_currency(item.subtotal) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
