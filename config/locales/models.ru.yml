@@ -22,6 +22,11 @@ ru:
         few: Варианта
         many: Вариантов
         other: Варианта
+      subscriber:
+        one: Подписчик
+        few: Подписчика
+        many: Подписчиков
+        other: Подписчика
     attributes:
       user:
         email_address: Email
@@ -51,6 +56,8 @@ ru:
         stock: Остаток
         sku: Артикул
         product: Товар
+      subscriber:
+        email: Email
     errors:
       models:
         user:

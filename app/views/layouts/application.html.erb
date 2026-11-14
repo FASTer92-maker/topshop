@@ -36,6 +36,8 @@
       <%= yield %>
     </main>
 
+    <%= render "shared/newsletter", subscriber: Subscriber.new %>
+
     <%= render "layouts/footer" %>
   </body>
 </html>

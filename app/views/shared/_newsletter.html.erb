@@ -1,0 +1,37 @@
+<%# locals: (subscriber:, subscribed: false) -%>
+<%= turbo_frame_tag "newsletter" do %>
+  <section class="border-t border-line bg-surface" aria-labelledby="newsletter_title">
+    <div class="page-container py-10 md:py-12">
+      <div class="max-w-xl">
+        <h2 id="newsletter_title" class="heading-display text-[22px] sm:text-[26px]">
+          <%= t("newsletter.title") %>
+        </h2>
+        <p class="mt-2 text-muted"><%= t("newsletter.text") %></p>
+
+        <% if subscribed %>
+          <p role="status" class="mt-5 inline-flex rounded-md border border-line bg-white px-4 py-3 text-[15px] font-medium">
+            <%= t("newsletter.success") %>
+          </p>
+        <% else %>
+          <%= form_with model: subscriber, url: subscribers_path,
+                html: { novalidate: true },
+                class: "mt-5 flex flex-col gap-3 sm:flex-row sm:items-start" do |form| %>
+            <div class="flex-1">
+              <%= form.label :email, t("newsletter.email"), class: "sr-only" %>
+              <%= form.email_field :email, required: true, autocomplete: "email",
+                    placeholder: t("newsletter.placeholder"), class: "form-input" %>
+
+              <% if subscriber.errors.any? %>
+                <p role="alert" class="mt-2 text-sm text-danger">
+                  <%= subscriber.errors.full_messages.to_sentence %>
+                </p>
+              <% end %>
+            </div>
+
+            <%= form.submit t("newsletter.submit"), class: "btn-primary shrink-0" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
