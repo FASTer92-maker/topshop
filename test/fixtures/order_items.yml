@@ -1,0 +1,2 @@
+# Demo order items from db/seeds are cleaned up before each test; tests build
+# their own order items. The empty fixture still makes Rails truncate the table.
