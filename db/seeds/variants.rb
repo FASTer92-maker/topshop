@@ -1,6 +1,7 @@
 # Demo variants: every colour of every product in 1-3 sizes with different
 # stock levels (some are zero on purpose). Accessories get a single ONE SIZE.
-# Stock is derived from the catalog position so re-running the seed is stable.
+# Stock is derived from the catalog position on creation and is never reset on
+# re-runs, so orders that already consumed stock keep their honest balances.
 
 require "yaml"
 
@@ -23,7 +24,8 @@ catalog.each_with_index do |entry, product_index|
       stock = (product_index + color_index * 2 + size_index * 3) % 7
 
       variant = Variant.find_or_initialize_by(sku: sku)
-      variant.assign_attributes(product: product, size: size, color: color, stock: stock)
+      variant.assign_attributes(product: product, size: size, color: color)
+      variant.stock = stock if variant.new_record?
       variant.save!
     end
   end
