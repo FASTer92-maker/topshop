@@ -16,7 +16,7 @@ class Variant < ApplicationRecord
   validates :size, uniqueness: { scope: %i[product_id color] }
 
   scope :in_stock, -> { where("variants.stock > 0") }
-  scope :low_stock, ->(limit = LOW_STOCK_LIMIT) { where(stock: ..limit) }
+  scope :low_stock, ->(limit = LOW_STOCK_LIMIT) { where("variants.stock < ?", limit) }
   scope :by_size, -> { in_order_of(:size, SIZES) }
 
   def available?(quantity = 1)

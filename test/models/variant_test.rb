@@ -74,9 +74,17 @@ class VariantTest < ActiveSupport::TestCase
     assert_not_includes Variant.in_stock, variants(:men_jacket_l_black)
   end
 
-  test "low_stock scope returns variants with three or fewer items" do
+  test "low_stock scope returns variants with fewer than three items" do
     assert_includes Variant.low_stock, variants(:men_jacket_m_tabacco)
+    assert_includes Variant.low_stock, variants(:men_jacket_l_black)
     assert_not_includes Variant.low_stock, variants(:men_jacket_m_black)
+  end
+
+  test "low_stock scope excludes a variant with exactly three items" do
+    variant = variants(:women_jacket_s_black)
+    variant.update!(stock: 3)
+
+    assert_not_includes Variant.low_stock, variant
   end
 
   test "by_size orders variants in the display order" do

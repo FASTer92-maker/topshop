@@ -1,4 +1,105 @@
 <% content_for :title, t(".title") %>
 
-<h1 class="heading-display text-[28px]"><%= t(".title") %></h1>
-<p class="mt-2 text-muted"><%= t(".welcome") %></p>
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div>
+    <p class="text-[12px] font-medium uppercase tracking-wide text-muted"><%= t(".eyebrow") %></p>
+    <h1 class="heading-display mt-1 text-[28px]"><%= t(".title") %></h1>
+    <p class="mt-2 text-muted"><%= t(".welcome") %></p>
+  </div>
+
+  <%= link_to t(".all_orders"), admin_orders_path, class: "btn-secondary" %>
+</div>
+
+<div class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+  <% { "pending" => t(".stats.pending"), "paid" => t(".stats.paid"), "assembled" => t(".stats.assembled") }.each do |status, label| %>
+    <%= link_to admin_orders_path(status: status),
+          class: "rounded-lg border border-line bg-white p-5 transition-colors hover:border-ink",
+          data: { stat: status } do %>
+      <p class="text-[12px] font-medium uppercase tracking-wide text-muted"><%= label %></p>
+      <p class="mt-2 font-display text-[32px] leading-none"><%= @status_counts.fetch(status, 0) %></p>
+      <p class="mt-2 text-[13px] text-muted"><%= t(".stats.orders_hint") %></p>
+    <% end %>
+  <% end %>
+
+  <div class="rounded-lg border border-ink bg-ink p-5 text-white" data-stat="revenue">
+    <p class="text-[12px] font-medium uppercase tracking-wide text-neutral-300"><%= t(".stats.revenue") %></p>
+    <p class="mt-2 font-display text-[28px] leading-none"><%= number_to_currency(@revenue) %></p>
+    <p class="mt-2 text-[13px] text-neutral-300"><%= t(".stats.revenue_hint") %></p>
+  </div>
+
+  <div class="rounded-lg border border-line bg-white p-5" data-stat="subscribers">
+    <p class="text-[12px] font-medium uppercase tracking-wide text-muted"><%= t(".stats.subscribers") %></p>
+    <p class="mt-2 font-display text-[32px] leading-none"><%= @subscribers_count %></p>
+    <p class="mt-2 text-[13px] text-muted"><%= t(".stats.subscribers_hint") %></p>
+  </div>
+</div>
+
+<div class="mt-8 grid gap-6 xl:grid-cols-2">
+  <section id="low_stock" class="overflow-hidden rounded-lg border border-line bg-white">
+    <header class="flex flex-wrap items-center justify-between gap-2 border-b border-line px-5 py-4">
+      <h2 class="heading-display text-lg"><%= t(".low_stock.title") %></h2>
+      <span class="text-[13px] text-muted">
+        <%= t(".low_stock.count", count: @low_stock_variants.size) %>
+      </span>
+    </header>
+
+    <% if @low_stock_variants.empty? %>
+      <p class="px-5 py-8 text-sm text-muted"><%= t(".low_stock.empty") %></p>
+    <% else %>
+      <ul class="divide-y divide-line">
+        <% @low_stock_variants.each do |variant| %>
+          <li class="flex items-center justify-between gap-4 px-5 py-3">
+            <div class="min-w-0">
+              <p class="truncate font-medium"><%= variant.product.name %></p>
+              <p class="mt-0.5 text-[13px] text-muted"><%= variant.label %> · <%= variant.sku %></p>
+            </div>
+            <span class="shrink-0 rounded-full px-3 py-1 text-[12px] font-semibold <%= variant.stock.zero? ? "bg-danger text-white" : "bg-surface text-danger" %>">
+              <%= t(".low_stock.stock", count: variant.stock) %>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </section>
+
+  <section id="recent_orders" class="overflow-hidden rounded-lg border border-line bg-white">
+    <header class="flex flex-wrap items-center justify-between gap-2 border-b border-line px-5 py-4">
+      <h2 class="heading-display text-lg"><%= t(".recent_orders.title") %></h2>
+      <%= link_to t(".recent_orders.all"), admin_orders_path, class: "text-[13px] link-underline" %>
+    </header>
+
+    <% if @recent_orders.empty? %>
+      <p class="px-5 py-8 text-sm text-muted"><%= t(".recent_orders.empty") %></p>
+    <% else %>
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[520px] border-collapse text-left text-[15px]">
+          <thead>
+            <tr class="bg-surface text-[12px] uppercase tracking-wide text-muted">
+              <th scope="col" class="px-5 py-3 font-medium"><%= t(".recent_orders.number") %></th>
+              <th scope="col" class="px-5 py-3 font-medium"><%= t(".recent_orders.customer") %></th>
+              <th scope="col" class="px-5 py-3 text-right font-medium"><%= t(".recent_orders.total") %></th>
+              <th scope="col" class="px-5 py-3 text-right font-medium"><%= t(".recent_orders.status") %></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-line">
+            <% @recent_orders.each do |order| %>
+              <tr>
+                <td class="px-5 py-3">
+                  <%= link_to order.number, admin_order_path(order), class: "font-medium link-underline" %>
+                  <p class="mt-0.5 text-[12px] text-muted"><%= l(order.created_at, format: :short) %></p>
+                </td>
+                <td class="px-5 py-3 text-muted"><%= order.full_name %></td>
+                <td class="whitespace-nowrap px-5 py-3 text-right font-semibold tabular-nums">
+                  <%= number_to_currency(order.total) %>
+                </td>
+                <td class="px-5 py-3 text-right">
+                  <%= render "orders/status_badge", status: order %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </section>
+</div>

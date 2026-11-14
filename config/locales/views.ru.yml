@@ -352,7 +352,39 @@ ru:
     dashboard:
       index:
         title: Админ-панель
+        eyebrow: Обзор магазина
         welcome: Добро пожаловать в админ-панель TopShop.
+        all_orders: Все заказы
+        stats:
+          pending: Новые заказы
+          paid: Оплачены
+          assembled: Собраны
+          orders_hint: Заказы в этом статусе
+          revenue: Выручка
+          revenue_hint: Без отменённых заказов
+          subscribers: Подписчики
+          subscribers_hint: Всего адресов в рассылке
+        low_stock:
+          title: Заканчиваются
+          count:
+            one: "%{count} позиция"
+            few: "%{count} позиции"
+            many: "%{count} позиций"
+            other: "%{count} позиции"
+          empty: Все варианты в достатке.
+          stock:
+            one: "%{count} шт."
+            few: "%{count} шт."
+            many: "%{count} шт."
+            other: "%{count} шт."
+        recent_orders:
+          title: Последние заказы
+          all: Все заказы
+          empty: Заказов пока нет.
+          number: Заказ
+          customer: Покупатель
+          total: Сумма
+          status: Статус
     orders:
       index:
         title: Заказы
