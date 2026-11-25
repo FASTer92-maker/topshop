@@ -17,8 +17,8 @@
   --color-danger: #b3261e;
   --color-success: #2e7d4f;
 
-  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --font-display: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Oswald", "Arial Narrow", ui-sans-serif, sans-serif;
 }
 
 @layer base {
@@ -37,21 +37,21 @@
 
 /* Horizontal page gutter: 16px on phones up to 32px on desktop. */
 @utility page-container {
-  @apply mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8;
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
 }
 
-/* Heavy uppercase headings: short (1–4 words) only. */
+/* Condensed uppercase headings: short (1–4 words) only. */
 @utility heading-display {
-  @apply font-display font-extrabold uppercase leading-[1.08] tracking-[0.03em];
+  @apply font-display font-semibold uppercase leading-[1.08] tracking-wider;
 }
 
 /* Buttons: square, uppercase, black with gold hover; no shadows. */
 @utility btn-primary {
-  @apply inline-flex cursor-pointer items-center justify-center border border-ink bg-ink px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:border-accent hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50;
+  @apply inline-flex cursor-pointer items-center justify-center border border-ink bg-ink px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.12em] text-white transition-colors duration-300 hover:border-accent hover:bg-accent hover:text-white disabled:cursor-not-allowed disabled:opacity-50;
 }
 
 @utility btn-secondary {
-  @apply inline-flex cursor-pointer items-center justify-center border border-ink bg-transparent px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.12em] text-ink transition-colors hover:border-accent hover:text-accent;
+  @apply inline-flex cursor-pointer items-center justify-center border border-line bg-transparent px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-300 hover:border-accent hover:bg-accent hover:text-white;
 }
 
 /* Form controls */
@@ -60,11 +60,11 @@
 }
 
 @utility form-input {
-  @apply block w-full border border-line bg-white px-3 py-2.5 text-[15px] text-ink placeholder:text-muted focus:border-ink;
+  @apply block w-full border border-line bg-white px-3 py-2.5 text-[15px] text-ink transition-colors duration-300 placeholder:text-muted focus:border-accent;
 }
 
 @utility link-underline {
-  @apply underline decoration-line underline-offset-4 transition-colors hover:decoration-ink;
+  @apply underline decoration-line underline-offset-4 transition-colors duration-300 hover:decoration-ink;
 }
 
 @layer components {

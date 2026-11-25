@@ -1,20 +1,20 @@
 <%# GET-форма внутри turbo-фрейма: меняет только сетку, адрес обновляется
     через data-turbo-action. Скрытое поле q сохраняет поисковый запрос. -%>
-<aside class="w-full shrink-0 lg:w-[200px]" aria-labelledby="filters_title">
+<aside class="w-full shrink-0 border border-line bg-white p-5 lg:sticky lg:top-28 lg:w-64" aria-labelledby="filters_title">
   <nav aria-labelledby="categories_title">
-    <h2 id="categories_title" class="border-b border-line pb-2 text-[13px] font-semibold uppercase tracking-[0.1em]">
+    <h2 id="categories_title" class="border-b border-line pb-3 font-display text-[15px] font-medium uppercase tracking-wider">
       <%= t("catalog.filters.categories") %>
     </h2>
-    <ul class="mt-4 space-y-2.5 text-[13px]">
+    <ul class="mt-4 space-y-1 text-[13px]">
       <li>
         <%= link_to t("catalog.filters.all_categories"), products_path,
-              class: "block transition-colors #{@category.nil? && request.path == products_path ? "font-semibold text-ink" : "text-muted hover:text-ink"}",
+              class: "block border-l-2 py-1 pl-3 transition-colors duration-300 #{@category.nil? && request.path == products_path ? "border-accent font-semibold text-ink" : "border-transparent text-muted hover:border-line hover:text-ink"}",
               data: { turbo_frame: "_top" } %>
       </li>
       <% header_sections.each do |section| %>
         <li>
           <%= link_to section.name, category_path(section),
-                class: "block transition-colors #{catalog_section_current?(section) ? "font-semibold text-ink" : "text-muted hover:text-ink"}",
+                class: "block border-l-2 py-1 pl-3 transition-colors duration-300 #{catalog_section_current?(section) ? "border-accent font-semibold text-ink" : "border-transparent text-muted hover:border-line hover:text-ink"}",
                 data: { turbo_frame: "_top" } %>
         </li>
       <% end %>
@@ -23,14 +23,14 @@
 
   <%= form_with url: request.path, method: :get,
         data: { turbo_frame: "catalog", turbo_action: "advance", controller: "auto-submit" },
-        class: "mt-8" do |form| %>
-    <h2 id="filters_title" class="border-b border-line pb-2 text-[13px] font-semibold uppercase tracking-[0.1em]">
+        class: "mt-7" do |form| %>
+    <h2 id="filters_title" class="border-b border-line pb-3 font-display text-[15px] font-medium uppercase tracking-wider">
       <%= t("catalog.filters.title") %>
     </h2>
 
     <%= form.hidden_field :q, value: params[:q] %>
 
-    <div class="mt-4 space-y-5">
+    <div class="mt-5 space-y-5">
       <div>
         <%= form.label :size, t("catalog.filters.size"), class: catalog_label_class %>
         <%= form.select :size, Variant::SIZES,
@@ -49,7 +49,7 @@
 
       <div>
         <span class="<%= catalog_label_class %>"><%= t("catalog.filters.price") %>, ₽</span>
-        <div class="mt-1.5 flex items-center gap-2">
+        <div class="mt-2 flex items-center gap-2">
           <%= form.label :price_from, t("catalog.filters.price_from"), class: "sr-only" %>
           <%= form.number_field :price_from, value: params[:price_from],
                 min: 0, step: 1, inputmode: "numeric", placeholder: t("catalog.filters.price_from"),
@@ -69,7 +69,7 @@
       <div>
         <label class="flex items-center gap-2 text-[13px] font-medium">
           <%= form.check_box :in_stock, { checked: params[:in_stock].present?,
-                class: "size-4 border-line text-ink focus:ring-ink",
+                class: "size-4 border-line text-ink accent-ink focus:ring-accent",
                 data: { action: "change->auto-submit#submit" } }, "1", nil %>
           <%= t("catalog.filters.in_stock") %>
         </label>
@@ -85,10 +85,9 @@
     </div>
 
     <div class="mt-6 space-y-3 border-t border-line pt-5">
-      <%= form.submit t("catalog.filters.apply"),
-            class: "w-full cursor-pointer border border-ink bg-ink px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:border-accent hover:bg-accent" %>
+      <%= form.submit t("catalog.filters.apply"), class: "btn-primary w-full" %>
       <%= link_to t("catalog.filters.reset"), request.path,
-            class: "block text-center text-[12px] font-medium text-muted transition-colors hover:text-ink",
+            class: "block text-center text-[12px] font-medium text-muted transition-colors duration-300 hover:text-accent",
             data: { turbo_frame: "catalog", turbo_action: "advance" } %>
     </div>
   <% end %>

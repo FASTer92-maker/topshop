@@ -1,4 +1,4 @@
 <%# locals: (count:) -%>
-<%= link_to cart_path, id: "cart_counter", class: "transition-opacity hover:opacity-60" do %>
+<%= link_to cart_path, id: "cart_counter", class: "transition-colors duration-300 hover:text-accent" do %>
   <%= t("layouts.header.cart", count: count) %>
 <% end %>

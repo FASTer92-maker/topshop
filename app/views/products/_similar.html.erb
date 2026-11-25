@@ -1,9 +1,12 @@
 <%# locals: (products:) -%>
 <% if products.any? %>
-  <section id="similar_products" class="mt-16 border-t border-line pt-8">
-    <h2 class="heading-display text-[22px] sm:text-[26px]"><%= t(".title") %></h2>
+  <section id="similar_products" class="mt-20 border-t border-line pt-10">
+    <div class="flex items-center gap-4">
+      <span class="h-8 w-px bg-accent" aria-hidden="true"></span>
+      <h2 class="heading-display text-[26px] sm:text-[32px]"><%= t(".title") %></h2>
+    </div>
 
-    <ul class="mt-8 grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-4">
+    <ul class="mt-9 grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-12">
       <% products.each do |product| %>
         <li><%= render "products/product", product: product %></li>
       <% end %>

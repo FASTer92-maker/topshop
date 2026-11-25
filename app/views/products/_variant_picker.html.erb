@@ -7,33 +7,33 @@
 
 <%# Stage 12 points the form to cart_items_path; the Stimulus controller only
     stops the send when no size is selected. %>
-<%= form_with url: cart_items_path, method: :post, class: "mt-6 border-t border-line pt-6",
+<%= form_with url: cart_items_path, method: :post, class: "mt-7 border-t border-line pt-6",
       data: { controller: "variant-picker",
               action: "submit->variant-picker#submit",
               variant_picker_error_value: t(".size_required") } do %>
 
   <fieldset>
-    <legend class="form-label"><%= t(".color") %></legend>
+    <legend class="mb-3 font-display text-[13px] font-medium uppercase tracking-wider"><%= t(".color") %></legend>
 
-    <div class="flex flex-wrap gap-2">
+    <div class="flex flex-wrap gap-2.5">
       <% colors.each do |color| %>
         <label>
           <%= radio_button_tag :color, color, color == default_color, id: "color_#{color.parameterize}",
                 class: "peer sr-only",
                 data: { variant_picker_target: "color", color: color,
                         action: "change->variant-picker#selectColor" } %>
-          <span class="inline-block cursor-pointer border border-line bg-white px-4 py-2 text-[12px] font-medium transition-colors peer-checked:border-ink peer-checked:bg-ink peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink"><%= color %></span>
+          <span class="inline-block cursor-pointer border border-line bg-white px-4 py-2.5 text-[12px] font-medium transition-colors duration-300 hover:border-accent peer-checked:border-ink peer-checked:bg-ink peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink"><%= color %></span>
         </label>
       <% end %>
     </div>
   </fieldset>
 
   <fieldset class="mt-6">
-    <legend class="form-label"><%= t(".size") %></legend>
+    <legend class="mb-3 font-display text-[13px] font-medium uppercase tracking-wider"><%= t(".size") %></legend>
 
     <% colors.each do |color| %>
       <% variants_of_color = variants.select { |variant| variant.color == color } %>
-      <div class="flex flex-wrap gap-2 <%= "hidden" unless color == default_color %>"
+      <div class="flex flex-wrap gap-2.5 <%= "hidden" unless color == default_color %>"
            data-variant-picker-target="sizeGroup" data-size-color="<%= color %>">
         <% variants_of_color.each do |variant| %>
           <% stock_label = t(".stock_left", count: variant.stock) if variant.stock.positive? && variant.low_stock? %>
@@ -44,7 +44,7 @@
                   data: { variant_picker_target: "size",
                           stock_label: stock_label,
                           action: "change->variant-picker#selectSize" } %>
-            <span class="inline-flex size-12 cursor-pointer items-center justify-center border border-line bg-white text-[13px] font-semibold transition-colors peer-checked:border-ink peer-checked:bg-ink peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink peer-disabled:cursor-not-allowed peer-disabled:text-muted peer-disabled:line-through"><%= variant.size %></span>
+            <span class="inline-flex size-12 cursor-pointer items-center justify-center border border-line bg-white text-[13px] font-semibold transition-colors duration-300 hover:border-accent peer-checked:border-ink peer-checked:bg-ink peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink peer-disabled:cursor-not-allowed peer-disabled:text-muted peer-disabled:line-through"><%= variant.size %></span>
           </label>
         <% end %>
       </div>

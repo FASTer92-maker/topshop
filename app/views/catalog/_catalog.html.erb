@@ -1,13 +1,15 @@
 <%# locals: (pagy:, products:) -%>
 <%= turbo_frame_tag "catalog" do %>
-  <div class="mt-8 flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
+  <div class="mt-10 flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8 xl:gap-10">
     <%= render "catalog/filters" %>
 
     <div class="min-w-0 flex-1">
-      <p class="text-[13px] text-muted"><%= catalog_found_text(pagy.count) %></p>
+      <div class="flex items-center justify-between border-b border-line pb-3">
+        <p class="text-[11px] font-medium tracking-[0.14em] text-muted"><%= catalog_found_text(pagy.count) %></p>
+      </div>
 
       <% if products.any? %>
-        <ul class="mt-5 grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-3">
+        <ul class="mt-6 grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-3 lg:gap-x-6 lg:gap-y-12">
           <% products.each do |product| %>
             <li><%= render "products/product", product: product %></li>
           <% end %>

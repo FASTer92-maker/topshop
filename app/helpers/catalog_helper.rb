@@ -34,6 +34,6 @@ module CatalogHelper
   end
 
   def catalog_control_class
-    "mt-1.5 w-full border border-line bg-white px-3 py-2 text-[13px] text-ink outline-none transition-colors focus:border-ink"
+    "mt-2 w-full border border-line bg-white px-3 py-2.5 text-[13px] text-ink outline-none transition-colors duration-300 focus:border-accent"
   end
 end

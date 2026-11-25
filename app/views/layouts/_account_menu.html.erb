@@ -1,7 +1,7 @@
 <%# locals: (user:) -%>
 <%# A dropdown without JavaScript: <details> opens and closes on click. %>
 <details class="group relative" id="account_menu">
-  <summary class="flex cursor-pointer list-none items-center gap-1 transition-opacity hover:opacity-60 [&::-webkit-details-marker]:hidden">
+  <summary class="flex cursor-pointer list-none items-center gap-1 transition-colors duration-300 hover:text-accent [&::-webkit-details-marker]:hidden">
     <span class="max-w-32 truncate"><%= user.first_name %></span>
     <span aria-hidden="true" class="text-[10px] transition-transform group-open:rotate-180">▾</span>
   </summary>
