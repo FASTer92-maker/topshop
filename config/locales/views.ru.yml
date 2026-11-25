@@ -28,6 +28,8 @@ ru:
     flash:
       close: Закрыть
     footer:
+      logo: TopShop
+      tagline: Рабочий стиль, простые формы и вещи, которые носятся годами.
       copyright: "© %{year} TopShop · Учебный проект"
       region: Россия · Русский
       sections:
@@ -54,9 +56,11 @@ ru:
     index:
       title: Главная
       hero:
+        eyebrow: Новая коллекция
         title: Одежда на каждый день
         text: Рабочий стиль, простые формы и вещи, которые носятся годами.
         cta: Перейти в каталог
+        cta_secondary: Смотреть коллекцию
       sections:
         title: Разделы
         cta: Смотреть
@@ -78,6 +82,9 @@ ru:
       many: "Найдено %{count} товаров по запросу «%{query}»"
       other: "Найдено %{count} товара по запросу «%{query}»"
     filters:
+      title: Фильтры
+      categories: Категории
+      all_categories: Все
       size: Размер
       any_size: Любой размер
       color: Цвет

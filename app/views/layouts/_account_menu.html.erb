@@ -1,24 +1,24 @@
 <%# locals: (user:) -%>
 <%# A dropdown without JavaScript: <details> opens and closes on click. %>
 <details class="group relative" id="account_menu">
-  <summary class="flex cursor-pointer list-none items-center gap-1 transition-colors hover:text-accent [&::-webkit-details-marker]:hidden">
+  <summary class="flex cursor-pointer list-none items-center gap-1 transition-opacity hover:opacity-60 [&::-webkit-details-marker]:hidden">
     <span class="max-w-32 truncate"><%= user.first_name %></span>
-    <span aria-hidden="true" class="text-xs transition-transform group-open:rotate-180">▾</span>
+    <span aria-hidden="true" class="text-[10px] transition-transform group-open:rotate-180">▾</span>
   </summary>
 
-  <div class="absolute right-0 top-full z-50 mt-3 w-64 rounded-lg border border-line bg-white p-4 text-[15px] font-normal">
+  <div class="absolute right-0 top-full z-50 mt-4 w-64 border border-line bg-white p-5 text-[14px] font-normal normal-case tracking-normal">
     <p class="font-semibold"><%= user.full_name %></p>
-    <p class="truncate text-sm text-muted"><%= user.email_address %></p>
+    <p class="truncate text-[13px] text-muted"><%= user.email_address %></p>
 
-    <div class="mt-4 space-y-1 border-t border-line pt-4">
+    <div class="mt-4 space-y-2 border-t border-line pt-4">
       <%= link_to t("layouts.account_menu.orders"), orders_path,
-            class: "block rounded-md px-0 py-1 font-medium transition-colors hover:text-accent" %>
+            class: "block py-1 font-medium transition-colors hover:text-accent" %>
       <% if user.admin? %>
         <%= link_to t("layouts.account_menu.admin"), admin_root_path,
-              class: "block rounded-md px-0 py-1 font-medium transition-colors hover:text-accent" %>
+              class: "block py-1 font-medium transition-colors hover:text-accent" %>
       <% end %>
       <%= button_to t("layouts.account_menu.sign_out"), session_path, method: :delete,
-            class: "w-full cursor-pointer rounded-md px-0 py-1 text-left font-medium transition-colors hover:text-accent" %>
+            class: "w-full cursor-pointer py-1 text-left font-medium transition-colors hover:text-accent" %>
     </div>
   </div>
 </details>

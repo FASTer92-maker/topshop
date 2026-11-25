@@ -1,64 +1,67 @@
-<header class="sticky top-0 z-40 border-b border-line bg-white">
-  <div class="page-container flex flex-wrap items-center gap-x-10 md:h-16 md:flex-nowrap">
-    <%= link_to t(".logo"), root_path,
-          class: "heading-display order-1 py-4 text-[26px] leading-none md:py-0",
-          aria: { label: t(".logo_label") } %>
+<header class="sticky top-0 z-40 border-b border-line bg-surface">
+  <div class="page-container">
+    <div class="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-4 lg:flex-nowrap lg:py-5">
+      <%= link_to root_path, class: "order-1 shrink-0" do %>
+        <%= image_tag "logo.png", alt: "", class: "h-7 w-auto lg:h-8" %>
+        <span class="sr-only"><%= t(".logo") %></span>
+      <% end %>
 
-    <%# Main navigation: scrolls sideways on phones. %>
-    <nav aria-label="<%= t(".main_nav") %>"
-         class="order-3 -mx-4 w-[calc(100%+2rem)] overflow-x-auto border-t border-line px-4 md:order-2 md:mx-0 md:w-auto md:border-0 md:px-0">
-      <ul class="flex gap-6 whitespace-nowrap py-3 text-[15px] font-medium md:py-0">
-        <li>
-          <%= link_to t(".all"), products_path,
-                class: "border-b-2 pb-0.5 transition-colors #{current_page?(products_path) ? "border-ink" : "border-transparent hover:border-ink"}",
-                aria: { current: (current_page?(products_path) ? "page" : nil) } %>
-        </li>
-        <% header_sections.each do |section| %>
+      <%# Main navigation: scrolls sideways on phones. %>
+      <nav aria-label="<%= t(".main_nav") %>"
+           class="order-3 -mx-4 w-[calc(100%+2rem)] overflow-x-auto border-t border-line px-4 md:order-2 md:mx-0 md:w-auto md:overflow-visible md:border-0 md:px-0">
+        <ul class="flex items-center gap-7 whitespace-nowrap py-3 text-[12px] font-medium uppercase tracking-[0.06em] lg:py-0 lg:text-[13px]">
           <li>
-            <%= link_to section.name, category_path(section),
-                  class: "border-b-2 pb-0.5 transition-colors #{catalog_section_current?(section) ? "border-ink" : "border-transparent hover:border-ink"}",
-                  aria: { current: (catalog_section_current?(section) ? "page" : nil) } %>
+            <%= link_to t(".all"), products_path,
+                  class: "border-b border-transparent pb-0.5 transition-colors #{current_page?(products_path) ? "border-ink" : "hover:border-ink"}",
+                  aria: { current: (current_page?(products_path) ? "page" : nil) } %>
           </li>
-        <% end %>
+          <% header_sections.each do |section| %>
+            <li>
+              <%= link_to section.name, category_path(section),
+                    class: "border-b border-transparent pb-0.5 transition-colors #{catalog_section_current?(section) ? "border-ink" : "hover:border-ink"}",
+                    aria: { current: (catalog_section_current?(section) ? "page" : nil) } %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+
+      <%# Search goes to the catalog with the query. %>
+      <%= form_with url: products_path, method: :get, html: { role: "search", class: "order-4 w-full md:order-3 md:w-52" } do |form| %>
+        <%= form.label :q, t(".search_placeholder"), class: "sr-only" %>
+        <div class="flex items-center gap-2 border-b border-line pb-1.5 transition-colors focus-within:border-ink">
+          <button type="submit" aria-label="<%= t(".search_submit") %>"
+                  class="text-muted transition-colors hover:text-ink">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" class="size-4" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" stroke-linecap="round" />
+            </svg>
+          </button>
+          <%= form.search_field :q, value: params[:q], placeholder: t(".search_placeholder"),
+                class: "w-full bg-transparent text-[12px] uppercase tracking-[0.06em] outline-none placeholder:text-muted" %>
+        </div>
+      <% end %>
+
+      <ul class="order-2 ml-auto flex items-center gap-4 text-[11px] font-semibold tracking-[0.08em] md:order-4 lg:gap-6 lg:text-[12px]">
+        <li>
+          <% if authenticated? %>
+            <%= render "layouts/account_menu", user: Current.user %>
+          <% else %>
+            <%= link_to t(".sign_in"), new_session_path, class: "transition-opacity hover:opacity-60" %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to favorites_path, class: "flex items-center gap-1.5 transition-opacity hover:opacity-60",
+                aria: { label: t(".favorites") } do %>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.6" class="size-4" aria-hidden="true">
+              <path d="M12 20.3 4.6 13a4.8 4.8 0 0 1 6.8-6.7l.6.6.6-.6A4.8 4.8 0 0 1 19.4 13Z" stroke-linejoin="round" />
+            </svg>
+            <%= render "favorites/counter", count: favorite_product_ids.size %>
+          <% end %>
+        </li>
+        <li><%= render "layouts/cart_counter", count: cart_items_count %></li>
       </ul>
-    </nav>
-
-    <%# Search goes to the catalog with the query. %>
-    <%= form_with url: products_path, method: :get, html: { role: "search", class: "order-4 w-full pb-3 md:order-3 md:w-64 md:pb-0" } do |form| %>
-      <%= form.label :q, t(".search_placeholder"), class: "sr-only" %>
-      <div class="flex items-center gap-2 rounded-md border border-line px-3 transition-colors focus-within:border-ink">
-        <%= form.search_field :q, value: params[:q], placeholder: t(".search_placeholder"),
-              class: "w-full bg-transparent py-2 text-sm outline-none placeholder:text-muted" %>
-        <button type="submit" aria-label="<%= t(".search_submit") %>"
-                class="text-muted transition-colors hover:text-ink">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="1.8" class="size-4" aria-hidden="true">
-            <circle cx="11" cy="11" r="7" />
-            <path d="m20 20-3.5-3.5" stroke-linecap="round" />
-          </svg>
-        </button>
-      </div>
-    <% end %>
-
-    <ul class="order-2 ml-auto flex items-center gap-5 text-sm font-medium md:order-4 md:gap-8 md:text-[15px]">
-      <li>
-        <% if authenticated? %>
-          <%= render "layouts/account_menu", user: Current.user %>
-        <% else %>
-          <%= link_to t(".sign_in"), new_session_path, class: "transition-colors hover:text-accent" %>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to favorites_path, class: "flex items-center gap-1.5 transition-colors hover:text-accent",
-              aria: { label: t(".favorites") } do %>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="1.6" class="size-5" aria-hidden="true">
-            <path d="M12 20.3 4.6 13a4.8 4.8 0 0 1 6.8-6.7l.6.6.6-.6A4.8 4.8 0 0 1 19.4 13Z" stroke-linejoin="round" />
-          </svg>
-          <%= render "favorites/counter", count: favorite_product_ids.size %>
-        <% end %>
-      </li>
-      <li><%= render "layouts/cart_counter", count: cart_items_count %></li>
-    </ul>
+    </div>
   </div>
 </header>

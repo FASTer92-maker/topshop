@@ -1,45 +1,59 @@
 <% content_for :title, t(".title") %>
 
-<section class="bg-ink text-white">
-  <div class="page-container flex min-h-[60vh] flex-col justify-end gap-4 py-12 md:py-16">
-    <h1 class="heading-display text-[40px] sm:text-6xl lg:text-8xl"><%= t(".hero.title") %></h1>
-    <p class="max-w-xl text-neutral-300"><%= t(".hero.text") %></p>
-    <%= link_to t(".hero.cta"), products_path,
-          class: "mt-2 inline-flex w-fit items-center justify-center rounded-md bg-white px-6 py-3 text-[15px] font-semibold text-ink transition-colors hover:bg-accent hover:text-white" %>
+<section class="relative flex min-h-[520px] items-end overflow-hidden bg-ink text-white">
+  <%= image_tag "hero.jpg", alt: "", class: "absolute inset-0 h-full w-full object-cover object-center opacity-70" %>
+  <div class="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/10"></div>
+  <div class="page-container relative z-10 py-12 md:py-16">
+    <div class="max-w-xl">
+      <p class="text-[11px] uppercase tracking-[0.2em] text-accent"><%= t(".hero.eyebrow") %></p>
+      <h1 class="heading-display mt-3 text-[40px] sm:text-6xl lg:text-7xl"><%= t(".hero.title") %></h1>
+      <p class="mt-4 max-w-md text-[15px] leading-relaxed text-white/80"><%= t(".hero.text") %></p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <%= link_to t(".hero.cta"), products_path,
+              class: "inline-flex items-center justify-center bg-white px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.12em] text-ink transition-colors hover:bg-accent hover:text-white" %>
+        <%= link_to t(".hero.cta_secondary"), products_path,
+              class: "inline-flex items-center justify-center border border-white px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-white hover:text-ink" %>
+      </div>
+    </div>
   </div>
 </section>
 
 <% if @banners.any? %>
-  <section class="page-container pt-12">
-    <h2 class="heading-display text-[28px]"><%= t(".sections.title") %></h2>
+  <section class="page-container pt-12 md:pt-16" aria-labelledby="home_banners_title">
+    <h2 id="home_banners_title" class="sr-only"><%= t(".sections.title") %></h2>
 
-    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+    <div class="grid gap-4 md:grid-cols-2">
       <% @banners.each_with_index do |section, index| %>
         <%= link_to category_path(section),
-              class: "group relative flex min-h-[220px] flex-col justify-end overflow-hidden rounded-lg p-6 text-white transition-colors #{index.zero? ? "bg-ink hover:bg-accent" : "bg-accent hover:bg-accent-dark"}" do %>
-          <span class="heading-display text-[32px] sm:text-[40px]"><%= section.name %></span>
-          <span class="mt-2 flex items-center gap-2 text-sm font-medium">
-            <%= t(".sections.cta") %>
-            <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
-          </span>
+              class: "group relative flex min-h-[320px] items-end overflow-hidden bg-ink p-6 text-white sm:p-8" do %>
+          <%= image_tag index.zero? ? "promo-men.jpg" : "promo-women.jpg", alt: "",
+                class: "absolute inset-0 h-full w-full object-cover object-center opacity-80 transition-transform duration-500 group-hover:scale-[1.03]" %>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+          <div class="relative z-10">
+            <h3 class="heading-display text-[26px] sm:text-[32px]"><%= section.name %></h3>
+            <span class="mt-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em]">
+              <%= t(".sections.cta") %>
+              <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+            </span>
+          </div>
         <% end %>
       <% end %>
     </div>
   </section>
 <% end %>
 
-<section class="page-container py-12">
-  <div class="flex flex-wrap items-end justify-between gap-4">
-    <h2 class="heading-display text-[28px]"><%= t(".new_arrivals") %></h2>
-    <%= link_to t(".all_products"), products_path, class: "link-underline text-sm" %>
+<section class="page-container py-12 md:py-16">
+  <div class="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-4">
+    <h2 class="heading-display text-[22px] sm:text-[26px]"><%= t(".new_arrivals") %></h2>
+    <%= link_to t(".all_products"), products_path,
+          class: "border-b border-ink pb-0.5 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors hover:border-accent hover:text-accent" %>
   </div>
 
   <% if @new_arrivals.any? %>
-    <ul class="-mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
+    <ul class="mt-8 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
       <% @new_arrivals.each do |product| %>
-        <li class="w-[220px] shrink-0 snap-start sm:w-[260px]">
-          <%= render "products/product", product: product %>
-        </li>
+        <li><%= render "products/product", product: product %></li>
       <% end %>
     </ul>
   <% else %>
