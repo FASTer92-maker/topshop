@@ -4,9 +4,9 @@
   <%= render "catalog/breadcrumbs" %>
 
   <div class="mt-8 text-center">
-    <p class="text-[11px] font-medium uppercase tracking-[0.24em] text-accent"><%= t("catalog.eyebrow") %></p>
+    <p class="text-sm font-medium uppercase tracking-[0.24em] text-accent"><%= t("catalog.eyebrow") %></p>
     <h1 class="heading-display mt-3 text-[38px] sm:text-5xl"><%= t(".title") %></h1>
-    <p class="mx-auto mt-4 max-w-xl text-[14px] leading-relaxed text-muted"><%= t("catalog.subtitle") %></p>
+    <p class="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-muted"><%= t("catalog.subtitle") %></p>
   </div>
 
   <%= render "catalog/catalog", pagy: @pagy, products: @products %>

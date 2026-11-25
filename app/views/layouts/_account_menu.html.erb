@@ -6,9 +6,9 @@
     <span aria-hidden="true" class="text-[10px] transition-transform group-open:rotate-180">▾</span>
   </summary>
 
-  <div class="absolute right-0 top-full z-50 mt-4 w-64 border border-line bg-white p-5 text-[14px] font-normal normal-case tracking-normal">
+  <div class="absolute right-0 top-full z-50 mt-4 w-64 border border-line bg-white p-5 text-[15px] font-normal normal-case tracking-normal">
     <p class="font-semibold"><%= user.full_name %></p>
-    <p class="truncate text-[13px] text-muted"><%= user.email_address %></p>
+    <p class="truncate text-sm text-muted"><%= user.email_address %></p>
 
     <div class="mt-4 space-y-2 border-t border-line pt-4">
       <%= link_to t("layouts.account_menu.orders"), orders_path,

@@ -4,9 +4,9 @@
   <%= render "catalog/breadcrumbs", category: @category %>
 
   <div class="mt-8 text-center">
-    <p class="text-[11px] font-medium uppercase tracking-[0.24em] text-accent"><%= t("catalog.eyebrow") %></p>
+    <p class="text-sm font-medium uppercase tracking-[0.24em] text-accent"><%= t("catalog.eyebrow") %></p>
     <h1 class="heading-display mt-3 text-[38px] sm:text-5xl"><%= @category.name %></h1>
-    <p class="mx-auto mt-4 max-w-xl text-[14px] leading-relaxed text-muted"><%= t("catalog.subtitle") %></p>
+    <p class="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-muted"><%= t("catalog.subtitle") %></p>
   </div>
 
   <% if @subcategories.present? %>
@@ -14,7 +14,7 @@
       <% @subcategories.each do |subcategory| %>
         <li>
           <%= link_to subcategory.name, category_path(subcategory),
-                class: "inline-block border border-line bg-white px-4 py-2 text-[11px] font-medium uppercase tracking-[0.1em] transition-colors duration-300 hover:border-accent hover:text-accent" %>
+                class: "inline-flex items-center justify-center border border-line bg-white px-4 py-2 text-sm font-medium uppercase tracking-[0.1em] transition-colors duration-300 hover:border-accent hover:text-accent" %>
         </li>
       <% end %>
     </ul>

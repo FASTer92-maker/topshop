@@ -30,10 +30,10 @@ module CatalogHelper
   end
 
   def catalog_label_class
-    "block text-[11px] font-semibold uppercase tracking-[0.08em] text-muted"
+    "block text-sm font-semibold uppercase tracking-[0.08em] text-muted"
   end
 
   def catalog_control_class
-    "mt-2 w-full border border-line bg-white px-3 py-2.5 text-[13px] text-ink outline-none transition-colors duration-300 focus:border-accent"
+    "mt-2 w-full border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none transition-colors duration-300 focus:border-accent"
   end
 end
