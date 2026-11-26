@@ -1,0 +1,14 @@
+<%# locals: (code:, eyebrow:, title:, text:) -%>
+<div class="w-full max-w-2xl text-center">
+  <%= link_to root_path, class: "inline-block transition-opacity duration-300 hover:opacity-80", aria: { label: "TopShop" } do %>
+    <%= image_tag "logo.png", alt: "TopShop", class: "h-8 w-auto brightness-0 invert" %>
+  <% end %>
+
+  <p class="mt-12 text-sm font-medium uppercase tracking-[0.3em] text-accent"><%= eyebrow %></p>
+  <p class="heading-display mt-4 text-[92px] leading-none sm:text-[126px]"><%= code %></p>
+  <h1 class="heading-display mt-3 text-[26px] sm:text-[34px]"><%= title %></h1>
+  <p class="mx-auto mt-5 max-w-md text-[15px] leading-relaxed text-white/60"><%= text %></p>
+
+  <%= link_to t("errors.pages.action"), root_path,
+        class: "mt-9 inline-flex items-center justify-center bg-white px-8 py-4 text-sm font-bold uppercase tracking-[0.14em] text-ink transition-colors duration-300 hover:bg-accent hover:text-white" %>
+</div>

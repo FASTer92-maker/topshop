@@ -3,49 +3,49 @@
 <% variant = item.variant %>
 <% can_increase = variant.available?(item.quantity + 1) %>
 
-<li id="<%= dom_id(item) %>" class="flex gap-4 py-5">
-  <div class="aspect-[3/4] w-20 shrink-0 overflow-hidden rounded bg-surface">
+<li id="<%= dom_id(item) %>" class="flex gap-4 py-5 sm:gap-6">
+  <div class="aspect-[3/4] w-20 shrink-0 overflow-hidden bg-surface sm:w-24">
     <% if product.image.attached? %>
       <%= image_tag product.image, alt: product.name, loading: "lazy", class: "h-full w-full object-cover" %>
     <% end %>
   </div>
 
-  <div class="min-w-0 flex-1">
-    <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
+  <div class="flex min-w-0 flex-1 flex-col">
+    <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
       <div class="min-w-0">
         <% if product.active? %>
           <%= link_to product.name, product_path(product), data: { turbo_frame: "_top" },
-                class: "font-display text-[15px] font-medium leading-snug transition-colors hover:text-accent" %>
+                class: "font-display text-base font-medium leading-snug tracking-wide transition-colors duration-300 hover:text-accent" %>
         <% else %>
-          <p class="font-display text-[15px] font-medium leading-snug text-muted"><%= product.name %></p>
+          <p class="font-display text-base font-medium leading-snug tracking-wide text-muted"><%= product.name %></p>
         <% end %>
-        <p class="mt-1 text-[13px] text-muted"><%= variant.label %></p>
-        <p class="mt-1 text-[13px] text-muted"><%= number_to_currency(product.price) %></p>
+        <p class="mt-1 text-sm text-muted"><%= variant.label %></p>
+        <p class="mt-1 text-sm text-muted"><%= number_to_currency(product.price) %></p>
       </div>
 
-      <p class="font-semibold tabular-nums"><%= number_to_currency(item.subtotal) %></p>
+      <p class="whitespace-nowrap text-base font-semibold tabular-nums"><%= number_to_currency(item.subtotal) %></p>
     </div>
 
     <% unless item.available? %>
-      <p class="mt-2 text-[13px] font-medium text-danger">
+      <p class="mt-2 text-sm font-medium leading-relaxed text-danger">
         <%= product.active? ? t(".insufficient_stock", available: variant.stock) : t(".unavailable") %>
       </p>
     <% end %>
 
-    <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-      <div class="inline-flex items-center rounded-md border border-line">
+    <div class="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-3 pt-4">
+      <div class="inline-flex items-center border border-line bg-white">
         <%= button_to "−", cart_item_path(item), method: :patch, params: { quantity: item.quantity - 1 },
-              class: "px-3 py-1.5 text-lg leading-none transition-colors hover:text-accent",
+              class: "cursor-pointer px-3.5 py-2 text-lg leading-none transition-colors duration-300 hover:text-accent",
               aria: { label: t(".decrease", name: product.name, variant: variant.label) } %>
-        <span class="min-w-8 text-center text-sm tabular-nums" aria-live="polite"><%= item.quantity %></span>
+        <span class="min-w-8 border-x border-line py-2 text-center text-sm font-medium tabular-nums" aria-live="polite"><%= item.quantity %></span>
         <%= button_to "+", cart_item_path(item), method: :patch, params: { quantity: item.quantity + 1 },
               disabled: !can_increase,
-              class: "px-3 py-1.5 text-lg leading-none transition-colors hover:text-accent disabled:cursor-not-allowed disabled:text-muted",
+              class: "cursor-pointer px-3.5 py-2 text-lg leading-none transition-colors duration-300 hover:text-accent disabled:cursor-not-allowed disabled:text-muted",
               aria: { label: t(".increase", name: product.name, variant: variant.label) } %>
       </div>
 
       <%= button_to t(".remove"), cart_item_path(item), method: :delete,
-            class: "text-[13px] font-medium text-muted underline-offset-4 transition-colors hover:text-danger hover:underline" %>
+            class: "cursor-pointer text-sm font-medium text-muted underline-offset-4 transition-colors duration-300 hover:text-danger hover:underline" %>
     </div>
   </div>
 </li>

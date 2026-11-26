@@ -1,10 +1,13 @@
 <% content_for :title, t(".title") %>
 
-<div class="page-container py-8 md:py-12">
-  <h1 class="heading-display text-[32px] sm:text-[40px]"><%= t(".title") %></h1>
-  <p class="mt-2 text-muted"><%= t(".subtitle") %></p>
+<div class="page-container py-10 md:py-14">
+  <div class="border-b border-line pb-7">
+    <p class="text-sm font-medium uppercase tracking-[0.24em] text-accent"><%= t(".eyebrow") %></p>
+    <h1 class="heading-display mt-3 text-[34px] sm:text-[44px]"><%= t(".title") %></h1>
+    <p class="mt-3 max-w-xl text-[15px] leading-relaxed text-muted"><%= t(".subtitle") %></p>
+  </div>
 
-  <div class="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+  <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-start lg:gap-10">
     <%= turbo_frame_tag "checkout" do %>
       <%= render "orders/form", order: @order %>
     <% end %>

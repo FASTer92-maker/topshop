@@ -20,7 +20,9 @@ jobs:
           bundler-cache: true
 
       - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
+        # bin/brakeman adds --ensure-latest and fails whenever a newer release
+        # exists; run the version locked in Gemfile.lock instead.
+        run: bundle exec brakeman --no-pager
       
       - name: Scan for known security vulnerabilities in gems used
         run: bin/bundler-audit

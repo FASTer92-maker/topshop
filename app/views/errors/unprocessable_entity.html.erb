@@ -1,0 +1,5 @@
+<% content_for :title, t("errors.pages.unprocessable_entity.title") %>
+<%= render "errors/page", code: "422",
+      eyebrow: t("errors.pages.unprocessable_entity.eyebrow"),
+      title: t("errors.pages.unprocessable_entity.title"),
+      text: t("errors.pages.unprocessable_entity.text") %>

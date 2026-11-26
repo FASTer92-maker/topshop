@@ -5,7 +5,7 @@ class AdminCategoriesTest < ApplicationSystemTestCase
     sign_in_as_admin
 
     visit admin_categories_path
-    assert_text "Категории"
+    assert_text(/категории/i)
     assert_text "Мужское"
     assert_text "Куртки"
 
@@ -30,7 +30,7 @@ class AdminCategoriesTest < ApplicationSystemTestCase
     fill_in "Email", with: "ivan@example.com"
     fill_in "Пароль", with: "password123"
     click_on "Войти", class: "btn-primary"
-    within("header") { assert_selector "summary", text: "Иван" }
+    assert_selector "#account_menu summary", text: "Иван"
 
     visit admin_categories_path
 
@@ -44,6 +44,6 @@ class AdminCategoriesTest < ApplicationSystemTestCase
       fill_in "Email", with: "admin@example.com"
       fill_in "Пароль", with: "password123"
       click_on "Войти", class: "btn-primary"
-      within("header") { assert_selector "summary", text: "Админ" }
+      assert_selector "#account_menu summary", text: "Админ"
     end
 end

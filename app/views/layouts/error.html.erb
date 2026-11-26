@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <title><%= content_for?(:title) ? "#{yield(:title)} · TopShop" : "TopShop" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+
+    <%= favicon_link_tag "favicon.png", type: "image/png" %>
+    <link rel="apple-touch-icon" href="<%= asset_path("favicon.png") %>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  </head>
+
+  <body class="flex min-h-screen flex-col bg-ink text-white">
+    <main class="flex flex-1 items-center justify-center px-4 py-16 sm:px-6">
+      <%= yield %>
+    </main>
+
+    <footer class="border-t border-white/10 py-6">
+      <p class="page-container text-center text-sm uppercase tracking-[0.14em] text-white/40">
+        © <%= Date.current.year %> TopShop
+      </p>
+    </footer>
+  </body>
+</html>

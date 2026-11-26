@@ -13,7 +13,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     get root_url
 
     assert_select "body", text: /Бесплатная доставка от 10\s000 ₽/
-    assert_select "header a[href=?]", root_path, text: "TopShop"
+    assert_select "header a[href=?] img[alt=?]", root_path, "TopShop"
     assert_select "header nav[aria-label=?]", "Основное меню"
     assert_select "main#main h1", "Одежда на каждый день"
     assert_select "footer", text: /Помощь/

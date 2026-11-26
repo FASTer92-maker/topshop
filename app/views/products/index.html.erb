@@ -1,9 +1,13 @@
 <% content_for :title, t(".title") %>
 
-<div class="page-container py-8 md:py-12">
+<div class="page-container pb-20 pt-10 md:pt-14">
   <%= render "catalog/breadcrumbs" %>
 
-  <h1 class="heading-display mt-4 text-[32px] sm:text-[40px]"><%= t(".title") %></h1>
+  <div class="mt-8 text-center">
+    <p class="text-sm font-medium uppercase tracking-[0.24em] text-accent"><%= t("catalog.eyebrow") %></p>
+    <h1 class="heading-display mt-3 text-[38px] sm:text-5xl"><%= t(".title") %></h1>
+    <p class="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-muted"><%= t("catalog.subtitle") %></p>
+  </div>
 
   <%= render "catalog/catalog", pagy: @pagy, products: @products %>
 </div>

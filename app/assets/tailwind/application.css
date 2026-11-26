@@ -2,18 +2,19 @@
 @import "./pagy.css";
 
 /*
- * TopShop design tokens (see docs/WIREFRAMES.md and the TopShop design PDF).
- * Black-and-white base, warm grey surfaces, one tobacco-brown accent.
- * Thin borders instead of shadows; radii: 4px photo, 6px controls, 8px blocks.
+ * TopShop design tokens, aligned with the approved design mockups
+ * (design/main.html, design/catalog.html, design/product.html).
+ * Warm paper background, near-black ink, one muted gold accent.
+ * Thin borders instead of shadows; square corners like the mockups.
  */
 @theme {
-  --color-ink: #111111;          /* text, primary buttons, footer, promo bar */
+  --color-ink: #1c1c1c;          /* text, primary buttons, footer, promo bar */
   --color-muted: #6b6b6b;        /* secondary text: product colour, captions */
-  --color-surface: #f3f2ef;      /* warm light grey blocks */
-  --color-line: #dad8d3;         /* 1px borders */
-  --color-accent: #8a5a2b;       /* tobacco brown: hover, highlights */
-  --color-accent-dark: #6f4721;
-  --color-danger: #c2271d;
+  --color-surface: #f4f2ef;      /* warm paper background */
+  --color-line: #d9d5cf;         /* 1px borders */
+  --color-accent: #c8a165;       /* muted gold: hover, highlights */
+  --color-accent-dark: #a9824a;
+  --color-danger: #b3261e;
   --color-success: #2e7d4f;
 
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -26,7 +27,7 @@
   }
 
   body {
-    @apply bg-white font-sans text-[15px] leading-normal text-ink antialiased;
+    @apply bg-surface font-sans text-[15px] leading-normal text-ink antialiased;
   }
 
   :focus-visible {
@@ -34,36 +35,36 @@
   }
 }
 
-/* Horizontal page gutter: 16px on phones up to 40px on desktop. */
+/* Horizontal page gutter: 16px on phones up to 32px on desktop. */
 @utility page-container {
-  @apply mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10;
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
 }
 
 /* Condensed uppercase headings: short (1–4 words) only. */
 @utility heading-display {
-  @apply font-display font-semibold uppercase leading-[1.1] tracking-[0.04em];
+  @apply font-display font-semibold uppercase leading-[1.08] tracking-wider;
 }
 
-/* Buttons: 6px radius, black with tobacco hover; no shadows. */
+/* Buttons: square, uppercase, black with gold hover; no shadows. */
 @utility btn-primary {
-  @apply inline-flex cursor-pointer items-center justify-center rounded-md bg-ink px-6 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50;
+  @apply inline-flex cursor-pointer items-center justify-center border border-ink bg-ink px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.12em] text-white transition-colors duration-300 hover:border-accent hover:bg-accent hover:text-white disabled:cursor-not-allowed disabled:opacity-50;
 }
 
 @utility btn-secondary {
-  @apply inline-flex cursor-pointer items-center justify-center rounded-md border border-ink bg-white px-6 py-3 text-[15px] font-semibold text-ink transition-colors hover:border-accent hover:text-accent;
+  @apply inline-flex cursor-pointer items-center justify-center border border-line bg-transparent px-7 py-3.5 text-[12px] font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-300 hover:border-accent hover:bg-accent hover:text-white;
 }
 
 /* Form controls */
 @utility form-label {
-  @apply mb-1.5 block text-sm font-medium;
+  @apply mb-2 block text-sm font-semibold uppercase tracking-[0.08em];
 }
 
 @utility form-input {
-  @apply block w-full rounded-md border border-line bg-white px-3 py-2.5 text-[15px] text-ink placeholder:text-muted focus:border-ink;
+  @apply block w-full border border-line bg-white px-3 py-2.5 text-[15px] text-ink transition-colors duration-300 placeholder:text-muted focus:border-accent;
 }
 
 @utility link-underline {
-  @apply underline decoration-line underline-offset-4 transition-colors hover:decoration-ink;
+  @apply underline decoration-line underline-offset-4 transition-colors duration-300 hover:decoration-ink;
 }
 
 @layer components {

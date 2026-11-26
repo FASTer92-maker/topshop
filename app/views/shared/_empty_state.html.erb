@@ -1,12 +1,12 @@
 <%# locals: (title:, text: nil, action_label: nil, action_path: nil, action_data: nil) -%>
-<div class="mt-6 rounded-lg border border-line bg-surface px-6 py-12 text-center">
-  <p class="font-semibold"><%= title %></p>
+<div class="border border-line bg-white px-6 py-14 text-center">
+  <p class="font-display text-[22px] font-medium tracking-wide"><%= title %></p>
   <% if text %>
-    <p class="mt-2 text-muted"><%= text %></p>
+    <p class="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-muted"><%= text %></p>
   <% end %>
   <% if action_label && action_path %>
     <%= link_to action_label, action_path,
-          class: "mt-6 inline-block rounded-md bg-ink px-6 py-3 font-semibold text-white transition-colors hover:bg-accent",
+          class: "btn-primary mt-7",
           data: action_data %>
   <% end %>
 </div>

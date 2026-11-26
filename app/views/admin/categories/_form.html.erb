@@ -1,5 +1,5 @@
 <%# locals: (category:, sections:) -%>
-<%= form_with model: [ :admin, category ], class: "mt-8 max-w-xl space-y-5" do |form| %>
+<%= form_with model: [ :admin, category ], class: "mt-8 max-w-xl space-y-5 border border-line bg-white p-6 md:p-8" do |form| %>
   <%= render "shared/form_errors", object: category %>
 
   <div>
@@ -23,8 +23,8 @@
     <%= form.number_field :position, min: 0, step: 1, class: "form-input" %>
   </div>
 
-  <div class="flex items-center gap-4">
+  <div class="flex flex-wrap items-center gap-4 border-t border-line pt-5">
     <%= form.submit class: "btn-primary" %>
-    <%= link_to t(".cancel"), admin_categories_path, class: "link-underline" %>
+    <%= link_to t(".cancel"), admin_categories_path, class: "text-sm link-underline" %>
   </div>
 <% end %>

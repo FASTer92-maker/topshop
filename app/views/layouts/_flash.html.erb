@@ -3,7 +3,7 @@
     <% alert = type.to_s == "alert" %>
     <div data-controller="dismiss"
          role="<%= alert ? "alert" : "status" %>"
-         class="mt-4 flex items-start justify-between gap-4 rounded-lg border px-4 py-3 <%= alert ? "border-danger text-danger" : "border-line bg-surface text-ink" %>">
+         class="mt-4 flex items-start justify-between gap-4 border px-4 py-3 <%= alert ? "border-danger text-danger" : "border-line bg-surface text-ink" %>">
       <p><%= message %></p>
       <button type="button"
               data-action="dismiss#close"

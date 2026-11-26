@@ -5,7 +5,7 @@ class AdminProductsTest < ApplicationSystemTestCase
     sign_in_as_admin
 
     visit admin_products_path
-    assert_text "Товары"
+    assert_text(/товары/i)
 
     click_on "Добавить товар"
     fill_in "Название", with: "Сумка «Тест»"
@@ -17,7 +17,7 @@ class AdminProductsTest < ApplicationSystemTestCase
 
     assert_text "Товар создан."
     assert_text(/Сумка «Тест»/i)
-    assert_text "Активен"
+    assert_text(/активен/i)
   end
 
   test "admin hides a product from the list" do
@@ -35,7 +35,7 @@ class AdminProductsTest < ApplicationSystemTestCase
     fill_in "Email", with: "ivan@example.com"
     fill_in "Пароль", with: "password123"
     click_on "Войти", class: "btn-primary"
-    within("header") { assert_selector "summary", text: "Иван" }
+    assert_selector "#account_menu summary", text: "Иван"
 
     visit admin_products_path
 
@@ -48,6 +48,6 @@ class AdminProductsTest < ApplicationSystemTestCase
       fill_in "Email", with: "admin@example.com"
       fill_in "Пароль", with: "password123"
       click_on "Войти", class: "btn-primary"
-      within("header") { assert_selector "summary", text: "Админ" }
+      assert_selector "#account_menu summary", text: "Админ"
     end
 end

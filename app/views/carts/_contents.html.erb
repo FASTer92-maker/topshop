@@ -2,20 +2,22 @@
 <%# The wrapper keeps its id so a Turbo Stream can replace it again later. %>
 <div id="cart_contents">
   <% if items.empty? %>
-    <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text"),
-          action_label: t(".empty.action"), action_path: products_path %>
+    <div class="mt-8">
+      <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text"),
+            action_label: t(".empty.action"), action_path: products_path %>
+    </div>
   <% else %>
-    <div class="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
-      <ul class="divide-y divide-line border-y border-line">
+    <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start lg:gap-10">
+      <ul class="divide-y divide-line border border-line bg-white px-5 sm:px-7">
         <% items.each do |item| %>
           <%= render "carts/item", item: item %>
         <% end %>
       </ul>
 
-      <aside id="cart_summary" class="rounded-lg border border-line p-5 lg:sticky lg:top-24">
-        <h2 class="heading-display text-[20px]"><%= t(".summary.title") %></h2>
+      <aside id="cart_summary" class="border border-line bg-white p-6 lg:sticky lg:top-28">
+        <h2 class="heading-display border-b border-line pb-4 text-[22px]"><%= t(".summary.title") %></h2>
 
-        <dl class="mt-4 space-y-2 text-[15px]">
+        <dl class="mt-5 space-y-3 text-[15px]">
           <div class="flex justify-between gap-4">
             <dt class="text-muted"><%= t(".summary.goods") %></dt>
             <dd class="tabular-nums"><%= number_to_currency(cart.subtotal) %></dd>
@@ -26,24 +28,24 @@
               <%= cart.delivery_price.zero? ? t(".summary.free") : number_to_currency(cart.delivery_price) %>
             </dd>
           </div>
-          <div class="flex justify-between gap-4 border-t border-line pt-3 text-[16px] font-semibold">
+          <div class="flex justify-between gap-4 border-t border-line pt-4 text-[17px] font-semibold">
             <dt><%= t(".summary.total") %></dt>
             <dd class="tabular-nums"><%= number_to_currency(cart.total) %></dd>
           </div>
         </dl>
 
         <% if cart.amount_to_free_delivery.positive? %>
-          <p class="mt-4 rounded-md bg-surface px-3 py-2 text-[13px] text-muted">
+          <p class="mt-5 border border-line bg-surface px-4 py-3 text-sm leading-relaxed text-muted">
             <%= t(".summary.to_free", amount: number_to_currency(cart.amount_to_free_delivery)) %>
           </p>
         <% else %>
-          <p class="mt-4 rounded-md bg-surface px-3 py-2 text-[13px] text-muted"><%= t(".summary.free_reached") %></p>
+          <p class="mt-5 border border-line bg-surface px-4 py-3 text-sm leading-relaxed text-muted"><%= t(".summary.free_reached") %></p>
         <% end %>
 
         <% if cart.checkout_ready? %>
-          <%= link_to t(".summary.checkout"), new_order_path, class: "btn-primary mt-4 w-full" %>
+          <%= link_to t(".summary.checkout"), new_order_path, class: "btn-primary mt-5 w-full" %>
         <% else %>
-          <p class="mt-4 text-[13px] font-medium text-danger"><%= t(".summary.not_ready") %></p>
+          <p class="mt-5 border border-danger/30 bg-danger/5 px-4 py-3 text-sm font-medium leading-relaxed text-danger"><%= t(".summary.not_ready") %></p>
         <% end %>
       </aside>
     </div>

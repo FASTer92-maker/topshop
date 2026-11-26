@@ -43,6 +43,6 @@ class OrderHistoryTest < ApplicationSystemTestCase
       fill_in "Пароль", with: "password123"
       click_on "Войти", class: "btn-primary"
       # Turbo sends the form in the background, so wait for the account menu.
-      within("header") { assert_selector "summary" }
+      assert_selector "#account_menu summary"
     end
 end

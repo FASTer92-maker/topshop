@@ -1,6 +1,6 @@
 <%# locals: (subscriber:, subscribed: false) -%>
 <%= turbo_frame_tag "newsletter" do %>
-  <section class="border-t border-line bg-surface" aria-labelledby="newsletter_title">
+  <section class="border-y border-line bg-white" aria-labelledby="newsletter_title">
     <div class="page-container py-10 md:py-12">
       <div class="max-w-xl">
         <h2 id="newsletter_title" class="heading-display text-[22px] sm:text-[26px]">
@@ -9,7 +9,7 @@
         <p class="mt-2 text-muted"><%= t("newsletter.text") %></p>
 
         <% if subscribed %>
-          <p role="status" class="mt-5 inline-flex rounded-md border border-line bg-white px-4 py-3 text-[15px] font-medium">
+          <p role="status" class="mt-5 inline-flex border border-line bg-surface px-4 py-3 text-[15px] font-medium">
             <%= t("newsletter.success") %>
           </p>
         <% else %>
