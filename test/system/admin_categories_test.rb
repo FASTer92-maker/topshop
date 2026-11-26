@@ -5,7 +5,7 @@ class AdminCategoriesTest < ApplicationSystemTestCase
     sign_in_as_admin
 
     visit admin_categories_path
-    assert_text "Категории"
+    assert_text(/категории/i)
     assert_text "Мужское"
     assert_text "Куртки"
 

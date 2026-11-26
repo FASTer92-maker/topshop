@@ -1,70 +1,75 @@
 <% content_for :title, t(".title") %>
 
-<div class="page-container py-8 md:py-12">
-  <div class="mx-auto max-w-3xl">
-    <div class="rounded-lg border border-line bg-surface px-6 py-8 text-center">
-      <p class="text-[13px] font-medium uppercase tracking-wide text-muted">
-        <%= t(".number", number: @order.number) %>
-      </p>
-      <h1 class="heading-display mt-2 text-[28px] sm:text-[36px]"><%= t(".title") %></h1>
-      <div class="mt-4"><%= render "orders/status_badge", status: @order %></div>
-      <p class="mt-3 text-muted"><%= t(".payment_notice") %></p>
-    </div>
+<div class="page-container py-10 md:py-14">
+  <div class="mx-auto max-w-4xl">
+    <%= link_to t("orders.index.title"), orders_path,
+          class: "text-sm font-medium text-muted link-underline transition-colors duration-300 hover:text-ink" %>
+
+    <section class="relative mt-6 overflow-hidden border border-line bg-ink px-6 py-10 text-center text-white sm:px-10">
+      <span class="mx-auto block h-px w-14 bg-accent" aria-hidden="true"></span>
+      <p class="mt-6 text-sm font-medium uppercase tracking-[0.24em] text-accent"><%= t(".eyebrow") %></p>
+      <p class="mt-3 text-sm uppercase tracking-[0.14em] text-white/60"><%= t(".number", number: @order.number) %></p>
+      <h1 class="heading-display mt-2 text-[34px] sm:text-[46px]"><%= t(".title") %></h1>
+      <div class="mt-5"><%= render "orders/status_badge", status: @order %></div>
+      <p class="mt-4 text-sm leading-relaxed text-white/60"><%= t(".payment_notice") %></p>
+    </section>
 
     <%= render "orders/status_progress", order: @order %>
 
     <section class="mt-10">
-      <h2 class="heading-display text-[20px]"><%= t(".items") %></h2>
+      <h2 class="heading-display text-[24px]"><%= t(".items") %></h2>
 
-      <ul class="mt-4 divide-y divide-line border-y border-line">
-        <% @order.order_items.order(:id).each do |item| %>
-          <li class="flex items-start justify-between gap-4 py-4">
-            <div>
-              <p class="font-display text-[15px] font-medium"><%= item.product_name %></p>
-              <p class="mt-1 text-[13px] text-muted">
-                <%= item.size %> · <%= item.color %> · <%= t(".quantity", count: item.quantity) %>
+      <div class="mt-4 border border-line bg-white">
+        <ul class="divide-y divide-line px-5 sm:px-6">
+          <% @order.order_items.order(:id).each do |item| %>
+            <li class="flex items-start justify-between gap-4 py-5">
+              <div class="min-w-0">
+                <p class="font-display text-base font-medium tracking-wide"><%= item.product_name %></p>
+                <p class="mt-1 text-sm text-muted">
+                  <%= item.size %> · <%= item.color %> · <%= t(".quantity", count: item.quantity) %>
+                </p>
+              </div>
+              <p class="whitespace-nowrap font-semibold tabular-nums">
+                <%= number_to_currency(item.subtotal) %>
               </p>
-            </div>
-            <p class="whitespace-nowrap font-semibold tabular-nums">
-              <%= number_to_currency(item.subtotal) %>
-            </p>
-          </li>
-        <% end %>
-      </ul>
+            </li>
+          <% end %>
+        </ul>
 
-      <dl class="mt-4 ml-auto max-w-xs space-y-2 text-[15px]">
-        <div class="flex justify-between gap-4">
-          <dt class="text-muted"><%= t(".goods") %></dt>
-          <dd class="tabular-nums"><%= number_to_currency(@order.subtotal) %></dd>
-        </div>
-        <div class="flex justify-between gap-4">
-          <dt class="text-muted"><%= t(".delivery") %></dt>
-          <dd class="tabular-nums">
-            <%= @order.delivery_price.zero? ? t(".free") : number_to_currency(@order.delivery_price) %>
-          </dd>
-        </div>
-        <div class="flex justify-between gap-4 border-t border-line pt-3 text-[16px] font-semibold">
-          <dt><%= t(".total") %></dt>
-          <dd class="tabular-nums"><%= number_to_currency(@order.total) %></dd>
-        </div>
-      </dl>
+        <dl class="ml-auto max-w-sm space-y-3 border-t border-line bg-surface px-5 py-5 text-[15px] sm:px-6">
+          <div class="flex justify-between gap-4">
+            <dt class="text-muted"><%= t(".goods") %></dt>
+            <dd class="tabular-nums"><%= number_to_currency(@order.subtotal) %></dd>
+          </div>
+          <div class="flex justify-between gap-4">
+            <dt class="text-muted"><%= t(".delivery") %></dt>
+            <dd class="tabular-nums">
+              <%= @order.delivery_price.zero? ? t(".free") : number_to_currency(@order.delivery_price) %>
+            </dd>
+          </div>
+          <div class="flex justify-between gap-4 border-t border-line pt-4 text-[17px] font-semibold">
+            <dt><%= t(".total") %></dt>
+            <dd class="tabular-nums"><%= number_to_currency(@order.total) %></dd>
+          </div>
+        </dl>
+      </div>
     </section>
 
     <section class="mt-10 grid gap-6 sm:grid-cols-2">
-      <div class="rounded-lg border border-line p-5">
-        <h2 class="heading-display text-[18px]"><%= t(".delivery_details.title") %></h2>
-        <p class="mt-3 font-medium"><%= @order.full_name %></p>
-        <p class="mt-1 text-[14px] text-muted"><%= @order.phone %></p>
-        <p class="mt-1 text-[14px] text-muted"><%= @order.address %></p>
+      <div class="border border-line bg-white p-6">
+        <h2 class="heading-display text-[20px]"><%= t(".delivery_details.title") %></h2>
+        <p class="mt-4 font-medium"><%= @order.full_name %></p>
+        <p class="mt-1 text-sm text-muted"><%= @order.phone %></p>
+        <p class="mt-1 text-sm leading-relaxed text-muted"><%= @order.address %></p>
         <% if @order.comment.present? %>
-          <p class="mt-3 rounded-md bg-surface px-3 py-2 text-[13px] text-muted"><%= @order.comment %></p>
+          <p class="mt-4 border border-line bg-surface px-3 py-2 text-sm leading-relaxed text-muted"><%= @order.comment %></p>
         <% end %>
       </div>
 
-      <div class="rounded-lg border border-line p-5">
-        <h2 class="heading-display text-[18px]"><%= t(".next.title") %></h2>
-        <p class="mt-3 text-[14px] text-muted"><%= t(".next.text") %></p>
-        <%= link_to t(".next.action"), products_path, class: "btn-secondary mt-4 w-full" %>
+      <div class="border border-line bg-white p-6">
+        <h2 class="heading-display text-[20px]"><%= t(".next.title") %></h2>
+        <p class="mt-4 text-sm leading-relaxed text-muted"><%= t(".next.text") %></p>
+        <%= link_to t(".next.action"), products_path, class: "btn-secondary mt-5 w-full" %>
       </div>
     </section>
   </div>

@@ -24,6 +24,9 @@ module Topshop
     config.time_zone = "Moscow"
     config.i18n.default_locale = :ru
     config.i18n.available_locales = [ :ru ]
+
+    # Render 404/422/500 through ErrorsController so they use the site design.
+    config.exceptions_app = self.routes
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

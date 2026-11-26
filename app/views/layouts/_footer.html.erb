@@ -2,8 +2,8 @@
   <div class="page-container py-12">
     <div class="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:gap-10">
       <div class="col-span-2 sm:col-span-1">
-        <%= link_to root_path, class: "inline-block" do %>
-          <%= image_tag "logo.png", alt: t(".logo"), class: "h-6 w-auto brightness-0 invert" %>
+        <%= link_to root_path, class: "inline-block transition-opacity duration-300 hover:opacity-80" do %>
+          <%= image_tag "logo.png", alt: t(".logo"), class: "h-7 w-auto brightness-0 invert" %>
         <% end %>
         <p class="mt-4 max-w-xs text-sm leading-relaxed tracking-[0.04em]"><%= t(".tagline") %></p>
       </div>

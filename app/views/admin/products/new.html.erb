@@ -1,6 +1,8 @@
 <% content_for :title, t(".title") %>
 
 <div class="mx-auto max-w-2xl">
-  <h1 class="heading-display text-[28px]"><%= t(".title") %></h1>
+  <%= link_to t("admin.layout.products"), admin_products_path,
+        class: "text-sm font-medium text-muted link-underline transition-colors duration-300 hover:text-ink" %>
+  <h1 class="heading-display mt-4 text-[32px] sm:text-[40px]"><%= t(".title") %></h1>
   <%= render "form", product: @product, sections: @sections %>
 </div>

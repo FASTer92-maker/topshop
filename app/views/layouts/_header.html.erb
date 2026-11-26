@@ -1,9 +1,8 @@
 <header class="sticky top-0 z-40 border-b border-line bg-surface/95 backdrop-blur-md">
   <div class="page-container">
     <div class="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-4 lg:flex-nowrap lg:py-5">
-      <%= link_to root_path, class: "order-1 shrink-0 transition-opacity duration-300 hover:opacity-80" do %>
-        <%= image_tag "logo.png", alt: "", class: "h-7 w-auto lg:h-8" %>
-        <span class="sr-only"><%= t(".logo") %></span>
+      <%= link_to root_path, class: "order-1 flex shrink-0 items-center transition-opacity duration-300 hover:opacity-80" do %>
+        <%= image_tag "logo.png", alt: t(".logo"), class: "h-7 w-auto md:h-8" %>
       <% end %>
 
       <%# Main navigation: scrolls sideways on phones. %>

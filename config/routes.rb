@@ -13,6 +13,12 @@ Rails.application.routes.draw do
   resources :orders, only: %i[ index show new create ]
   resources :categories, only: :show, param: :slug
 
+  # Dynamic error pages share the storefront design. Public HTML files stay as a
+  # fallback for errors raised before the application can render a view.
+  match "/404", to: "errors#not_found", via: :all
+  match "/422", to: "errors#unprocessable_entity", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
+
   namespace :admin do
     root "dashboard#index"
     resources :orders, only: %i[ index show update ]

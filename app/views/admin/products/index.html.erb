@@ -1,46 +1,50 @@
 <% content_for :title, t(".title") %>
 
-<div class="flex flex-wrap items-center justify-between gap-4">
-  <h1 class="heading-display text-[28px]"><%= t(".title") %></h1>
+<div class="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-7">
+  <div>
+    <p class="text-sm font-medium uppercase tracking-[0.24em] text-accent"><%= t("admin.layout.title") %></p>
+    <h1 class="heading-display mt-3 text-[34px] sm:text-[44px]"><%= t(".title") %></h1>
+  </div>
   <%= link_to t(".new"), new_admin_product_path, class: "btn-primary" %>
 </div>
 
-<%= form_with url: admin_products_path, method: :get, class: "mt-6 flex flex-wrap items-end gap-3" do |form| %>
+<%= form_with url: admin_products_path, method: :get, class: "mt-8 flex flex-wrap items-end gap-3 border border-line bg-white p-4 sm:p-5" do |form| %>
   <div class="w-full max-w-sm">
     <%= form.label :q, t(".search_label"), class: "form-label" %>
     <%= form.search_field :q, value: params[:q], placeholder: t(".search_placeholder"), class: "form-input" %>
   </div>
   <%= form.submit t(".search"), class: "btn-secondary" %>
   <% if params[:q].present? %>
-    <%= link_to t(".reset"), admin_products_path, class: "link-underline pb-3 text-sm" %>
+    <%= link_to t(".reset"), admin_products_path, class: "pb-3 text-sm link-underline" %>
   <% end %>
 <% end %>
 
-<div class="mt-6 overflow-hidden rounded-lg border border-line bg-white">
+<div class="mt-6 overflow-hidden border border-line bg-white">
   <% if @products.empty? %>
     <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text") %>
   <% else %>
     <ul>
       <% @products.each do |product| %>
-        <li class="flex flex-wrap items-center gap-4 border-b border-line px-6 py-4 last:border-0">
+        <li class="flex flex-wrap items-center gap-4 border-b border-line px-5 py-4 transition-colors duration-300 last:border-0 hover:bg-surface/60 sm:px-6">
           <% if product.image.attached? %>
-            <%= image_tag product.image, alt: "", class: "h-16 w-12 shrink-0 rounded object-cover" %>
+            <%= image_tag product.image, alt: "", class: "aspect-[3/4] w-12 shrink-0 object-cover sm:w-14" %>
           <% else %>
-            <div class="h-16 w-12 shrink-0 rounded bg-surface"></div>
+            <div class="aspect-[3/4] w-12 shrink-0 bg-surface sm:w-14"></div>
           <% end %>
 
           <div class="min-w-0 flex-1">
             <div class="flex flex-wrap items-center gap-3">
-              <%= link_to product.name, admin_product_path(product), class: "font-semibold hover:text-accent" %>
-              <span class="rounded px-2 py-0.5 text-xs font-semibold <%= product.active? ? "bg-surface" : "bg-line text-muted" %>">
+              <%= link_to product.name, admin_product_path(product),
+                    class: "font-display text-base font-medium tracking-wide transition-colors duration-300 hover:text-accent" %>
+              <span class="px-2 py-0.5 text-[13px] font-semibold uppercase tracking-[0.06em] <%= product.active? ? "bg-surface" : "bg-line text-muted" %>">
                 <%= product.active? ? t(".active") : t(".hidden") %>
               </span>
             </div>
-            <p class="mt-0.5 truncate text-sm text-muted"><%= product.category.full_name %></p>
+            <p class="mt-1 truncate text-sm text-muted"><%= product.category.full_name %></p>
           </div>
 
           <div class="text-sm text-muted"><%= t(".variants_count", count: product.variants.size) %></div>
-          <div class="w-28 text-right font-semibold"><%= number_to_currency(product.price) %></div>
+          <div class="w-28 text-right text-[15px] font-semibold tabular-nums"><%= number_to_currency(product.price) %></div>
 
           <div class="flex flex-wrap items-center gap-3 text-sm">
             <%= link_to t(".edit"), edit_admin_product_path(product), class: "link-underline" %>

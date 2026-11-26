@@ -1,7 +1,10 @@
 <% content_for :title, t(".title") %>
 
-<div class="flex flex-wrap items-center justify-between gap-4">
-  <h1 class="heading-display text-[28px]"><%= t(".title") %></h1>
+<div class="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-7">
+  <div>
+    <p class="text-sm font-medium uppercase tracking-[0.24em] text-accent"><%= t("admin.layout.title") %></p>
+    <h1 class="heading-display mt-3 text-[34px] sm:text-[44px]"><%= t(".title") %></h1>
+  </div>
 </div>
 
 <nav aria-label="<%= t(".tabs.label") %>" class="mt-6 flex flex-wrap gap-2">
@@ -17,14 +20,14 @@
   <% end %>
 </nav>
 
-<div class="mt-6 overflow-hidden rounded-lg border border-line bg-white">
+<div class="mt-6 overflow-hidden border border-line bg-white">
   <% if @orders.empty? %>
     <%= render "shared/empty_state", title: t(".empty.title"), text: t(".empty.text") %>
   <% else %>
     <div class="overflow-x-auto">
-      <table class="w-full min-w-[860px] border-collapse text-left text-[15px]">
+      <table class="w-full min-w-[860px] border-collapse text-left text-sm">
         <thead>
-          <tr class="border-b border-line bg-surface text-[12px] uppercase tracking-wide text-muted">
+          <tr class="border-b border-line bg-surface text-[13px] uppercase tracking-[0.08em] text-muted">
             <th scope="col" class="px-4 py-3 font-medium"><%= t(".table.number") %></th>
             <th scope="col" class="px-4 py-3 font-medium"><%= t(".table.date") %></th>
             <th scope="col" class="px-4 py-3 font-medium"><%= t(".table.customer") %></th>
@@ -35,17 +38,17 @@
         </thead>
         <tbody class="divide-y divide-line">
           <% @orders.each do |order| %>
-            <tr>
+            <tr class="transition-colors duration-300 hover:bg-surface/60">
               <td class="px-4 py-4">
                 <%= link_to order.number, admin_order_path(order), class: "font-semibold link-underline" %>
-                <p class="mt-0.5 text-[13px] text-muted"><%= t(".items", count: order.items_count) %></p>
+                <p class="mt-1 text-sm text-muted"><%= t(".items", count: order.items_count) %></p>
               </td>
               <td class="whitespace-nowrap px-4 py-4 text-muted">
                 <%= l(order.created_at, format: :short) %>
               </td>
               <td class="px-4 py-4">
                 <p class="font-medium"><%= order.full_name %></p>
-                <p class="mt-0.5 text-[13px] text-muted"><%= order.user.email_address %></p>
+                <p class="mt-1 text-sm text-muted"><%= order.user.email_address %></p>
               </td>
               <td class="whitespace-nowrap px-4 py-4 text-right font-semibold tabular-nums">
                 <%= number_to_currency(order.total) %>

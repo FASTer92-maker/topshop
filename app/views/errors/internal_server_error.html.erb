@@ -1,0 +1,5 @@
+<% content_for :title, t("errors.pages.internal_server_error.title") %>
+<%= render "errors/page", code: "500",
+      eyebrow: t("errors.pages.internal_server_error.eyebrow"),
+      title: t("errors.pages.internal_server_error.title"),
+      text: t("errors.pages.internal_server_error.text") %>
