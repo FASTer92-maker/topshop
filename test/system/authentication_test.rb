@@ -14,7 +14,7 @@ class AuthenticationTest < ApplicationSystemTestCase
     click_on "Зарегистрироваться"
 
     assert_text "Добро пожаловать, Анна!"
-    within("header") { assert_selector "summary", text: "Анна" }
+    assert_selector "#account_menu summary", text: "Анна"
   end
 
   test "registration shows validation errors" do

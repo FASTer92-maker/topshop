@@ -35,7 +35,7 @@ class AdminProductsTest < ApplicationSystemTestCase
     fill_in "Email", with: "ivan@example.com"
     fill_in "Пароль", with: "password123"
     click_on "Войти", class: "btn-primary"
-    within("header") { assert_selector "summary", text: "Иван" }
+    assert_selector "#account_menu summary", text: "Иван"
 
     visit admin_products_path
 
@@ -48,6 +48,6 @@ class AdminProductsTest < ApplicationSystemTestCase
       fill_in "Email", with: "admin@example.com"
       fill_in "Пароль", with: "password123"
       click_on "Войти", class: "btn-primary"
-      within("header") { assert_selector "summary", text: "Админ" }
+      assert_selector "#account_menu summary", text: "Админ"
     end
 end
